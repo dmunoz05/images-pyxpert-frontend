@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark light;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  --bg-primary-color: #334D66;
+  --bg-second-color: #121A21;
+  --bg-third-color: #94ADC7;
+  --bg-fourth-color: #243647;
+  --bg-fifth-color: #1A80E5;
+  --text-primary-color: #ffffff;
+  --text-second-color: #94ADC7;
+  --text-third-color: #0AD95C;
+  --text-fourth-color: #1A80E5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+
+.bg-primary-color {
+  background-color: var(--bg-primary-color);
+}
+
+.bg-second-color {
+  background-color: var(--bg-second-color);
+}
+
+.bg-third-color {
+  background-color: VAR(--bg-third-color);
+}
+
+.bg-fourth-color {
+  background-color: var(--bg-fourth-color);
+}
+
+.bg-fifth-color {
+  background-color: var(--bg-fifth-color);
+}
+
+.text-primary-color {
+  color: var(--text-primary-color);
+}
+
+.text-second-color {
+  color: var(--text-second-color);
+}
+
+.text-third-color {
+  color: var(--text-third-color);
+}
+
+.text-fourth-color {
+  color: var(--text-fourth-color);
+}
