@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
+import { SlibarComponent } from '../slibar/slibar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent, SlibarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

@@ -1,6 +1,6 @@
 <div
   id="screen-login"
-  class="bg-second-color bg-[radial-gradient(#ffffff33_1px,#121A21_1px)] bg-[size:20px_20px]"
+  class="bg-primary-color bg-[radial-gradient(#ffffff33_1px,#121A21_1px)] bg-[size:20px_20px]"
 >
   <div class="screen-center-grid">
     <div>
@@ -15,11 +15,28 @@
         >This is an app for manipulation and images processing with python, you
         can upload diferents images and manipulate its.</span
       >
+      <!-- <div *ngIf="users.length > 0">
+        <div *ngFor="let user of users">
+          <label>Name</label
+          ><span>{{ user.first_name}}</span>
+        </div>
+      </div>
+
+      <div *ngIf="loginService.messages.length">
+        <h2>Messages</h2>
+        <button type="button" class="clear" (click)="loginService.clear()">
+          Clear messages
+        </button>
+        <div *ngFor="let message of loginService.messages">
+          {{ message.name }}
+        </div>
+      </div> -->
 
       <!-- Boton Inicio con Google -->
       <div class="grid justify-center">
         <button
-          (click)="login()"
+          [routerLink]="['/home']"
+          routerLinkActive="router-link-active"
           type="button"
           class="text-white bg-[#050708] hover:bg-[#ffffff] hover:text-[#000] focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-xl text-sm px-5 py-1.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#ffffff]"
         >

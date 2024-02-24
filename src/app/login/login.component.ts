@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LoginService } from './login.service';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  constructor(public loginService: LoginService, public http: HttpClient) { }
+
+  expression: string = 'Hola'
+  users: any;
+
+  ngOnInit() {
+
+  }
 
   login() {
-    alert('Logeado')
   }
 }
