@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
   // }
 
   signInWithGoogle(): void {
-    debugger;
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
     //   .then(user => {
     //     this.user = user;

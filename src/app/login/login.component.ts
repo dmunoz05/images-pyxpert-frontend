@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { LoginService } from './login.service';
+import { RouterLink, Router } from '@angular/router';
+import { LoginService, UserInfo } from './login.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -13,15 +13,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public loginService: LoginService, public http: HttpClient) { }
+  constructor(private loginService: LoginService, private http: HttpClient, private router: Router) {}
 
-  expression: string = 'Hola'
-  users: any;
-
-  ngOnInit() {
-
+  ngOnInit(): void {
+    if (this.loginService.isLoggedIn()) {
+      this.router.navigate(['/home'])
+    }
   }
 
   login() {
+    this.loginService.loginWithGoogle();
   }
 }

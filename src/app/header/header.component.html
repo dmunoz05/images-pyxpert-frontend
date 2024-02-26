@@ -3,7 +3,11 @@
     class="p-3 pr-6 pl-6 flex flex-row items-center justify-between border-b-[1px] border-white"
   >
     <!-- Logo -->
-    <div class="flex items-center gap-2">
+    <button
+      [routerLink]="['/']"
+      routerLinkActive="router-link-active"
+      class="flex items-center gap-2"
+    >
       <div class="grid text-center items-center justify-center pt-2">
         <svg
           width="24"
@@ -73,7 +77,7 @@
         >Images
         <span class="text-fourth-color font-extrabold">Py</span>Xpert</span
       >
-    </div>
+    </button>
 
     <!-- Menu -->
     <div class="h-full">
@@ -81,7 +85,9 @@
         <li class="text-sm cursor-pointer">Features</li>
         <li class="text-sm cursor-pointer">Pricing</li>
         <li class="text-sm cursor-pointer">Documentation</li>
-        <li class="bg-fourth-color p-3 flex items-center gap-2 rounded-2xl hover:bg-[#334D66] cursor-pointer"
+        <button
+          (click)="logout()"
+          class="bg-fourth-color p-3 flex items-center gap-2 rounded-2xl hover:bg-[#334D66] cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -103,9 +109,12 @@
             <path d="M18 15l3 -3" />
           </svg>
           <span class="text-sm">Logout</span>
-        </li>
+        </button>
         <li>
-          <img src="./../../assets/images/icon-user.png" />
+          <img
+            class="size-10 rounded-full"
+            src="{{ userInfo?.info?.picture }}"
+          />
         </li>
       </ul>
     </div>
