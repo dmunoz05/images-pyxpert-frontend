@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-slibar',
@@ -9,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class SlibarComponent {
 
+  @Input() userPhotos!: any;
 }

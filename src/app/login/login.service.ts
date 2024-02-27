@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment.development';
@@ -26,9 +26,11 @@ export interface UserInfo {
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private oAuthService: OAuthService) {
-    // this.loginWithGoogle()
-  }
+  private readonly apiUrlDrive = 'https://www.googleapis.com/drive/v3';
+
+  private readonly apiUrlFotos = 'https://photoslibrary.googleapis.com/v1';
+
+  constructor(private http: HttpClient, private oAuthService: OAuthService) {}
 
   userProfileSubject = new Subject()
 
@@ -45,6 +47,18 @@ export class LoginService {
         }
       })
     })
+  }
+
+  listFiles(): Observable<any> {
+    const url = `${this.apiUrlDrive}/files`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.oAuthService.getAccessToken()}`);
+    return this.http.get(url, { headers });
+  }
+
+  listPhotos(): Observable<any> {
+    const url = `${this.apiUrlFotos}/mediaItems`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.oAuthService.getAccessToken()}`);
+    return this.http.get(url, { headers });
   }
 
   isLoggedIn(): boolean {

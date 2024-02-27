@@ -78,12 +78,26 @@
     <!-- Menu -->
     <div class="h-full">
       <ul class="flex gap-10 items-center h-full">
-        <a class="text-sm cursor-pointer" [routerLink]="['/feature']" routerLinkActive="underline"
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/begin/home']"
+          routerLinkActive="underline underline-offset-4"
+          >Home</a
+        >
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/begin/feature']"
+          routerLinkActive="underline underline-offset-4"
           >Features</a
         >
-        <a class="text-sm cursor-pointer" [routerLink]="['/pricing']" routerLinkActive="underline">
-          Pricing</a>
-        <li class="text-sm cursor-pointer">Documentation</li>
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/pricing']"
+          routerLinkActive="underline underline-offset-4"
+        >
+          Pricing</a
+        >
+        <li class="text-sm cursor-pointer hover:underline">Documentation</li>
         <button
           (click)="logout()"
           class="bg-fourth-color p-3 flex items-center gap-2 rounded-2xl hover:bg-[#334D66] cursor-pointer"

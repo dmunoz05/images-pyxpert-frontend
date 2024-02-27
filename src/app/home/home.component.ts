@@ -21,8 +21,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //Obtener datos de usuario
-    this.loginService.loginWithGoogle()
-
     this.loginService.userProfileSubject.subscribe(info => {
       this.userInfo = info;
     })
