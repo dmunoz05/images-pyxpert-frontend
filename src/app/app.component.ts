@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { SocialAuthService, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
-import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
-import { SocialUser } from "@abacritt/angularx-social-login";
 import { RouterLink } from '@angular/router';
 
 @Component({

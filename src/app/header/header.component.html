@@ -3,11 +3,7 @@
     class="p-3 pr-6 pl-6 flex flex-row items-center justify-between border-b-[1px] border-white"
   >
     <!-- Logo -->
-    <button
-      [routerLink]="['/']"
-      routerLinkActive="router-link-active"
-      class="flex items-center gap-2"
-    >
+    <button [routerLink]="['/']" class="flex items-center gap-2">
       <div class="grid text-center items-center justify-center pt-2">
         <svg
           width="24"
@@ -82,8 +78,11 @@
     <!-- Menu -->
     <div class="h-full">
       <ul class="flex gap-10 items-center h-full">
-        <li class="text-sm cursor-pointer">Features</li>
-        <li class="text-sm cursor-pointer">Pricing</li>
+        <a class="text-sm cursor-pointer" [routerLink]="['/feature']" routerLinkActive="underline"
+          >Features</a
+        >
+        <a class="text-sm cursor-pointer" [routerLink]="['/pricing']" routerLinkActive="underline">
+          Pricing</a>
         <li class="text-sm cursor-pointer">Documentation</li>
         <button
           (click)="logout()"
