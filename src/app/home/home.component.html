@@ -1,26 +1,35 @@
-<div class="w-full px-8 pt-6 flex justify-between">
+<div class="flex justify-between">
   @if (isLoggedIn()) {
-    <h1 class="font-bold text-2xl">Welcome <span class=""> {{ userInfo?.info?.name | titlecase }} </span></h1>
+  <h1 class="font-bold text-2xl">
+    Welcome <span class=""> {{ userInfo?.info?.name | titlecase }} </span>
+  </h1>
   }
 </div>
 
-<div class="w-full p-8 flex justify-between gap-4">
+<div class="w-full pt-6 flex justify-between gap-4">
   <!-- <button (click)="logout()" class="text-sm">Logout</button> -->
-  <div>
-    <img src="../../assets/images/image-6.png" />
-  </div>
+  @if (showPhoto()) {
+    <div>
+      <img src="{{ dataPhoto?.baseUrl }}" />
+      <!-- <img src="../../assets/images/image-6.png" /> -->
+    </div>
+  } @else {
+    <div>
+      <h1>Select a image for show these</h1>
+      <!-- <img src="{{ dataPhoto?.baseUrl }}" /> -->
+      <!-- <img src="../../assets/images/image-6.png" /> -->
+    </div>
+  }
   <div class="grid items-center">
     <h1 class="font-bold text-4xl">Extract Colors from any image</h1>
-    <span
-      >Upload an image and we'll generate a color palette for you</span
-    >
+    <span>Upload an image and we'll generate a color palette for you</span>
     <input
       class="w-full p-4 rounded-2xl bg-fourth-color outline-none"
       placeholder="Paste image URL"
     />
   </div>
 </div>
-
+<!--
 <div class="w-full p-8 flex justify-between gap-4">
   <div>
     <img src="../../assets/images/image-6.png" />
@@ -35,9 +44,9 @@
       placeholder="Paste image URL"
     />
   </div>
-</div>
+</div> -->
 
-<div class="w-full p-8 flex justify-between gap-4">
+<!-- <div class="w-full p-8 flex justify-between gap-4">
   <div>
     <img src="../../assets/images/image-6.png" />
   </div>
@@ -51,9 +60,9 @@
       placeholder="Paste image URL"
     />
   </div>
-</div>
+</div> -->
 
-<div class="w-full p-8 flex justify-between gap-4">
+<!-- <div class="w-full p-8 flex justify-between gap-4">
   <div>
     <img src="../../assets/images/image-6.png" />
   </div>
@@ -67,4 +76,4 @@
       placeholder="Paste image URL"
     />
   </div>
-</div>
+</div> -->

@@ -1,0 +1,18 @@
+<div class="bg-primary-color h-screen w-full relative overflow-hidden">
+  <header class="w-full fixed top-0 bg-primary-color z-20">
+    <app-header [userInfo]="userInfo" ></app-header>
+  </header>
+  <div class="absolute top-18 w-full h-full flex">
+    <!-- Slidebar seleccionar imagenes -->
+    <aside class="relative top-18 left-0 max-w-96 overflow-y-auto mt-16">
+      <app-slibar [userPhotos]="userPhotos"></app-slibar>
+    </aside>
+
+    <!-- Contenido de la seccion -->
+    <section class="relative top-18 w-full overflow-y-auto mt-16">
+      <div class="h-full w-full px-4 pt-4">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </div>
+</div>

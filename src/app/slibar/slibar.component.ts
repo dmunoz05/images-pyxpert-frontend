@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { PhotoResponse } from '../../types/image.type';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-slibar',
@@ -9,5 +11,19 @@ import { Component, Input } from '@angular/core';
 })
 export class SlibarComponent {
 
+  constructor (private homeService: HomeService) {}
+
   @Input() userPhotos!: any;
+
+  linkImage(image: string, event: Event) {
+    debugger
+    event.stopPropagation();
+    window.open(image, '_blank');
+    return false;
+  }
+
+  loadImageSelect(photo: PhotoResponse) {
+    debugger
+    this.homeService.loadPhotoComponent(photo)
+  }
 }
