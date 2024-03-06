@@ -7,120 +7,175 @@
 </div>
 
 @if (showPhoto()) {
-  <div class="pt-6 flex gap-4">
-    <div class="max-h-80 flex-row justify-center">
-      <img class="rounded-lg h-full" src="{{ dataPhoto?.baseUrl }}" />
+<div class="pt-6 flex gap-4">
+  <div class="max-h-80 flex-row justify-center">
+    <img class="rounded-lg h-full" src="{{ dataPhoto?.baseUrl }}" />
+    <div>
+      <button
+        (click)="processImage(dataPhoto.baseUrl)"
+        class="rounded-lg p-2 bg-fifth-color"
+      >
+        Process Image
+      </button>
+    </div>
+  </div>
+
+  @if (showPhotoNew()) {
+    <div>
+      <img [src]="'data:image/png;base64,' + imagenBase64 " alt="Imagen procesada">
       <!-- <img src="../../assets/images/image-6.png" /> -->
     </div>
+  }
 
-    <div class="grid items-center">
-      <h1 class="font-bold text-4xl">Extract Colors from any image</h1>
-      <span>Upload an image and we'll generate a color palette for you</span>
-      <!-- <input
+  <div class="grid items-center">
+    <h1 class="font-bold text-4xl">Extract Colors from any image</h1>
+    <span>Upload an image and we'll generate a color palette for you</span>
+    <!-- <input
           class="w-full p-4 rounded-2xl bg-fourth-color outline-none"
           placeholder="Paste image URL"
         /> -->
+  </div>
+</div>
+
+<div class="pt-10 flex flex-col gap-4 min-w-full">
+  <div>
+    <h1 class="text-xl">Color palette</h1>
+  </div>
+  <div class="flex flex-wrap gap-5">
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
+    </div>
+    <div
+      class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+    >
+      <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
+      <span class="text-base">#FF000</span>
     </div>
   </div>
+</div>
 
-  <div class="pt-10 flex flex-col gap-4 min-w-full">
-    <div>
-      <h1 class="text-xl">Color palette</h1>
-    </div>
-    <div class="flex flex-wrap gap-5">
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-      <div class=" flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32">
-        <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
-        <span class=" text-base">#FF000</span>
-      </div>
-    </div>
+<div class="pt-10 flex gap-4">
+  <div>
+    <h1 class="text-xl">Color analysis</h1>
+  </div>
+</div>
+
+<div class="pt-4 flex flex-wrap gap-4">
+  <div
+    class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96"
+  >
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [title]="chartOptions.title"
+    ></apx-chart>
   </div>
 
-  <div class="pt-10 flex gap-4">
-    <div>
-      <h1 class="text-xl">Color analysis</h1>
-    </div>
+  <div
+    class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96"
+  >
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [title]="chartOptions.title"
+    ></apx-chart>
   </div>
-
-  <div class="pt-4 flex flex-wrap gap-4">
-
-    <div class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="chartOptions.title"></apx-chart>
-    </div>
-
-    <div class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="chartOptions.title"></apx-chart>
-    </div>
-
-  </div>
-
+</div>
 
 } @else {
 
-  <div class="flex flex-col w-full justify-center items-center h-full">
-    <h1>Select an image to display here</h1>
-    <!-- <img src="{{ dataPhoto?.baseUrl }}" /> -->
-    <!-- <img src="../../assets/images/image-6.png" /> -->
-  </div>
+<div class="flex flex-col w-full justify-center items-center h-full">
+  <h1>Select an image to display here</h1>
+  <!-- <img src="{{ dataPhoto?.baseUrl }}" /> -->
+  <!-- <img src="../../assets/images/image-6.png" /> -->
+</div>
 }
 
 <!--

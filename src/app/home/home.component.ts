@@ -18,10 +18,13 @@ import { NgApexchartsModule } from "ng-apexcharts";
 })
 export class HomeComponent implements OnInit {
 
+  showPhotoNew = signal<boolean>(false);
   showPhoto = signal<boolean>(false);
   dataPhoto = {} as PhotoResponse;
+  newPhoto = signal([]);
   userInfo?: any
   basicChart: any;
+  imagenBase64: any;
 
   constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService) { }
 
@@ -33,7 +36,6 @@ export class HomeComponent implements OnInit {
 
     //Obtener foto seleccionada
     this.homeService.photoData.subscribe((photo) => {
-      debugger
       this.showPhoto.set(true);
       this.dataPhoto = photo;
     });
@@ -43,10 +45,18 @@ export class HomeComponent implements OnInit {
     return this.loginService.isLoggedIn();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    debugger
-    console.log(changes)
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log(changes)
+  // }
+
+  processImage(image_url: any) {
+    this.homeService.processPhoto(image_url).subscribe((imgUrl) => {
+        this.newPhoto.set(imgUrl);
+        this.showPhotoNew.set(true);
+        this.imagenBase64 = imgUrl;
+    });
+}
+
 
   //Grafica
   public chartOptions: any = {

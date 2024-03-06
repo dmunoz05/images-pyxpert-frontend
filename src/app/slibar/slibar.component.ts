@@ -16,14 +16,12 @@ export class SlibarComponent {
   @Input() userPhotos!: any;
 
   linkImage(image: string, event: Event) {
-    debugger
     event.stopPropagation();
     window.open(image, '_blank');
     return false;
   }
 
   loadImageSelect(photo: PhotoResponse) {
-    debugger
     this.homeService.loadPhotoComponent(photo)
   }
 }
