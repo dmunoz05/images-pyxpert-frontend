@@ -1,50 +1,51 @@
-import { Injectable, Input, SimpleChanges } from '@angular/core';
-import { LoginService } from '../login/login.service';
-import { HttpClient } from '@angular/common/http';
-import { PhotoResponse } from '../../types/image.type';
-import { Observable, Subject, map } from 'rxjs';
+import { Injectable, Input, SimpleChanges } from '@angular/core'
+import { LoginService } from '../login/login.service'
+import { HttpClient } from '@angular/common/http'
+import { PhotoResponse } from '../../types/image.type'
+import { Observable, Subject, map, switchMap } from 'rxjs'
+import { debug } from 'node:console'
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
 
-  photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>();
-  data: any;
-  imagenUrl: any = '';
+  photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
+  data: any
+  imagenUrl: any = ''
+  imageBlob: any = ''
 
   constructor(private loginService: LoginService, private http: HttpClient) { }
 
   loadPhotoComponent(newPhoto: PhotoResponse) {
-    this.data = newPhoto;
-    this.photoData.next(this.data);
+    this.data = newPhoto
+    this.photoData.next(this.data)
+  }
+
+  async processBlob(blob: Blob): Promise<string> {
+    const reader = new FileReader();
+    return new Promise<string>((resolve, reject) => {
+      reader.onload = () => {
+        const base64data = reader.result as string;
+        resolve(base64data);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(blob);
+    });
   }
 
   processPhoto(image_url: any): Observable<any> {
-    debugger
     return this.http.get(`http://127.0.0.1:8000/api/v1/process-image/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
-        map(async (response: Blob) => {
-          debugger
-          // return response
-          // Crear una URL local para la imagen recibida
-          const reader = new FileReader();
-          debugger
-          reader.onloadend = () => {
-            debugger
-            this.imagenUrl = reader.result as string;
-          }
-          return reader.readAsDataURL(response);
+        switchMap(async (response: Blob) => {
+          // Procesar la imagen aquí
+          const imageUrl = await this.processBlob(response);
+          return imageUrl;
         })
-      )
-    // .subscribe((response: Blob) => {
-    //   // Crear una URL local para la imagen recibida
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     this.imagenUrl = reader.result as string;
-    //   }
-    //   return reader.readAsDataURL(response);
-    // });
+      );
   }
 
 
