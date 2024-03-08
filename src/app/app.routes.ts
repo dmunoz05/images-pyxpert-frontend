@@ -9,16 +9,8 @@ export const routes: Routes = [
     path: 'begin',
     loadComponent: () => import('./layouts/layout.component').then(m => m.LayoutComponent),
     children: [
-      { path: 'home', loadComponent: () => import('./../app/home/home.component').then(m => m.HomeComponent) },
-      // { path: 'feature', loadComponent: () => import('./../app/feature/feature.component').then(m => m.FeatureComponent)},
-    ]
-  },
-  {
-    path: 'become',
-    loadComponent: () => import('./layouts/layout.component').then(m => m.LayoutComponent),
-    children: [
-      // { path: 'home', loadComponent: () => import('./../app/home/home.component').then(m => m.HomeComponent) },
-      { path: 'feature', loadComponent: () => import('./../app/feature/feature.component').then(m => m.FeatureComponent)},
+      { path: 'home', loadComponent: () => import('./layouts/layout-home/layout-home.component').then(m => m.LayoutHomeComponent), pathMatch: 'full' },
+      { path: 'feature', loadComponent: () => import('./layouts/layout-feature/layout-feature.component').then(m => m.LayoutFeatureComponent), pathMatch: 'full' },
     ]
   },
   //Ruta de error

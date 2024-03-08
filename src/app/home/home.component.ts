@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
   }
 
   displaySliderBarFalse(){
-    debugger
     this.isDisplaySliderBar.set(false)
     this.showSliderBarEvent.emit(false)
   }
@@ -93,38 +92,4 @@ export class HomeComponent implements OnInit {
       align: 'left'
     }
   }
-  // @Input() title: ApexTitleSubtitle
-  // @Input() chart: ApexChart
-  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries
-  // @Input() annotations: ApexAnnotations
-  // @Input() colors: string[]
-  // @Input() dataLabels: ApexDataLabels
-  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries
-  // @Input() stroke: ApexStroke
-  // @Input() labels: string[]
-  // @Input() legend: ApexLegend
-  // @Input() fill: ApexFill
-  // @Input() tooltip: ApexTooltip
-  // @Input() plotOptions: ApexPlotOptions
-  // @Input() responsive: ApexResponsive[]
-  // @Input() xaxis: ApexXAxis
-  // @Input() yaxis: ApexYAxis | ApexYAxis[]
-  // @Input() grid: ApexGrid
-  // @Input() states: ApexStates
-  // @Input() title: ApexTitleSubtitle
-  // @Input() subtitle: ApexTitleSubtitle
-  // @Input() theme: ApexTheme
-
-  // options = {
-  //   chart: {
-  //     type: 'line'
-  //   },
-  //   series: [{
-  //     name: 'sales',
-  //     data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-  //   }],
-  //   xaxis: {
-  //     categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-  //   }
-  // }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
@@ -32,6 +32,9 @@ export class LoginService {
 
   constructor(private http: HttpClient, private oAuthService: OAuthService) {}
 
+  userInfo = signal<any>({})
+  userPhotos = signal<any>({})
+  userFiles = signal<any>({})
   userProfileSubject = new Subject()
 
   loginWithGoogle() {
@@ -42,6 +45,8 @@ export class LoginService {
           this.oAuthService.initLoginFlow();
         } else {
           this.oAuthService.loadUserProfile().then((userProfile) => {
+            debugger
+            this.userInfo.set(userProfile as UserInfo)
             this.userProfileSubject.next(userProfile as UserInfo);
           })
         }

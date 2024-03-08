@@ -4,10 +4,10 @@
       <h1>Your images</h1>
       <span class="text-fourth-color">Select one image</span>
     </div>
-    @if (userPhotos?.length > 0) { @for (photo of userPhotos; track $index) {
+    @if (userPhotos()?.length > 0) { @for (photo of userPhotos(); track $index) {
     <div>
       <button class="relative cursor-pointer z-10" (click)="loadImageSelect(photo)">
-        <img class="size-72 rounded-lg" src="{{ photo?.baseUrl }}" id="{{userPhotos?.id}}" />
+        <img class="size-72 rounded-lg" src="{{ photo?.baseUrl }}" id="{{userPhotos()?.id}}" />
         <div class="relative">
           <button (click)="linkImage(photo?.baseUrl, $event)" class="absolute right-2 bottom-2 p-1 bg-fifth-color rounded-lg text-sm cursor-pointer z-20">
             Link
