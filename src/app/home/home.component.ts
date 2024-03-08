@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, Input, SimpleChanges, signal } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-import { SlibarComponent } from '../slibar/slibar.component';
-import { LoginService, UserInfo } from '../login/login.service';
-import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { PhotoResponse } from '../../types/image.type';
-import { HomeService } from './home.service';
-import { NgApexchartsModule } from "ng-apexcharts";
+import { Component, OnInit, Output, Input, SimpleChanges, signal } from '@angular/core'
+import { HeaderComponent } from '../header/header.component'
+import { SlibarComponent } from '../slibar/slibar.component'
+import { LoginService, UserInfo } from '../login/login.service'
+import { HttpClient } from '@angular/common/http'
+import { RouterLink } from '@angular/router'
+import { CommonModule } from '@angular/common'
+import { PhotoResponse } from '../../types/image.type'
+import { HomeService } from './home.service'
+import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
   selector: 'app-home',
@@ -18,45 +18,46 @@ import { NgApexchartsModule } from "ng-apexcharts";
 })
 export class HomeComponent implements OnInit {
 
-  showPhotoNew = signal<boolean>(false);
-  showPhoto = signal<boolean>(false);
-  dataPhoto = {} as PhotoResponse;
-  newPhoto = signal([]);
+  showfunctionColor = signal<boolean>(false)
+  showPhotoNew = signal<boolean>(false)
+  showPhoto = signal<boolean>(false)
+  dataPhoto = {} as PhotoResponse
+  newPhoto = signal([])
   userInfo?: any
-  basicChart: any;
-  imagenBase64: any;
+  basicChart: any
+  imagenBase64: any
 
   constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService) { }
 
   ngOnInit() {
     //Obtener datos de usuario
     this.loginService.userProfileSubject.subscribe(info => {
-      this.userInfo = info;
+      this.userInfo = info
     })
 
     //Obtener foto seleccionada
     this.homeService.photoData.subscribe((photo) => {
-      this.showPhoto.set(true);
-      this.dataPhoto = photo;
-    });
+      this.showPhoto.set(true)
+      this.dataPhoto = photo
+    })
   }
 
   isLoggedIn(): boolean {
-    return this.loginService.isLoggedIn();
+    return this.loginService.isLoggedIn()
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes)
-  // }
+  //Funciones
+  showFunctionColor() {
+    this.showfunctionColor.set(true)
+  }
 
   processImage(image_url: any) {
     this.homeService.processPhoto(image_url).subscribe((imgUrl) => {
-        this.newPhoto.set(imgUrl);
-        this.showPhotoNew.set(true);
-        this.imagenBase64 = imgUrl;
-    });
-}
-
+      this.newPhoto.set(imgUrl)
+      this.showPhotoNew.set(true)
+      this.imagenBase64 = imgUrl
+    })
+  }
 
   //Grafica
   public chartOptions: any = {
@@ -77,28 +78,28 @@ export class HomeComponent implements OnInit {
       text: 'Bar Chart',
       align: 'left'
     }
-  };
-  // @Input() title: ApexTitleSubtitle;
-  // @Input() chart: ApexChart;
-  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries;
-  // @Input() annotations: ApexAnnotations;
-  // @Input() colors: string[];
-  // @Input() dataLabels: ApexDataLabels;
-  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries;
-  // @Input() stroke: ApexStroke;
-  // @Input() labels: string[];
-  // @Input() legend: ApexLegend;
-  // @Input() fill: ApexFill;
-  // @Input() tooltip: ApexTooltip;
-  // @Input() plotOptions: ApexPlotOptions;
-  // @Input() responsive: ApexResponsive[];
-  // @Input() xaxis: ApexXAxis;
-  // @Input() yaxis: ApexYAxis | ApexYAxis[];
-  // @Input() grid: ApexGrid;
-  // @Input() states: ApexStates;
-  // @Input() title: ApexTitleSubtitle;
-  // @Input() subtitle: ApexTitleSubtitle;
-  // @Input() theme: ApexTheme;
+  }
+  // @Input() title: ApexTitleSubtitle
+  // @Input() chart: ApexChart
+  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries
+  // @Input() annotations: ApexAnnotations
+  // @Input() colors: string[]
+  // @Input() dataLabels: ApexDataLabels
+  // @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries
+  // @Input() stroke: ApexStroke
+  // @Input() labels: string[]
+  // @Input() legend: ApexLegend
+  // @Input() fill: ApexFill
+  // @Input() tooltip: ApexTooltip
+  // @Input() plotOptions: ApexPlotOptions
+  // @Input() responsive: ApexResponsive[]
+  // @Input() xaxis: ApexXAxis
+  // @Input() yaxis: ApexYAxis | ApexYAxis[]
+  // @Input() grid: ApexGrid
+  // @Input() states: ApexStates
+  // @Input() title: ApexTitleSubtitle
+  // @Input() subtitle: ApexTitleSubtitle
+  // @Input() theme: ApexTheme
 
   // options = {
   //   chart: {

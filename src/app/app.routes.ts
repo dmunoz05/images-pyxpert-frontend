@@ -11,6 +11,8 @@ export const routes: Routes = [
     path: 'begin',
     component: LayoutComponent,
     children: [
+      // { path: 'home', component: HomeComponent },
+      // { path: 'feature', component: FeatureComponent },
       { path: 'home', loadComponent: () => import('./../app/home/home.component').then(m => m.HomeComponent) },
       { path: 'feature', loadComponent: () => import('./../app/feature/feature.component').then(m => m.FeatureComponent)},
     ]
