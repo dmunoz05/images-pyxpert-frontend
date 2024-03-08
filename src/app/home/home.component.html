@@ -1,18 +1,18 @@
 <div class="flex flex-col w-full h-full">
   @if (isLoggedIn()) {
-    <div>
-      <h1 class="font-bold text-3xl">
-        Welcome <span class=""> {{ userInfo?.info?.name | titlecase }} </span>
-      </h1>
-    </div>
+  <div class="p-2">
+    <h1 class="font-bold text-3xl">
+      Welcome <span class=""> {{ userInfo?.info?.name | titlecase }} </span>
+    </h1>
+  </div>
   } @if (showPhoto()) {
   <div class="pt-6 flex gap-4">
     <div class="max-h-80 flex-row justify-center">
       <div class="grid items-center text-center p-4">
-        <h1 class="font-bold text-xl">Your images selected is: </h1>
+        <h1 class="font-bold text-xl">Your image selected is:</h1>
       </div>
       <div>
-        <img class="rounded-lg h-full" src="{{ dataPhoto?.baseUrl }}"/>
+        <img class="rounded-lg h-full" src="{{ dataPhoto.baseUrl }}" />
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <div>
         <h1>What functions you want make with this image</h1>
       </div>
-      <div class=" flex gap-4">
+      <div class="flex gap-4">
         <button
           (click)="processImage(dataPhoto.baseUrl)"
           class="rounded-lg p-2 bg-fifth-color"
@@ -176,27 +176,21 @@
   } } @else {
 
   <div class="flex flex-col w-full justify-center items-center h-full">
-    <div class="flex flex-row gap-4 items-center">
+    <div class="flex flex-col gap-4 items-center">
       <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-arrow-left"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M5 12l14 0" />
-          <path d="M5 12l6 6" />
-          <path d="M5 12l6 -6" />
-        </svg>
+        <h1 class="text-xl">
+          To select an image and process it, you can upload or upload from your
+          Google Photos
+        </h1>
       </div>
-      <h1 class="text-xl">Select an image to display here</h1>
+      <div class="flex gap-4">
+        <button class="rounded-lg p-2 bg-fifth-color">Upload from pc</button>
+        @if (isDisplaySliderBar()) {
+          <button (click)="displaySliderBarFalse()" class="rounded-lg p-2 bg-fifth-color">Cerrar</button>
+        } @else {
+          <button (click)="displaySliderBarTrue()" class="rounded-lg p-2 bg-fifth-color">Load from Google</button>
+        }
+      </div>
     </div>
     <!-- <img src="{{ dataPhoto?.baseUrl }}" /> -->
     <!-- <img src="../../assets/images/image-6.png" /> -->

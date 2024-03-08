@@ -17,7 +17,7 @@ export class SlibarComponent {
 
   linkImage(image: string, event: Event) {
     event.stopPropagation();
-    window.open(image, '_blank');
+    // window.open(image, '_blank');
     return false;
   }
 
