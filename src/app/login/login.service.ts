@@ -53,11 +53,8 @@ export class LoginService {
     })
   }
 
-  getUserInfo(): Observable<any> {
-    debugger
-    const infoUser = this.userInfo();
-    return infoUser;
-    return this.userInfo().asObservable();
+  getUserInfo(): Observable<string> {
+    return this.userInfo();
   }
 
   listFiles(): Observable<any> {

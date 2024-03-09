@@ -6,38 +6,77 @@
     </h1>
   </div>
   } @if (showPhoto()) {
-  <div class="pt-6 flex gap-4">
-    <div class="max-h-80 flex-row justify-center">
-      <div class="grid items-center text-center p-4">
-        <h1 class="font-bold text-xl">Your image selected is:</h1>
+  <div class="max-h-fit">
+    <div class="pt-6 flex flex-row gap-10 h-full">
+      <div class="max-h-full min-w-72 justify-center">
+        <div class="grid text-center p-4">
+          <h1 class="font-bold text-xl">Your image selected is:</h1>
+        </div>
+        <div class="grid justify-center min-h-fit max-h-96 max-w-96">
+          <img
+            class="rounded-lg h-full w-full"
+            src="{{ dataPhoto[0]?.baseUrl }}"
+          />
+        </div>
       </div>
-      <div>
-        <label>Imagen</label>
-        <img class="rounded-lg max-h-72 max-w-72" src="{{ dataPhoto[0]?.baseUrl }}" />
-      </div>
-    </div>
 
-    <div class="w-full h-full mt-4 flex flex-col gap-4">
-      <div>
-        <h1>What functions you want make with this image</h1>
-      </div>
-      <div class="flex gap-4">
-        <button
-          (click)="processImageSelected()"
-          class="rounded-lg p-2 bg-fifth-color"
-        >
-          Process Image
-        </button>
-        <button
-          class="rounded-lg p-2 bg-fifth-color"
-          (click)="showFunctionColor()"
-        >
-          Get colors
-        </button>
+      <div class="w-full h-full mt-4 flex flex-col justify-center gap-10">
+        <section class="grid gap-4">
+          <div class="w-full grid justify-center">
+            <h1 class="text-3xl">
+              ¿ What functions you want make with this image ?
+            </h1>
+          </div>
+          <div class="w-full grid justify-center">
+            <h1 class="text-xl text-second-color">
+              You can diferents functions with your image
+            </h1>
+          </div>
+        </section>
+        <section class="grid">
+          <div class="flex flex-wrap justify-center gap-4">
+            <div>
+              <button
+                (click)="processImageSelected()"
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+              >
+                Process Image
+              </button>
+            </div>
+            <div>
+              <button
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+              >
+                Get shapes
+              </button>
+            </div>
+            <div>
+              <button
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+                (click)="showFunctionColor()"
+              >
+                Get colors
+              </button>
+            </div>
+            <div>
+              <button
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+              >
+                Create image
+              </button>
+            </div>
+            <div>
+              <button
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+              >
+                Create image
+              </button>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
-
   @if (showPhotoNew()) {
   <div class="pt-6 w-full">
     <img [src]="imagenBase64" alt="Imagen procesada" />
@@ -175,13 +214,12 @@
     </div>
   </div>
   } } @else {
-
   <div class="flex flex-col w-full justify-center items-center h-full">
     <div class="flex flex-col gap-4 items-center">
       <div>
         <h1 class="text-xl">
           To select an image and process it, you can upload from your pc or
-          upload from your Google Photos
+          upload from your Google Fotos
         </h1>
       </div>
       <div class="flex gap-4">

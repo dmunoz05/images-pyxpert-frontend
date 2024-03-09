@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
 
     //Obtener foto seleccionada desde google
     this.homeService.photoData.subscribe((photo) => {
-      debugger
       this.showPhoto.set(true)
       this.dataPhoto = [photo]
       this.displaySliderBar()
@@ -67,7 +66,6 @@ export class HomeComponent implements OnInit {
   }
 
   processImageSelected() {
-    debugger
     let image: any = ''
     if (this.dataPhoto.length > 0) {
       image = this.dataPhoto[0].baseUrl
@@ -90,7 +88,6 @@ export class HomeComponent implements OnInit {
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0];
       this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
-        debugger
         this.showPhoto.set(true)
         this.dataPhoto = [imgUrl]
       })
