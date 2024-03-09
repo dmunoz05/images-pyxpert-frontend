@@ -5,7 +5,6 @@ import { SlibarComponent } from '../../slibar/slibar.component';
 import { FeatureComponent } from '../../feature/feature.component';
 import { LoginService } from '../../login/login.service';
 import { HttpClient } from '@angular/common/http';
-import { LayoutService } from '../layout.service';
 import { PhotoResponse } from '../../../types/image.type';
 import { RouterModule } from '@angular/router';
 
@@ -17,7 +16,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './layout-feature.component.css'
 })
 export class LayoutFeatureComponent {
-  constructor(private loginService: LoginService, private http: HttpClient, private layoutService: LayoutService) { }
+  constructor(private loginService: LoginService, private http: HttpClient) { }
 
   displaySliderBar = signal<any>(false)
 }

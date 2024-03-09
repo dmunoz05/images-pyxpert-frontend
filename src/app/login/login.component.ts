@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
-import { LoginService, UserInfo } from './login.service';
+import { Router } from '@angular/router';
+import { LoginService } from './login.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private http: HttpClient, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
@@ -22,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    debugger
     this.loginService.loginWithGoogle();
   }
 }

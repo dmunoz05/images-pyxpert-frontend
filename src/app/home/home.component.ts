@@ -1,25 +1,24 @@
-import { Component, OnInit, Output, Input, SimpleChanges, signal, EventEmitter, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnInit, Output, signal, EventEmitter, ElementRef, ViewChild } from '@angular/core'
 import { HeaderComponent } from '../header/header.component'
 import { SlibarComponent } from '../slibar/slibar.component'
-import { LoginService, UserInfo } from '../login/login.service'
+import { LoginService } from '../login/login.service'
 import { HttpClient } from '@angular/common/http'
 import { RouterLink } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
-import { NgApexchartsModule } from "ng-apexcharts"
-import { LayoutService } from '../layouts/layout.service'
+// import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SlibarComponent, RouterLink, NgApexchartsModule],
+  imports: [CommonModule, HeaderComponent, SlibarComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService, private layoutService: LayoutService) { }
+  constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService) { }
 
   isDisplaySliderBar = signal<boolean>(false)
   showfunctionColor = signal<boolean>(false)

@@ -1,27 +1,19 @@
 import { Component, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, WritableSignal, signal } from '@angular/core'
 import { HeaderComponent } from '../header/header.component'
-import { SlibarComponent } from '../slibar/slibar.component'
 import { RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
-import { LoginService, UserInfo } from '../login/login.service'
-import { HttpClient } from '@angular/common/http'
-import { PhotoResponse } from '../../types/image.type'
-import { LayoutService } from './layout.service'
-import { blob } from 'stream/consumers'
-import { HomeComponent } from '../home/home.component'
-import { FeatureComponent } from '../feature/feature.component'
-import { LayoutHomeComponent } from './layout-home/layout-home.component'
+import { LoginService } from '../login/login.service'
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SlibarComponent, HomeComponent, FeatureComponent, LayoutHomeComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private http: HttpClient, private layoutService: LayoutService) { }
+  constructor(private loginService: LoginService) { }
 
   userInfo?: any
 
