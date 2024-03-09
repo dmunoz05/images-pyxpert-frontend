@@ -45,13 +45,19 @@ export class LoginService {
           this.oAuthService.initLoginFlow();
         } else {
           this.oAuthService.loadUserProfile().then((userProfile) => {
-            debugger
             this.userInfo.set(userProfile as UserInfo)
             this.userProfileSubject.next(userProfile as UserInfo);
           })
         }
       })
     })
+  }
+
+  getUserInfo(): Observable<any> {
+    debugger
+    const infoUser = this.userInfo();
+    return infoUser;
+    return this.userInfo().asObservable();
   }
 
   listFiles(): Observable<any> {
