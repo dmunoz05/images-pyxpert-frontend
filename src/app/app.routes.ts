@@ -11,6 +11,8 @@ export const routes: Routes = [
     children: [
       { path: 'home', loadComponent: () => import('./layouts/layout-home/layout-home.component').then(m => m.LayoutHomeComponent), pathMatch: 'full' },
       { path: 'feature', loadComponent: () => import('./layouts/layout-feature/layout-feature.component').then(m => m.LayoutFeatureComponent), pathMatch: 'full' },
+      { path: 'pricing', loadComponent: () => import('./layouts/layout-pricing/layout-pricing.component').then(m => m.LayoutPricingComponent), pathMatch: 'full' },
+      {path: 'documentation', loadComponent: () => import('./layouts/layout-documentation/layout-documentation.component').then(m => m.LayoutDocumentationComponent), pathMatch: 'full'},
     ]
   },
   //Ruta de error
