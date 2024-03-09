@@ -22,7 +22,9 @@ export class SlibarComponent implements OnInit {
 
   linkImage(image: string, event: Event) {
     event.stopPropagation();
-    window.open(image, '_blank');
+    if (typeof window !== 'undefined') {
+      window.open(image, '_blank');
+    }
     return false;
   }
 

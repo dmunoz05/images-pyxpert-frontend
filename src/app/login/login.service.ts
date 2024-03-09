@@ -38,19 +38,21 @@ export class LoginService {
   userProfileSubject = new Subject()
 
   loginWithGoogle() {
-    this.oAuthService.configure(oAuthConfig);
-    this.oAuthService.loadDiscoveryDocument().then(() => {
-      this.oAuthService.tryLoginImplicitFlow().then(() => {
-        if (!this.oAuthService.hasValidAccessToken()) {
-          this.oAuthService.initLoginFlow();
-        } else {
-          this.oAuthService.loadUserProfile().then((userProfile) => {
-            this.userInfo.set(userProfile as UserInfo)
-            this.userProfileSubject.next(userProfile as UserInfo);
-          })
-        }
+    if (typeof window !== 'undefined') {
+      this.oAuthService.configure(oAuthConfig);
+      this.oAuthService.loadDiscoveryDocument().then(() => {
+        this.oAuthService.tryLoginImplicitFlow().then(() => {
+          if (!this.oAuthService.hasValidAccessToken()) {
+            this.oAuthService.initLoginFlow();
+          } else {
+            this.oAuthService.loadUserProfile().then((userProfile) => {
+              this.userInfo.set(userProfile as UserInfo)
+              this.userProfileSubject.next(userProfile as UserInfo);
+            })
+          }
+        })
       })
-    })
+    }
   }
 
   getUserInfo(): Observable<string> {

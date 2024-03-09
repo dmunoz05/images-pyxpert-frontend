@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { CommonModule } from '@angular/common';
+import { AuthConfig, OAuthService, UserInfo } from 'angular-oauth2-oidc';
+import { environment } from '../../environments/environment.development';
+
+const oAuthConfig: AuthConfig = {
+  issuer: environment.issuer,
+  strictDiscoveryDocumentValidation: environment.strictDiscoveryDocumentValidation,
+  redirectUri: environment.redirectUri,
+  clientId: environment.clientId,
+  scope: environment.scope,
+}
 
 @Component({
   selector: 'app-login',
@@ -12,7 +22,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router, private oAuthService: OAuthService) {}
 
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
@@ -21,7 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    debugger
     this.loginService.loginWithGoogle();
   }
 }
