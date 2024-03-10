@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService, private layoutHomeService: LayoutHomeService) { }
 
-  // isDisplaySliderBar: boolean = false
   showfunctionColor = signal<boolean>(false)
   showPhotoNew = signal<boolean>(false)
   showPhoto = signal<boolean>(false)
@@ -41,7 +40,6 @@ export class HomeComponent implements OnInit {
         this.loginService.userInfo = info
       })
     } else {
-      debugger
       this.userInfo.set(this.loginService.userInfo)
     }
 
@@ -62,12 +60,10 @@ export class HomeComponent implements OnInit {
   }
 
   displaySliderBar() {
-    if (this.layoutHomeService.displaySliderBar() === true) {
-      // this.isDisplaySliderBar = false
+    if (this.layoutHomeService.displaySliderBar()) {
       this.showSliderBarEvent.emit(false)
       return
     }
-    // this.isDisplaySliderBar = true
     this.showSliderBarEvent.emit(true)
   }
 
@@ -90,10 +86,12 @@ export class HomeComponent implements OnInit {
   }
 
   onFileSelected(event: Event | null) {
-    debugger
     const inputElement = event?.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0];
+      if (!file.type.includes('image')) {
+        return;
+      }
       this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
         this.showPhoto.set(true)
         this.dataPhoto = [imgUrl]

@@ -1,20 +1,20 @@
-<div class="flex flex-col w-full h-full">
+<div class="flex flex-col gap-6 w-full h-full">
   @if (isLoggedIn()) {
-  <div class="p-2">
+  <div>
     <h1 class="font-bold text-3xl">
       Welcome <span class=""> {{ userInfo()?.info?.name | titlecase }} </span>
     </h1>
   </div>
   } @if (showPhoto()) {
-  <div class="max-h-fit">
-    <div class="pt-6 flex flex-row gap-10 h-full">
-      <div class="max-h-full min-w-72 justify-center">
+  <div>
+    <div class="flex flex-row gap-10 h-full">
+      <div class="max-h-full min-w-72">
         <div class="grid text-center p-4">
           <h1 class="font-bold text-xl">Your image selected is:</h1>
         </div>
-        <div class="grid justify-center min-h-fit max-h-96 max-w-96">
+        <div class="grid justify-center h-80 w-64">
           <img
-            class="rounded-lg h-full w-full"
+            class="rounded-lg h-80 w-full"
             src="{{ dataPhoto[0].baseUrl }}"
           />
         </div>
@@ -78,107 +78,107 @@
     </div>
   </div>
   @if (showPhotoNew()) {
-  <div class="pt-6 w-full">
+  <div>
     <img [src]="imagenBase64" alt="Imagen procesada" />
   </div>
   } @if (showfunctionColor()) {
-  <div class="pt-10 flex flex-col gap-4 w-full">
+  <div class="flex flex-col gap-4">
     <div>
       <h1 class="text-xl">Color palette</h1>
     </div>
     <div class="flex flex-wrap gap-5">
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-center px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
       </div>
       <div
-        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-full max-w-32"
+        class="flex items-center gap-2 justify-between px-4 py-2 rounded-lg border-2 border-[#334D66] bg-fourth-color w-full h-12 max-w-32"
       >
         <div class="h-8 w-8 border-none rounded-lg bg-black" [style]=""></div>
         <span class="text-base">#FF000</span>
@@ -186,7 +186,7 @@
     </div>
   </div>
 
-  <div class="pt-10 flex gap-4">
+  <div class="flex flex-col gap-4">
     <div>
       <h1 class="text-xl">Color analysis</h1>
     </div>

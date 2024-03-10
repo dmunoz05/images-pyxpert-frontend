@@ -45,7 +45,6 @@ export class LoginService {
           if (!this.oAuthService.hasValidAccessToken()) {
             this.oAuthService.initLoginFlow();
           } else {
-            debugger
             if (this.isLoggedIn()) {
               this.getUserInfo()
             }
@@ -56,9 +55,7 @@ export class LoginService {
   }
 
   async getUserInfo(): Promise<any>{
-    debugger
     const userProfile = await this.oAuthService.loadUserProfile().then((userProfile) => {
-      this.userInfo = userProfile as UserInfo
       this.userProfileSubject.next(userProfile as UserInfo);
       return userProfile;
     })
