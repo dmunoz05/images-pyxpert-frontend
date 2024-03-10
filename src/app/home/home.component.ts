@@ -21,23 +21,29 @@ export class HomeComponent implements OnInit {
 
   constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService, private layoutHomeService: LayoutHomeService) { }
 
-  isDisplaySliderBar = signal<boolean>(false)
+  // isDisplaySliderBar: boolean = false
   showfunctionColor = signal<boolean>(false)
   showPhotoNew = signal<boolean>(false)
   showPhoto = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
   newPhoto = signal([])
-  userInfo = signal<any>('')
+  userInfo = signal<any>([])
   basicChart: any
   imagenBase64: any
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
   @Output() showSliderBarEvent = new EventEmitter<boolean>();
 
   ngOnInit() {
-    //Obtener datos de usuario
-    this.loginService.userProfileSubject.subscribe(info => {
-      this.userInfo.set(info)
-    })
+    //Obtener datos de usuario al inicio del home o cuando cambia de pagina
+    if (this.loginService.userInfo == undefined) {
+      this.loginService.userProfileSubject.subscribe(info => {
+        this.userInfo.set(info)
+        this.loginService.userInfo = info
+      })
+    } else {
+      debugger
+      this.userInfo.set(this.loginService.userInfo)
+    }
 
     //Obtener foto seleccionada desde google
     this.homeService.photoData.subscribe((photo) => {
@@ -57,11 +63,11 @@ export class HomeComponent implements OnInit {
 
   displaySliderBar() {
     if (this.layoutHomeService.displaySliderBar() === true) {
-      this.isDisplaySliderBar.set(false)
+      // this.isDisplaySliderBar = false
       this.showSliderBarEvent.emit(false)
       return
     }
-    this.isDisplaySliderBar.set(true)
+    // this.isDisplaySliderBar = true
     this.showSliderBarEvent.emit(true)
   }
 
@@ -84,6 +90,7 @@ export class HomeComponent implements OnInit {
   }
 
   onFileSelected(event: Event | null) {
+    debugger
     const inputElement = event?.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0];

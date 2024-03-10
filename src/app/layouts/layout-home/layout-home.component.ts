@@ -17,10 +17,6 @@ export class LayoutHomeComponent {
 
   displaySliderBar = signal<any>(false)
 
-  // showSliderBar(value: any) {
-  //   this.displaySliderBar.set(value)
-  // }
-
   showSliderBar(value: any) {
     this.displaySliderBar.set(value)
     this.layoutHomeService.displaySliderBar.set(value)

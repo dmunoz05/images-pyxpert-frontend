@@ -1,5 +1,4 @@
-import { Injectable, Input, SimpleChanges } from '@angular/core'
-import { LoginService } from '../login/login.service'
+import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { PhotoResponse } from '../../types/image.type'
 import { Observable, Subject, map, switchMap } from 'rxjs'
@@ -9,12 +8,12 @@ import { Observable, Subject, map, switchMap } from 'rxjs'
 })
 export class HomeService {
 
-  photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
+  constructor(private http: HttpClient) { }
+
   data: any
   imagenUrl: any = ''
   imageBlob: any = ''
-
-  constructor(private loginService: LoginService, private http: HttpClient) { }
+  photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
 
   loadPhotoComponent(newPhoto: PhotoResponse) {
     this.data = newPhoto

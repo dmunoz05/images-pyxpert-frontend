@@ -21,7 +21,7 @@ export class SlibarComponent implements OnInit {
   userPhotos = signal<any>([]);
 
   ngOnInit() {
-    this.userPhotos.set(this.loginService.userPhotos());
+    this.userPhotos.set(this.loginService.userPhotos);
   }
 
   displaySliderBar() {

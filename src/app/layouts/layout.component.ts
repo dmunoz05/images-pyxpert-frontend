@@ -21,20 +21,21 @@ export class LayoutComponent implements OnInit {
     //Obtener datos de usuario
     this.loginService.loginWithGoogle()
     this.loginService.userProfileSubject.subscribe(info => {
+      //Actualizar estado global del service con el usuario
       this.userInfo = info
+      this.loginService.userInfo = info
+
+      //Obtener datos de drive y añadirlas
       this.loginService.listFiles().subscribe(data => {
         const filesJpg = data.files.filter((file: { name: string }) => file.name.endsWith('.jpg'))
-        //Asignar las variables en el servicio
-        this.loginService.userFiles.set(filesJpg)
-        // this.userFiles = filesJpg
+        this.loginService.userFiles = filesJpg
       })
-      //Traer fotos de google fotos y añadirlas
+
+      //Obtener fotos de google fotos y añadirlas
       this.loginService.listPhotos().subscribe(data => {
         //Buscar solo mimtype jpg
         const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
-        //Asignar las variables en el servicio
-        this.loginService.userPhotos.set(filesJpg)
-        // this.userPhotos = filesJpg
+        this.loginService.userPhotos = filesJpg
       })
     })
   }

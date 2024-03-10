@@ -30,11 +30,11 @@ export class LoginService {
 
   private readonly apiUrlFotos = 'https://photoslibrary.googleapis.com/v1';
 
-  constructor(private http: HttpClient, private oAuthService: OAuthService) {}
+  constructor(private http: HttpClient, private oAuthService: OAuthService) { }
 
-  userInfo = signal<any>({})
-  userPhotos = signal<any>({})
-  userFiles = signal<any>({})
+  userInfo: any
+  userPhotos: any
+  userFiles: any
   userProfileSubject = new Subject()
 
   loginWithGoogle() {
@@ -45,18 +45,24 @@ export class LoginService {
           if (!this.oAuthService.hasValidAccessToken()) {
             this.oAuthService.initLoginFlow();
           } else {
-            this.oAuthService.loadUserProfile().then((userProfile) => {
-              this.userInfo.set(userProfile as UserInfo)
-              this.userProfileSubject.next(userProfile as UserInfo);
-            })
+            debugger
+            if (this.isLoggedIn()) {
+              this.getUserInfo()
+            }
           }
         })
       })
     }
   }
 
-  getUserInfo(): Observable<string> {
-    return this.userInfo();
+  async getUserInfo(): Promise<any>{
+    debugger
+    const userProfile = await this.oAuthService.loadUserProfile().then((userProfile) => {
+      this.userInfo = userProfile as UserInfo
+      this.userProfileSubject.next(userProfile as UserInfo);
+      return userProfile;
+    })
+    return userProfile
   }
 
   listFiles(): Observable<any> {
