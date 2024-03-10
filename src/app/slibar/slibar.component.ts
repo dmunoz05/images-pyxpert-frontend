@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import { PhotoResponse } from '../../types/image.type';
 import { HomeService } from '../home/home.service';
 import { LoginService } from '../login/login.service';
+import { LayoutHomeService } from '../layouts/layout-home/layout-home.service';
 
 @Component({
   selector: 'app-slibar',
@@ -12,12 +13,25 @@ import { LoginService } from '../login/login.service';
 })
 export class SlibarComponent implements OnInit {
 
-  constructor(private homeService: HomeService, private loginService: LoginService) { }
+  constructor(private homeService: HomeService, private loginService: LoginService, private layoutHomeService: LayoutHomeService) { }
+
+  isDisplaySliderBar = signal<boolean>(false)
+  @Output() showSliderBarEvent = new EventEmitter<boolean>();
 
   userPhotos = signal<any>([]);
 
   ngOnInit() {
     this.userPhotos.set(this.loginService.userPhotos());
+  }
+
+  displaySliderBar() {
+    if (this.layoutHomeService.displaySliderBar() === true) {
+      this.isDisplaySliderBar.set(false)
+      this.showSliderBarEvent.emit(false)
+      return
+    }
+    this.isDisplaySliderBar.set(true)
+    this.showSliderBarEvent.emit(true)
   }
 
   linkImage(image: string, event: Event) {

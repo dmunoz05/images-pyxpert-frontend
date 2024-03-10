@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
+import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
 // import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
@@ -18,7 +19,7 @@ import { HomeService } from './home.service'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService) { }
+  constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService, private layoutHomeService: LayoutHomeService) { }
 
   isDisplaySliderBar = signal<boolean>(false)
   showfunctionColor = signal<boolean>(false)
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
   }
 
   displaySliderBar() {
-    if (this.isDisplaySliderBar() === true) {
+    if (this.layoutHomeService.displaySliderBar() === true) {
       this.isDisplaySliderBar.set(false)
       this.showSliderBarEvent.emit(false)
       return

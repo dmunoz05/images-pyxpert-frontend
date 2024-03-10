@@ -2,7 +2,7 @@
   <!-- Slidebar seleccionar imagenes -->
   @if (displaySliderBar() == true) {
   <aside class="relative top-18 left-0 max-w-96 overflow-y-auto mt-16">
-    <app-slibar></app-slibar>
+    <app-slibar (showSliderBarEvent)="showSliderBar($event)"></app-slibar>
   </aside>
   }
 

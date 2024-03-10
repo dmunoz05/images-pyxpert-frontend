@@ -1,28 +1,47 @@
 <div class="relative z-10 w-full p-6 border-r-[1px] border-white transition-all h-full">
+  <div class="absolute right-2 top-4">
+    <button
+      class="bg-fifth-color px-[0.40rem] py-0 rounded-full"
+      (click)="displaySliderBar()"
+    >
+      X
+    </button>
+  </div>
   <div class="relative flex flex-col gap-4 overflow-y-auto overflow-x-hidden">
-    <div class="text-center p-4 w-full">
+    <div class="text-center w-full">
       <h1>Your images</h1>
       <span class="text-fourth-color">Select one image</span>
     </div>
-    @if (userPhotos()?.length > 0) { @for (photo of userPhotos(); track $index) {
-      <div>
-        <button class="relative cursor-pointer z-10" (click)="loadImageSelect(photo)">
-          <img class="size-72 rounded-lg" src="{{ photo?.baseUrl }}" id="{{userPhotos()?.id}}" />
-          <div class="relative">
-            <button (click)="linkImage(photo?.baseUrl, $event)" class="absolute right-2 bottom-2 p-1 bg-fifth-color rounded-lg text-sm cursor-pointer z-20">
-              Link
-            </button>
-          </div>
-        </button>
-        <div class="flex flex-row gap-2 items-center justify-center pt-1">
-          <label class="text-[10px]">Nombre:</label>
-          <span class="text-[10px]">{{ photo?.filename }}</span>
+    @if (userPhotos()?.length > 0) { @for (photo of userPhotos(); track $index)
+    {
+    <div>
+      <button
+        class="relative cursor-pointer z-10"
+        (click)="loadImageSelect(photo)"
+      >
+        <img
+          class="size-72 rounded-lg"
+          src="{{ photo?.baseUrl }}"
+          id="{{ userPhotos()?.id }}"
+        />
+        <div class="relative">
+          <button
+            (click)="linkImage(photo?.baseUrl, $event)"
+            class="absolute right-2 bottom-2 p-1 bg-fifth-color rounded-lg text-sm cursor-pointer z-20"
+          >
+            Link
+          </button>
         </div>
+      </button>
+      <div class="flex flex-row gap-2 items-center justify-center pt-1">
+        <label class="text-[10px]">Nombre:</label>
+        <span class="text-[10px]">{{ photo?.filename }}</span>
       </div>
+    </div>
     } } @else {
-      <div class="w-full text-center">
-        <h1>No se han encontrado imagenes en tu Google Fotos</h1>
-      </div>
+    <div class="w-full text-center">
+      <h1>No se han encontrado imagenes en tu Google Fotos</h1>
+    </div>
     }
   </div>
 </div>
