@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { LoginService } from '../login/login.service'
 import { userInfo } from '../../types/user-info.type'
+import { listPhotos } from '../../types/list-photos.types'
 
 @Component({
   selector: 'app-layout',
@@ -36,6 +37,7 @@ export class LayoutComponent implements OnInit {
       this.loginService.listPhotos().subscribe(data => {
         //Buscar solo mimtype jpg
         const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
+        debugger
         this.loginService.userPhotos = filesJpg
       })
     })

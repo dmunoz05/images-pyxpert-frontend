@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment.development';
 import { userInfo } from '../../types/user-info.type';
+import { listPhotos, MediaItems } from '../../types/list-photos.types';
 
 const oAuthConfig: AuthConfig = {
   issuer: environment.issuer,
@@ -24,8 +25,8 @@ export class LoginService {
 
   constructor(private http: HttpClient, private oAuthService: OAuthService) { }
 
-  userInfo: userInfo = { } as userInfo
-  userPhotos: any
+  userInfo: userInfo = {} as userInfo
+  userPhotos: MediaItems[] = []
   userFiles: any
   userProfileSubject = new Subject()
 

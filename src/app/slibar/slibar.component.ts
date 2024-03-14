@@ -3,6 +3,7 @@ import { PhotoResponse } from '../../types/image.type';
 import { HomeService } from '../home/home.service';
 import { LoginService } from '../login/login.service';
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service';
+import { MediaItems } from '../../types/list-photos.types';
 
 @Component({
   selector: 'app-slibar',
@@ -18,7 +19,7 @@ export class SlibarComponent implements OnInit {
   isDisplaySliderBar = signal<boolean>(false)
   @Output() showSliderBarEvent = new EventEmitter<boolean>();
 
-  userPhotos = signal<any>([]);
+  userPhotos = signal<MediaItems[]>([]);
 
   ngOnInit() {
     this.userPhotos.set(this.loginService.userPhotos);
@@ -42,7 +43,7 @@ export class SlibarComponent implements OnInit {
     return false;
   }
 
-  loadImageSelect(photo: PhotoResponse) {
+  loadImageSelect(photo: MediaItems) {
     this.homeService.loadPhotoComponent(photo)
   }
 }

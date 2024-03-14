@@ -11,7 +11,7 @@ export interface PhotoResponse {
   baseUrl: string;
   filename?: string;
   id?: string;
-  mediaMetadata?: MediaMetadata;
+  mediaMetadata?: [MediaMetadata];
   width?: string;
   mimeType?: string;
   productUrl: string;

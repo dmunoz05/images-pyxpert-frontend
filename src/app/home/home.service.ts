@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { PhotoResponse } from '../../types/image.type'
 import { Observable, Subject, map, switchMap } from 'rxjs'
+import { MediaItems } from '../../types/list-photos.types'
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,10 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   data: any
-  imagenUrl: any = ''
-  imageBlob: any = ''
+  imagenUrl: string = ''
   photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
 
-  loadPhotoComponent(newPhoto: PhotoResponse) {
+  loadPhotoComponent(newPhoto: MediaItems) {
     this.data = newPhoto
     this.photoData.next(this.data)
   }

@@ -12,7 +12,7 @@
       <h1>Your images</h1>
       <span class="text-fourth-color">Select one image</span>
     </div>
-    @if (userPhotos()?.length > 0) { @for (photo of userPhotos(); track $index)
+    @if (userPhotos().length > 0) { @for (photo of userPhotos(); track $index)
     {
     <div>
       <button
@@ -21,12 +21,12 @@
       >
         <img
           class="size-72 rounded-lg"
-          src="{{ photo?.baseUrl }}"
-          id="{{ userPhotos()?.id }}"
+          src="{{ photo.baseUrl }}"
+          id="{{ photo.id }}"
         />
         <div class="relative">
           <button
-            (click)="linkImage(photo?.baseUrl, $event)"
+            (click)="linkImage(photo.baseUrl, $event)"
             class="absolute right-2 bottom-2 p-1 bg-fifth-color rounded-lg text-sm cursor-pointer z-20"
           >
             Link
@@ -35,7 +35,7 @@
       </button>
       <div class="flex flex-row gap-2 items-center justify-center pt-1">
         <label class="text-[10px]">Nombre:</label>
-        <span class="text-[10px] text-second-color">{{ photo?.filename }}</span>
+        <span class="text-[10px] text-second-color">{{ photo.filename }}</span>
       </div>
     </div>
     } } @else {
