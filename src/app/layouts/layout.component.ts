@@ -1,8 +1,9 @@
-import { Component, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, WritableSignal, signal } from '@angular/core'
+import { Component, OnInit, signal } from '@angular/core'
 import { HeaderComponent } from '../header/header.component'
 import { RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { LoginService } from '../login/login.service'
+import { userInfo } from '../../types/user-info.type'
 
 @Component({
   selector: 'app-layout',
@@ -15,15 +16,15 @@ export class LayoutComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-  userInfo?: any
+  userInfo: userInfo = { } as userInfo;
 
   ngOnInit() {
     //Obtener datos de usuario
     this.loginService.loginWithGoogle()
     this.loginService.userProfileSubject.subscribe(info => {
       //Actualizar estado global del service con el usuario
-      this.userInfo = info
-      this.loginService.userInfo = info
+      this.userInfo = info as userInfo
+      this.loginService.userInfo = info as userInfo
 
       //Obtener datos de drive y añadirlas
       this.loginService.listFiles().subscribe(data => {

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit } from '@angular/core';
-import { LoginService, UserInfo } from '../login/login.service';
+import { Component, Input } from '@angular/core';
+import { LoginService } from '../login/login.service';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { userInfo } from '../../types/user-info.type';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
 
-  @Input() userInfo!: any
+  @Input() userInfo!: userInfo
 
   constructor(private loginService: LoginService, private router: Router) { }
 

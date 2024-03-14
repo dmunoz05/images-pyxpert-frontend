@@ -1,8 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment.development';
+import { userInfo } from '../../types/user-info.type';
 
 const oAuthConfig: AuthConfig = {
   issuer: environment.issuer,
@@ -10,15 +11,6 @@ const oAuthConfig: AuthConfig = {
   redirectUri: environment.redirectUri,
   clientId: environment.clientId,
   scope: environment.scope,
-}
-
-export interface UserInfo {
-  info: {
-    sub: string,
-    email: string,
-    name: string,
-    picture: string,
-  }
 }
 
 @Injectable({
@@ -32,7 +24,7 @@ export class LoginService {
 
   constructor(private http: HttpClient, private oAuthService: OAuthService) { }
 
-  userInfo: any
+  userInfo: userInfo = { } as userInfo
   userPhotos: any
   userFiles: any
   userProfileSubject = new Subject()
@@ -56,7 +48,7 @@ export class LoginService {
 
   async getUserInfo(): Promise<any>{
     const userProfile = await this.oAuthService.loadUserProfile().then((userProfile) => {
-      this.userProfileSubject.next(userProfile as UserInfo);
+      this.userProfileSubject.next(userProfile as userInfo);
       return userProfile;
     })
     return userProfile

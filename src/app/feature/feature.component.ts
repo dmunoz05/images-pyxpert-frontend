@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { userInfo } from '../../types/user-info.type';
 
 @Component({
   selector: 'app-feature',
@@ -9,5 +10,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './feature.component.css'
 })
 export class FeatureComponent {
-  @Input() userInfo!: any
+  @Input() userInfo!: userInfo
 }

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common'
 import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
+import { userInfo } from '../../types/user-info.type'
 // import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   showPhoto = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
   newPhoto = signal([])
-  userInfo = signal<any>([])
+  userInfo = signal<userInfo>({} as userInfo)
   basicChart: any
   imagenBase64: any
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
@@ -36,8 +37,8 @@ export class HomeComponent implements OnInit {
     //Obtener datos de usuario al inicio del home o cuando cambia de pagina
     if (this.loginService.userInfo == undefined) {
       this.loginService.userProfileSubject.subscribe(info => {
-        this.userInfo.set(info)
-        this.loginService.userInfo = info
+        this.userInfo.set(info as userInfo)
+        this.loginService.userInfo = info as userInfo
       })
     } else {
       this.userInfo.set(this.loginService.userInfo)
