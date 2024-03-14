@@ -7,11 +7,11 @@ import { userInfo } from '../../types/user-info.type'
 import { listPhotos, MediaItems } from '../../types/list-photos.types'
 
 const oAuthConfig: AuthConfig = {
-  issuer: environment.issuer || process.env['issuer'],
+  issuer: process.env['issuer'],
   strictDiscoveryDocumentValidation: false,
-  redirectUri: environment.redirectUri || process.env['redirectUri'],
-  clientId: environment.clientId || process.env['clientId'],
-  scope: environment.scope || process.env['scope'],
+  redirectUri: process.env['redirectUri'],
+  clientId: process.env['clientId'],
+  scope: process.env['scope'],
 }
 
 @Injectable({
