@@ -43,4 +43,4 @@ Thumbs.db
 
 
 #Envrionments varibles
-/src/environments/
+/src/environments/environments.development.ts
