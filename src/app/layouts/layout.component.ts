@@ -18,14 +18,17 @@ export class LayoutComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   userInfo: userInfo = { } as userInfo;
+  userPicture: string = ""
 
   ngOnInit() {
     //Obtener datos de usuario
     this.loginService.loginWithGoogle()
     this.loginService.userProfileSubject.subscribe(info => {
+      debugger
       //Actualizar estado global del service con el usuario
       this.userInfo = info as userInfo
       this.loginService.userInfo = info as userInfo
+      this.userPicture = this.userInfo.info.picture
 
       //Obtener datos de drive y añadirlas
       this.loginService.listFiles().subscribe(data => {
@@ -37,7 +40,6 @@ export class LayoutComponent implements OnInit {
       this.loginService.listPhotos().subscribe(data => {
         //Buscar solo mimtype jpg
         const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
-        debugger
         this.loginService.userPhotos = filesJpg
       })
     })

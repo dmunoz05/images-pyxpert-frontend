@@ -2,6 +2,12 @@
   <div class="p-2">
     <h1 class="font-bold text-3xl">
       Applicateing
+
+      @if (showImage()) {
+        <div>
+            <img [src]="image" />
+        </div>
+      }
     </h1>
   </div>
 </div>

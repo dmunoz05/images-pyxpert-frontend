@@ -3,12 +3,13 @@ import { HeaderComponent } from '../header/header.component'
 import { SlibarComponent } from '../slibar/slibar.component'
 import { LoginService } from '../login/login.service'
 import { HttpClient } from '@angular/common/http'
-import { RouterLink } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
 import { userInfo } from '../../types/user-info.type'
+import { debug } from 'console'
 // import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
@@ -20,8 +21,9 @@ import { userInfo } from '../../types/user-info.type'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private http: HttpClient, private homeService: HomeService, private layoutHomeService: LayoutHomeService) { }
+  constructor(private loginService: LoginService, private homeService: HomeService, private layoutHomeService: LayoutHomeService, private router: Router) { }
 
+  userName: string | undefined = ''
   showfunctionColor = signal<boolean>(false)
   showPhotoNew = signal<boolean>(false)
   showPhoto = signal<boolean>(false)
@@ -35,13 +37,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //Obtener datos de usuario al inicio del home o cuando cambia de pagina
-    if (this.loginService.userInfo == undefined) {
+    if (Object.keys(this.loginService.userInfo).length == 0) {
       this.loginService.userProfileSubject.subscribe(info => {
         this.userInfo.set(info as userInfo)
         this.loginService.userInfo = info as userInfo
+        this.userName = this.userInfo().info.name
       })
     } else {
       this.userInfo.set(this.loginService.userInfo)
+
+      if(this.homeService.imageSelected.length > 0){
+        this.showPhoto.set(true)
+        this.dataPhoto = this.homeService.imageSelected
+      }
     }
 
     //Obtener foto seleccionada desde google
@@ -56,8 +64,14 @@ export class HomeComponent implements OnInit {
     return this.loginService.isLoggedIn()
   }
 
-  showFunctionColor() {
-    this.showfunctionColor.set(true)
+  getShapes(data: any) {
+
+  }
+
+  showFunctionColor(data: any) {
+    this.homeService.imageSelected = data
+    // this.showfunctionColor.set(true)
+    this.router.navigate(['/begin/feature'])
   }
 
   displaySliderBar() {
@@ -68,7 +82,8 @@ export class HomeComponent implements OnInit {
     this.showSliderBarEvent.emit(true)
   }
 
-  processImageSelected() {
+  processImageSelected(data: any) {
+    this.homeService.imageSelected = data
     let image: any = ''
     if (this.dataPhoto.length > 0) {
       image = this.dataPhoto[0].baseUrl
@@ -77,8 +92,10 @@ export class HomeComponent implements OnInit {
       image = this.imagenBase64
     }
     this.homeService.processPhotoGoogle(image).subscribe((imgUrl) => {
-      this.showPhotoNew.set(true)
-      this.imagenBase64 = imgUrl
+      this.homeService.imageResponseProcess = imgUrl
+      this.router.navigate(['/begin/feature'])
+      // this.showPhotoNew.set(true)
+      // this.imagenBase64 = imgUrl
     })
   }
 
@@ -91,6 +108,7 @@ export class HomeComponent implements OnInit {
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0];
       if (!file.type.includes('image')) {
+        alert('Select only images of type jpg, png o svg')
         return;
       }
       this.homeService.processAnyPhoto(file).then((imgUrl: any) => {

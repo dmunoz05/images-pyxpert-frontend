@@ -13,9 +13,9 @@ import { userInfo } from '../../types/user-info.type';
 })
 export class HeaderComponent {
 
-  @Input() userInfo!: userInfo
-
   constructor(private loginService: LoginService, private router: Router) { }
+
+  @Input() userPicture: string | undefined
 
   logout() {
     this.loginService.signOut();

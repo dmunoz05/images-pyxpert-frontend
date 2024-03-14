@@ -2,7 +2,7 @@
   @if (isLoggedIn()) {
   <div>
     <h1 class="font-bold text-3xl">
-      Welcome <span class=""> {{ userInfo()?.info?.name | titlecase }} </span>
+      Welcome <span class=""> {{ userName | titlecase }} </span>
     </h1>
   </div>
   } @if (showPhoto()) {
@@ -12,9 +12,9 @@
         <div class="grid text-center p-4">
           <h1 class="font-bold text-xl">Your image selected is:</h1>
         </div>
-        <div class="grid justify-center h-80 w-64">
+        <div class="grid justify-center h-full w-full">
           <img
-            class="rounded-lg h-80 w-full"
+            class="rounded-lg h-80 w-72"
             src="{{ dataPhoto[0].baseUrl }}"
           />
         </div>
@@ -37,7 +37,7 @@
           <div class="flex flex-wrap justify-center gap-4">
             <div>
               <button
-                (click)="processImageSelected()"
+                (click)="processImageSelected(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
                 Process Image
@@ -45,6 +45,7 @@
             </div>
             <div>
               <button
+              (click)="getShapes(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
                 Get shapes
@@ -53,7 +54,7 @@
             <div>
               <button
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
-                (click)="showFunctionColor()"
+                (click)="showFunctionColor(dataPhoto)"
               >
                 Get colors
               </button>

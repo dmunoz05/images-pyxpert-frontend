@@ -14,6 +14,8 @@ export class HomeService {
   data: any
   imagenUrl: string = ''
   photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
+  imageSelected: any[] = []
+  imageResponseProcess: any;
 
   loadPhotoComponent(newPhoto: MediaItems) {
     this.data = newPhoto
