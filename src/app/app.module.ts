@@ -5,8 +5,6 @@ import { LoginComponent } from './login/login.component'
 import { LoginService } from './login/login.service'
 import { HttpClientModule } from "@angular/common/http"
 import { OAuthModule } from 'angular-oauth2-oidc'
-import * as dotenv from 'dotenv'
-dotenv.config()
 
 @NgModule({
   declarations: [

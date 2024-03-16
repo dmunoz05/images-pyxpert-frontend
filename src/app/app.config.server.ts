@@ -1,19 +1,15 @@
-import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
-import { provideServerRendering } from '@angular/platform-server';
-import { appConfig } from './app.config';
-import 'dotenv/config';
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core'
+import { provideServerRendering } from '@angular/platform-server'
+import { appConfig } from './app.config'
+import * as dotenv from 'dotenv';
 
-const serverEnvConfig = {
-  environment: {
-    API_URL: process.env['API_URL'] || 'default_value'
-  }
-};
+// Carga las variables de entorno desde el archivo .env
+dotenv.config({ path: '../../.env' });
 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
   ],
-  ...serverEnvConfig
-};
+}
 
-export const config = mergeApplicationConfig(appConfig, serverConfig);
+export const config = mergeApplicationConfig(appConfig, serverConfig)

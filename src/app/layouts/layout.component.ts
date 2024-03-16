@@ -24,7 +24,6 @@ export class LayoutComponent implements OnInit {
     //Obtener datos de usuario
     this.loginService.loginWithGoogle()
     this.loginService.userProfileSubject.subscribe(info => {
-      debugger
       //Actualizar estado global del service con el usuario
       this.userInfo = info as userInfo
       this.loginService.userInfo = info as userInfo
