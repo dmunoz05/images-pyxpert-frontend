@@ -1,8 +1,8 @@
 export const environment = {
-  production: '',
-  issuer: '',
+  production: process.env['API_URL'],
+  issuer: process.env['ISSUER'],
   strictDiscoveryDocumentValidation: false,
-  redirectUri: '',
-  clientId: '',
-  scope: ''
+  redirectUri: process.env['REDIRECTURI'],
+  clientId: process.env['CLIENTID'],
+  scope: process.env['SCOPE'],
 }

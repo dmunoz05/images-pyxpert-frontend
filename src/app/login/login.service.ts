@@ -7,23 +7,27 @@ import { userInfo } from '../../types/user-info.type'
 import { listPhotos, MediaItems } from '../../types/list-photos.types'
 
 const oAuthConfig: AuthConfig = {
-  issuer: process.env['issuer'],
-  strictDiscoveryDocumentValidation: false,
-  redirectUri: process.env['redirectUri'],
-  clientId: process.env['clientId'],
-  scope: process.env['scope'],
+  // issuer: process.env['ISSUER'],
+  // strictDiscoveryDocumentValidation: false,
+  // redirectUri: process.env['redirectUri'],
+  // clientId: process.env['clientId'],
+  // scope: process.env['scope'],
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
 
   private readonly apiUrlDrive = 'https://www.googleapis.com/drive/v3'
 
   private readonly apiUrlFotos = 'https://photoslibrary.googleapis.com/v1'
 
-  constructor(private http: HttpClient, private oAuthService: OAuthService) { }
+  constructor(private http: HttpClient, private oAuthService: OAuthService) {
+    debugger
+    const apiUrl = process.env['API_URL'] || 'default_value';
+  }
 
   userInfo: userInfo = {} as userInfo
   userPhotos: MediaItems[] = []
@@ -47,7 +51,7 @@ export class LoginService {
     }
   }
 
-  async getUserInfo(): Promise<any>{
+  async getUserInfo(): Promise<any> {
     const userProfile = await this.oAuthService.loadUserProfile().then((userProfile) => {
       this.userProfileSubject.next(userProfile as userInfo)
       return userProfile
