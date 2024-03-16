@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
 import express from 'express';
@@ -29,22 +28,13 @@ export function app(): express.Express {
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
 
-    // Define las variables de entorno que deseas pasar a la aplicación Angular
-    const envVariables = {
-      API_URL: process.env['API_URL'] || 'default_api_url'
-      // Agrega otras variables de entorno aquí...
-    };
-
     commonEngine
       .render({
         bootstrap,
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [
-          { provide: APP_BASE_HREF, useValue: baseUrl },
-          { provide: 'SERVER_ENVIRONMENT', useValue: envVariables }
-        ],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

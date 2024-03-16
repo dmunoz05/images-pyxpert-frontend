@@ -1,5 +1,5 @@
 export const environment = {
-  production: process.env['API_URL'],
+  production: true,
   issuer: process.env['ISSUER'],
   strictDiscoveryDocumentValidation: false,
   redirectUri: process.env['REDIRECTURI'],
