@@ -22,9 +22,8 @@ const oAuthConfig: AuthConfig = {
 
 export class LoginService {
 
-  private readonly apiUrlDrive = 'https://www.googleapis.com/drive/v3'
-
-  private readonly apiUrlFotos = 'https://photoslibrary.googleapis.com/v1'
+  private readonly apiUrlDrive = environment.api_url_drive
+  private readonly apiUrlFotos = environment.api_url_fotos
 
   btaClientId: string = environment.btoa_id
   userInfo: userInfo = {} as userInfo
@@ -45,7 +44,7 @@ export class LoginService {
   }
 
   async desencryptCrypto(value: string) {
-    const response = await this.getKeyApi(environment.bcrypt_id);
+    const response = await this.getKeyApi(environment.crypt_id);
     const decrypted = CryptoJS.AES.decrypt(value, CryptoJS.enc.Utf8.parse(response.key), {
       keySize: 128 / 8,
       iv: CryptoJS.enc.Utf8.parse(response.iv),
