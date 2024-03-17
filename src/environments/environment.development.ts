@@ -7,5 +7,6 @@ export const environment = {
   btoa_id: 'TTg4RVYybUtTYzNZMXRDY09qbkYvazl0cEJCU1MxUWkzaDUyMWtpQjA0cWc3L3BoOTdvS1k5MlZ3L0VsZmVkeEJWaVkwZGtBK2trSWd1VDJmTnZYNDB0ekpQNEorZjd0MG5oRGpoNkxqV0k9',
   crypt_id: '9si56P7SYWIVFKe4rmfpbnTOZd3cBMNU',
   api_url_drive: 'https://www.googleapis.com/drive/v3',
-  api_url_fotos: 'https://photoslibrary.googleapis.com/v1'
+  api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
+  api_django: 'https://images-pyxpert-backend.onrender.com'
 }

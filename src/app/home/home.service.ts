@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { PhotoResponse } from '../../types/image.type'
 import { Observable, Subject, map, switchMap } from 'rxjs'
 import { MediaItems } from '../../types/list-photos.types'
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class HomeService {
   }
 
   processPhotoGoogle(image_url: any): Observable<any> {
-    return this.http.get(`http://127.0.0.1:8000/api/v1/process-image/?image_url=${image_url}`, { responseType: 'blob' })
+    return this.http.get(`${environment.api_django}/api/v1/process-image/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           // Procesar la imagen aquí
