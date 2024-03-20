@@ -104,6 +104,13 @@
         >
           Documentation</a
         >
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/begin/politice']"
+          routerLinkActive="underline underline-offset-4"
+        >
+          Politice</a
+        >
         <button
           (click)="logout()"
           class="bg-fourth-color p-3 flex items-center gap-2 rounded-lg hover:bg-[#334D66] cursor-pointer"
@@ -130,10 +137,7 @@
           <span class="text-sm">Logout</span>
         </button>
         <li>
-          <img
-            class="size-10 rounded-full"
-            src="{{ userPicture }}"
-          />
+          <img class="size-10 rounded-full" src="{{ userPicture }}" />
         </li>
       </ul>
     </div>
