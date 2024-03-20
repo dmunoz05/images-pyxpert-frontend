@@ -2,6 +2,37 @@
   id="screen-login"
   class="bg-primary-color bg-[radial-gradient(#ffffff33_1px,#121A21_1px)] bg-[size:20px_20px]"
 >
+  <div class="absolute bottom-4 right-3">
+    <div class="flex gap-4">
+      <h1>
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/public/politice']"
+          routerLinkActive="underline underline-offset-4"
+        >
+          Politice
+        </a>
+      </h1>
+      <h1>
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/public/politice']"
+          routerLinkActive="underline underline-offset-4"
+        >
+          Pricing
+        </a>
+      </h1>
+      <h1>
+        <a
+          class="text-sm cursor-pointer hover:underline hover:underline-offset-4"
+          [routerLink]="['/public/politice']"
+          routerLinkActive="underline underline-offset-4"
+        >
+          Documentation
+        </a>
+      </h1>
+    </div>
+  </div>
   <div class="screen-center-grid">
     <div>
       <h1 class="font-semibold text-7xl select-none">
@@ -15,25 +46,6 @@
         >This is an app for manipulation and images processing with python, you
         can upload diferents images and manipulate its.</span
       >
-      <!-- <div *ngIf="users.length > 0">
-        <div *ngFor="let user of users">
-          <label>Name</label
-          ><span>{{ user.first_name}}</span>
-        </div>
-      </div>
-
-      <div *ngIf="loginService.messages.length">
-        <h2>Messages</h2>
-        <button type="button" class="clear" (click)="loginService.clear()">
-          Clear messages
-        </button>
-        <div *ngFor="let message of loginService.messages">
-          {{ message.name }}
-        </div>
-      </div> -->
-      <!-- [routerLink]="['/home']"
-      routerLinkActive="router-link-active" -->
-
       <!-- Boton Inicio con Google -->
       <div class="grid justify-center">
         <button

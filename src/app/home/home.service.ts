@@ -44,9 +44,11 @@ export class HomeService {
   }
 
   processPhotoGoogle(image_url: any): Observable<any> {
+    debugger
     return this.http.get(`${environment.api_django}/api/v1/process-image/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
+          debugger
           // Procesar la imagen aquí
           const imageUrl = await this.processBlobImage(response)
           return imageUrl

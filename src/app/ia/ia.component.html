@@ -1,8 +1,7 @@
 <div class="flex flex-col gap-6 w-full h-full justify-between py-4">
-  <input type="file" (change)="getFile($event)"/>
 
-  <div>
-    <div>{{ output() }}</div>
+  <div class=" h-full">
+   <iframe srcdoc="{{output()}}" class="w-full h-full border-2 rounded-xl border-gray-700 aspect-video" ></iframe>
   </div>
 
   <!-- <pre>
@@ -10,6 +9,7 @@
   </pre> -->
 
   <footer class="w-full h-[15%] justify-center">
+    <input type="file" (change)="getFile($event)"/>
     <div class="flex h-14 items-center w-full relative">
       <input class="w-full h-full p-4 rounded-xl outline-none" type="text" />
       <button class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full" (click)="button()" >

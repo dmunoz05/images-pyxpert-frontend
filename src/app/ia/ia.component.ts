@@ -4,7 +4,7 @@ import { IaServiceService } from './ia-service.service'
 
 export const PROMPT = `You are an expert Tailwind developer
 You take screenshots of a reference web page from the user, and then build single page apps
-using Tailwind, HTML and JS.
+using Tailwind and HTML.
 
 - Make sure the app looks exactly like the screenshot.
 - Pay close attention to background color, text color, font size, font family,
@@ -74,20 +74,23 @@ export class IaComponent {
     this.output.set(null)
     try {
       //Generative code
-      const result = await this.model.generateContent([PROMPT, data])
-      const response = result.response
-      const text = response.text();
-      this.output.set(text)
-      console.log(text);
+      // const result = await this.model.generateContent([PROMPT, data])
+      // const response = result.response
+      // const text = response.text();
+      // this.output.set(text)
+      // console.log(text);
 
-      // const result = await this.model.generateContentStream([PROMPT, data]);
-      // let text = '';
-      // for await (const chunk of result.stream) {
-      //   const chunkText = chunk.text();
-      //   console.log(chunkText);
-      //   text += chunkText;
-      //   this.output.update(text => text += '\n' + chunkText)
-      // }
+      const result = await this.model.generateContentStream([PROMPT, data]);
+      let text = '';
+      for await (const chunk of result.stream) {
+        debugger
+        const chunkText = chunk.text();
+        this.output.set(null)
+        console.log(chunkText);
+        text += chunkText;
+        this.output.set(text)
+        // this.output.update(prev => prev += text)
+      }
     } catch (error) {
       console.log(error);
 
