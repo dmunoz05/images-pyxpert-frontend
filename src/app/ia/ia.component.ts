@@ -1,6 +1,9 @@
-import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core'
-import { GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai'
+import { Component, ElementRef, EventEmitter, Output, ViewChild, inject, signal } from '@angular/core'
+import { GenerativeModel } from '@google/generative-ai'
 import { IaServiceService } from './ia-service.service'
+import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
+import { HomeService } from '../home/home.service'
+import { PhotoResponse } from '../../types/image.type'
 
 export const PROMPT = `You are an expert Tailwind developer
 You take screenshots of a reference web page from the user, and then build single page apps
@@ -30,31 +33,52 @@ Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`
   styleUrl: './ia.component.css'
 })
 export class IaComponent {
-  alert(arg0: number) {
-    throw new Error('Method not implemented.')
-  }
 
   modelImage: GenerativeModel
   modelChat: GenerativeModel
+  modelSelected = signal<string>('default')
+  typeModel = signal<any[]>([{ name: 'Chose a model', value: 'default' }, { name: 'Gemini Pro', value: 'gemini-pro' }, { name: 'Gemini Vision Pro', value: 'gemini-vision-pro' }])
   historyChat = signal<any[]>([])
-  // historyChat = signal<any[]>([
-  //   {
-  //     role: "user",
-  //     parts: [{ text: "Hello, I have 2 dogs in my house." }],
-  //   },
-  //   {
-  //     role: "model",
-  //     parts: [{ text: "Great to meet you. What would you like to know?" }],
-  //   },
-  // ])
+  @Output() showSliderBarEvent = new EventEmitter<boolean>();
   messagePrompt = signal<string>('')
   #googleGeminiService = inject(IaServiceService)
   output = signal<string | null>(null)
-  @ViewChild('prompt') miInput: ElementRef | undefined
+  showPhoto = signal<boolean>(false)
+  dataPhoto: PhotoResponse[] = []
+  @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
-  constructor() {
+  constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService,) {
     this.modelImage = this.#googleGeminiService.createModelImages()
     this.modelChat = this.#googleGeminiService.createModelChat()
+  }
+
+  displaySliderBar() {
+    if (this.layoutHomeService.displaySliderBar()) {
+      this.showSliderBarEvent.emit(false)
+      return
+    }
+    this.showSliderBarEvent.emit(true)
+  }
+
+  openFileInput() {
+    this.fileInput?.nativeElement.click();
+  }
+
+  onFileSelected(event: Event | null) {
+    const inputElement = event?.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const file: File = inputElement.files[0];
+      if (!file.type.includes('image')) {
+        alert('Select only images of type jpg, png o svg')
+        return;
+      }
+      this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
+        debugger
+        console.log(imgUrl);
+        this.showPhoto.set(true)
+        this.dataPhoto = [imgUrl]
+      })
+    }
   }
 
   async getFile(event: Event) {
@@ -77,6 +101,22 @@ export class IaComponent {
     })
     return {
       inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
+    }
+  }
+
+  selectModel(event: Event) {
+    debugger
+    const target = event.target as HTMLSelectElement
+    const value = target.value
+    if (value === 'default') {
+      this.modelSelected.set(value)
+      alert('Select a model')
+    } else if (value === 'gemini-pro') {
+      this.modelSelected.set(value)
+      this.modelImage = this.#googleGeminiService.createModelChat()
+    } else if (value === 'gemini-vision-pro') {
+      this.modelSelected.set(value)
+      this.modelImage = this.#googleGeminiService.createModelImages()
     }
   }
 
@@ -111,7 +151,7 @@ export class IaComponent {
 
   handleMessage() {
     debugger
-    const input = document.getElementById("prompt") as HTMLInputElement
+    const input = document.getElementById(`prompt${this.modelSelected()}`) as HTMLInputElement
     const value = input.value.trim()
     if (value !== '') {
       this.messagePrompt.set(value)
@@ -120,6 +160,7 @@ export class IaComponent {
   }
 
   async generateChat(target: any) {
+    target.value = ''
     const chat = this.modelChat.startChat({
       history: this.historyChat(),
       generationConfig: {
@@ -132,7 +173,6 @@ export class IaComponent {
     const result = await chat.sendMessage(msg)
     const response = await result.response
     const text = response.text()
-    target.value = ''
   }
 
   handleEnterPress(event: Event) {
@@ -142,24 +182,4 @@ export class IaComponent {
       this.generateChat(target)
     }
   }
-
-  // async run() {
-  //   // For text-and-images input (multimodal), use the gemini-pro-vision model
-  //   const modelo = this.model.getGenerativeModel({ model: "gemini-pro-vision" })
-
-  //   const prompt = "What's different between these pictures?"
-
-  //   const fileInputEl = document.querySelector("input[type=file]")
-  //   const imageParts = await Promise.all(
-  //     [...fileInputEl.files].map(this.fileToGenerativePart)
-  //   )
-
-  //   const result = await model.generateContent([prompt, ...imageParts])
-  //   const response = await result.response
-  //   const text = response.text()
-  //   console.log(text)
-  // }
-
-
-
 }
