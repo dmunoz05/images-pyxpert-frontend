@@ -11,6 +11,7 @@ export const routes: Routes = [
       { path: 'pricing', loadComponent: () => import('./layouts/layout-pricing/layout-pricing.component').then(m => m.LayoutPricingComponent) },
       { path: 'documentation', loadComponent: () => import('./layouts/layout-documentation/layout-documentation.component').then(m => m.LayoutDocumentationComponent) },
       { path: 'politice', loadComponent: () => import('./layouts/layout-politice/layout-politice.component').then(m => m.LayoutPoliticeComponent)},
+      { path: 'ia', loadComponent: () => import('./layouts/layout-ia/layout-ia.component').then(m => m.LayoutIaComponent)},
     ]
   },
   //Ruta de error

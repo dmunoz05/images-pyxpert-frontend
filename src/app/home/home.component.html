@@ -12,11 +12,70 @@
         <div class="grid text-center p-4">
           <h1 class="font-bold text-xl">Your image selected is:</h1>
         </div>
-        <div class="grid justify-center h-full w-full">
-          <img
-            class="rounded-lg h-80 w-72"
-            src="{{ dataPhoto[0].baseUrl }}"
-          />
+        <div class="grid justify-center h-fit w-full">
+          <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
+        </div>
+        <div class="flex py-4 justify-center w-full gap-4">
+          <div>
+            <input
+              type="file"
+              #fileInput
+              style="display: none"
+              (change)="onFileSelected($event)"
+            />
+            <button
+              (click)="openFileInput()"
+              class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 19 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M18.3359 9.625V14.625C18.3359 15.3154 17.7763 15.875 17.0859 15.875H2.08594C1.39558 15.875 0.835938 15.3154 0.835938 14.625V9.625C0.835938 8.93464 1.39558 8.375 2.08594 8.375H5.83594C6.18112 8.375 6.46094 8.65482 6.46094 9C6.46094 9.34518 6.18112 9.625 5.83594 9.625H2.08594V14.625H17.0859V9.625H13.3359C12.9908 9.625 12.7109 9.34518 12.7109 9C12.7109 8.65482 12.9908 8.375 13.3359 8.375H17.0859C17.7763 8.375 18.3359 8.93464 18.3359 9.625ZM6.27812 5.06719L8.96094 2.38359V9C8.96094 9.34518 9.24076 9.625 9.58594 9.625C9.93112 9.625 10.2109 9.34518 10.2109 9V2.38359L12.8938 5.06719C13.138 5.3114 13.5339 5.3114 13.7781 5.06719C14.0223 4.82297 14.0223 4.42703 13.7781 4.18281L10.0281 0.432812C9.91089 0.315452 9.75182 0.249508 9.58594 0.249508C9.42006 0.249508 9.26098 0.315452 9.14375 0.432812L5.39375 4.18281C5.14954 4.42703 5.14954 4.82297 5.39375 5.06719C5.63796 5.3114 6.03391 5.3114 6.27812 5.06719ZM15.2109 12.125C15.2109 11.6072 14.7912 11.1875 14.2734 11.1875C13.7557 11.1875 13.3359 11.6072 13.3359 12.125C13.3359 12.6428 13.7557 13.0625 14.2734 13.0625C14.7912 13.0625 15.2109 12.6428 15.2109 12.125Z"
+                  fill="white"
+                />
+              </svg>
+              <span>My pc</span>
+            </button>
+          </div>
+          <div>
+            <button
+              (click)="displaySliderBar()"
+              class="flex gap-4 flex-row items-center justify-center rounded-lg p-[0.80rem] hover:bg-white hover:text-black bg-[#050708]"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 256 262"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid"
+              >
+                <path
+                  d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                  fill="#34A853"
+                />
+                <path
+                  d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                  fill="#EB4335"
+                />
+              </svg>
+              <span class="font-medium">Google</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -45,7 +104,7 @@
             </div>
             <div>
               <button
-              (click)="getShapes(dataPhoto)"
+                (click)="getShapes(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
                 Get shapes

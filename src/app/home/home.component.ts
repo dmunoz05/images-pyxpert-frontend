@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit {
 
   showFunctionColor(data: any) {
     this.homeService.imageSelected = data
-    // this.showfunctionColor.set(true)
     this.router.navigate(['/begin/feature'])
   }
 
@@ -80,6 +79,11 @@ export class HomeComponent implements OnInit {
       return
     }
     this.showSliderBarEvent.emit(true)
+  }
+
+  changeImageSelect() {
+    // this.homeService.imageSelected = data
+    // this.showPhoto.set(true)
   }
 
   processImageSelected(data: any) {
