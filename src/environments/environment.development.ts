@@ -8,5 +8,6 @@ export const environment = {
   crypt_id: '9si56P7SYWIVFKe4rmfpbnTOZd3cBMNU',
   api_url_drive: 'https://www.googleapis.com/drive/v3',
   api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
-  api_django: 'https://images-pyxpert-backend.onrender.com'
+  api_django: 'https://images-pyxpert-backend.onrender.com',
+  api_gemini: 'AIzaSyBvX4M3gpu1xDEyzvRqjJjde-ypjNavqsE',
 }

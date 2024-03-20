@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core'
-import { GenerativeModel } from '@google/generative-ai'
+import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core'
+import { GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai'
 import { IaServiceService } from './ia-service.service'
 
 export const PROMPT = `You are an expert Tailwind developer
@@ -20,7 +20,7 @@ In terms of libraries,
 - You can use Google Fonts
 - Font Awesome for icons: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 
-Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`;
+Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`
 
 @Component({
   selector: 'app-ia',
@@ -30,19 +30,31 @@ Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`;
   styleUrl: './ia.component.css'
 })
 export class IaComponent {
-
-  model: GenerativeModel;
-
-  #googleGeminiService = inject(IaServiceService)
-
-  output = signal<string | null>(null)
-
-  constructor() {
-    this.model = this.#googleGeminiService.createModel()
+  alert(arg0: number) {
+    throw new Error('Method not implemented.')
   }
 
-  button() {
-    alert("Button")
+  modelImage: GenerativeModel
+  modelChat: GenerativeModel
+  historyChat = signal<any[]>([])
+  // historyChat = signal<any[]>([
+  //   {
+  //     role: "user",
+  //     parts: [{ text: "Hello, I have 2 dogs in my house." }],
+  //   },
+  //   {
+  //     role: "model",
+  //     parts: [{ text: "Great to meet you. What would you like to know?" }],
+  //   },
+  // ])
+  messagePrompt = signal<string>('')
+  #googleGeminiService = inject(IaServiceService)
+  output = signal<string | null>(null)
+  @ViewChild('prompt') miInput: ElementRef | undefined
+
+  constructor() {
+    this.modelImage = this.#googleGeminiService.createModelImages()
+    this.modelChat = this.#googleGeminiService.createModelChat()
   }
 
   async getFile(event: Event) {
@@ -50,8 +62,8 @@ export class IaComponent {
     if (target.files && target.files.length > 0) {
       const file = target.files?.[0]
       const data = await this.fileToGenerativePart(file)
-      console.log(data);
-      this.generateCode(data);
+      console.log(data)
+      this.generateCode(data)
     }
   }
 
@@ -69,49 +81,85 @@ export class IaComponent {
   }
 
   async generateCode(data: any) {
-    if (!this.model) return
+    if (!this.modelImage) return
 
     this.output.set(null)
     try {
       //Generative code
       // const result = await this.model.generateContent([PROMPT, data])
       // const response = result.response
-      // const text = response.text();
+      // const text = response.text()
       // this.output.set(text)
-      // console.log(text);
+      // console.log(text)
 
-      const result = await this.model.generateContentStream([PROMPT, data]);
-      let text = '';
+      const result = await this.modelImage.generateContentStream([PROMPT, data])
+      let text = ''
       for await (const chunk of result.stream) {
         debugger
-        const chunkText = chunk.text();
+        const chunkText = chunk.text()
         this.output.set(null)
-        console.log(chunkText);
-        text += chunkText;
+        console.log(chunkText)
+        text += chunkText
         this.output.set(text)
         // this.output.update(prev => prev += text)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
 
+    }
+  }
+
+  handleMessage() {
+    debugger
+    const input = document.getElementById("prompt") as HTMLInputElement
+    const value = input.value.trim()
+    if (value !== '') {
+      this.messagePrompt.set(value)
+      this.generateChat(input)
+    }
+  }
+
+  async generateChat(target: any) {
+    const chat = this.modelChat.startChat({
+      history: this.historyChat(),
+      generationConfig: {
+        maxOutputTokens: 100,
+      },
+    })
+
+    const msg = this.messagePrompt()
+
+    const result = await chat.sendMessage(msg)
+    const response = await result.response
+    const text = response.text()
+    target.value = ''
+  }
+
+  handleEnterPress(event: Event) {
+    const target = event.target as HTMLInputElement
+    if (target.value.trim() !== '') {
+      this.messagePrompt.set(target.value)
+      this.generateChat(target)
     }
   }
 
   // async run() {
   //   // For text-and-images input (multimodal), use the gemini-pro-vision model
-  //   const modelo = this.model.getGenerativeModel({ model: "gemini-pro-vision" });
+  //   const modelo = this.model.getGenerativeModel({ model: "gemini-pro-vision" })
 
-  //   const prompt = "What's different between these pictures?";
+  //   const prompt = "What's different between these pictures?"
 
-  //   const fileInputEl = document.querySelector("input[type=file]");
+  //   const fileInputEl = document.querySelector("input[type=file]")
   //   const imageParts = await Promise.all(
   //     [...fileInputEl.files].map(this.fileToGenerativePart)
-  //   );
+  //   )
 
-  //   const result = await model.generateContent([prompt, ...imageParts]);
-  //   const response = await result.response;
-  //   const text = response.text();
-  //   console.log(text);
+  //   const result = await model.generateContent([prompt, ...imageParts])
+  //   const response = await result.response
+  //   const text = response.text()
+  //   console.log(text)
   // }
+
+
 
 }
