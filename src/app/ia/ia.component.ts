@@ -34,6 +34,7 @@ Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`
 })
 export class IaComponent {
 
+
   modelImage: GenerativeModel
   modelChat: GenerativeModel
   modelSelected = signal<string>('default')
@@ -44,6 +45,7 @@ export class IaComponent {
   #googleGeminiService = inject(IaServiceService)
   output = signal<string | null>(null)
   showPhoto = signal<boolean>(false)
+  showIframe = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
@@ -64,7 +66,7 @@ export class IaComponent {
     this.fileInput?.nativeElement.click();
   }
 
-  onFileSelected(event: Event | null) {
+  async onFileSelected(event: Event | null) {
     const inputElement = event?.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0];
@@ -72,12 +74,16 @@ export class IaComponent {
         alert('Select only images of type jpg, png o svg')
         return;
       }
-      this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
-        debugger
-        console.log(imgUrl);
-        this.showPhoto.set(true)
-        this.dataPhoto = [imgUrl]
-      })
+      debugger
+      const data = await this.fileToGenerativePart(file)
+      console.log(data)
+      this.generateCode(data)
+      // this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
+      //   debugger
+      //   console.log(imgUrl);
+      //   this.showPhoto.set(true)
+      //   this.dataPhoto = [imgUrl]
+      // })
     }
   }
 
@@ -134,10 +140,10 @@ export class IaComponent {
 
       const result = await this.modelImage.generateContentStream([PROMPT, data])
       let text = ''
+      this.showIframe.set(true)
       for await (const chunk of result.stream) {
         debugger
         const chunkText = chunk.text()
-        this.output.set(null)
         console.log(chunkText)
         text += chunkText
         this.output.set(text)

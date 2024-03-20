@@ -1,250 +1,260 @@
 <div class="relative flex flex-col gap-6 w-full h-full justify-between py-4">
-  <!-- <div class=" h-full">
-   <iframe srcdoc="{{output()}}" class="w-[50%] h-[50%] border-2 rounded-xl border-gray-700 aspect-video" ></iframe>
-  </div>
+  <!-- <input type="file" (change)="getFile($event)" /> -->
 
-  <input type="file" (change)="getFile($event)"/> -->
-
-  <section class="h-full mb-28">
-    <div class="flex gap-4 justify-between items-center py-2">
-      <div class="flex items-center gap-4 w-fit">
-        <div>
-          <h1 class="w-full">Select a model:</h1>
-        </div>
-        <div>
-          <select
-            id="model"
-            class="bg-gray-50 border p-3 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            (change)="selectModel($event)"
-          >
-            @for (item of typeModel(); track $index) {
-            <option value="{{ item.value }}">{{ item.name }}</option>
-            }
-          </select>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        @if (modelSelected() == 'gemini-vision-pro') {
-        <div>
-          <h1>Upload your image from</h1>
-        </div>
-        <div>
-          <input
-            type="file"
-            #fileInput
-            style="display: none"
-            (change)="onFileSelected($event)"
-          />
-          <button
-            (click)="openFileInput()"
-            class="flex flex-row items-center justify-center gap-4 rounded-lg py-[0.6rem] px-2 bg-fifth-color hover:bg-[#050708] hover:text-white"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 19 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+  <div class="h-full w-full">
+    <section class="relative h-full pb-44">
+      <div class="flex gap-4 justify-between items-center py-2">
+        <div class="flex items-center gap-4 w-fit">
+          <div>
+            <h1 class="w-full">Select a model:</h1>
+          </div>
+          <div>
+            <select
+              id="model"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              (change)="selectModel($event)"
             >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M18.3359 9.625V14.625C18.3359 15.3154 17.7763 15.875 17.0859 15.875H2.08594C1.39558 15.875 0.835938 15.3154 0.835938 14.625V9.625C0.835938 8.93464 1.39558 8.375 2.08594 8.375H5.83594C6.18112 8.375 6.46094 8.65482 6.46094 9C6.46094 9.34518 6.18112 9.625 5.83594 9.625H2.08594V14.625H17.0859V9.625H13.3359C12.9908 9.625 12.7109 9.34518 12.7109 9C12.7109 8.65482 12.9908 8.375 13.3359 8.375H17.0859C17.7763 8.375 18.3359 8.93464 18.3359 9.625ZM6.27812 5.06719L8.96094 2.38359V9C8.96094 9.34518 9.24076 9.625 9.58594 9.625C9.93112 9.625 10.2109 9.34518 10.2109 9V2.38359L12.8938 5.06719C13.138 5.3114 13.5339 5.3114 13.7781 5.06719C14.0223 4.82297 14.0223 4.42703 13.7781 4.18281L10.0281 0.432812C9.91089 0.315452 9.75182 0.249508 9.58594 0.249508C9.42006 0.249508 9.26098 0.315452 9.14375 0.432812L5.39375 4.18281C5.14954 4.42703 5.14954 4.82297 5.39375 5.06719C5.63796 5.3114 6.03391 5.3114 6.27812 5.06719ZM15.2109 12.125C15.2109 11.6072 14.7912 11.1875 14.2734 11.1875C13.7557 11.1875 13.3359 11.6072 13.3359 12.125C13.3359 12.6428 13.7557 13.0625 14.2734 13.0625C14.7912 13.0625 15.2109 12.6428 15.2109 12.125Z"
-                fill="white"
-              />
-            </svg>
-            <span>My pc</span>
-          </button>
+              @for (item of typeModel(); track $index) {
+              <option value="{{ item.value }}">{{ item.name }}</option>
+              }
+            </select>
+          </div>
         </div>
-        <div>
-          <button
-            (click)="displaySliderBar()"
-            class="flex gap-4 flex-row items-center justify-center rounded-lg py-[0.7rem] px-3 hover:bg-white hover:text-black bg-[#050708]"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 256 262"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMidYMid"
+        <div class="flex items-center gap-4">
+          @if (modelSelected() == 'gemini-vision-pro') {
+          <div>
+            <h1>Upload your image from</h1>
+          </div>
+          <div>
+            <input
+              type="file"
+              #fileInput
+              style="display: none"
+              (change)="onFileSelected($event)"
+            />
+            <button
+              (click)="openFileInput()"
+              class="flex flex-row items-center justify-center gap-4 rounded-lg py-[0.6rem] px-2 bg-fifth-color hover:bg-[#050708] hover:text-white"
             >
-              <path
-                d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
-                fill="#4285F4"
-              />
-              <path
-                d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
-                fill="#34A853"
-              />
-              <path
-                d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
-                fill="#FBBC05"
-              />
-              <path
-                d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
-                fill="#EB4335"
-              />
-            </svg>
-            <span class="font-medium">Google</span>
-          </button>
-        </div>
-        }
-      </div>
-    </div>
-    <ul class="flex flex-col gap-6 px-4">
-      @for (item of historyChat(); track $index) { @if (showPhoto()) {
-      <div class="grid justify-center h-fit w-full">
-        <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
-      </div>
-      }
-      <li class="flex items-center gap-4">
-        @if (item.role == "model") {
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="icon icon-tabler icons-tabler-filled icon-tabler-diamonds"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M12 2.005c-.777 0 -1.508 .367 -1.971 .99l-5.362 6.895c-.89 1.136 -.89 3.083 0 4.227l5.375 6.911a2.457 2.457 0 0 0 3.93 -.017l5.361 -6.894c.89 -1.136 .89 -3.083 0 -4.227l-5.375 -6.911a2.446 2.446 0 0 0 -1.958 -.974z"
-          />
-        </svg>
-        } @else {
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="icon icon-tabler icons-tabler-filled icon-tabler-user"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-          <path
-            d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"
-          />
-        </svg>
-        }
-        <h1>
-          @if (item.role == 'user') {
-          <span>User:</span>
-          } @else {
-          <span>Model:</span>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 19 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M18.3359 9.625V14.625C18.3359 15.3154 17.7763 15.875 17.0859 15.875H2.08594C1.39558 15.875 0.835938 15.3154 0.835938 14.625V9.625C0.835938 8.93464 1.39558 8.375 2.08594 8.375H5.83594C6.18112 8.375 6.46094 8.65482 6.46094 9C6.46094 9.34518 6.18112 9.625 5.83594 9.625H2.08594V14.625H17.0859V9.625H13.3359C12.9908 9.625 12.7109 9.34518 12.7109 9C12.7109 8.65482 12.9908 8.375 13.3359 8.375H17.0859C17.7763 8.375 18.3359 8.93464 18.3359 9.625ZM6.27812 5.06719L8.96094 2.38359V9C8.96094 9.34518 9.24076 9.625 9.58594 9.625C9.93112 9.625 10.2109 9.34518 10.2109 9V2.38359L12.8938 5.06719C13.138 5.3114 13.5339 5.3114 13.7781 5.06719C14.0223 4.82297 14.0223 4.42703 13.7781 4.18281L10.0281 0.432812C9.91089 0.315452 9.75182 0.249508 9.58594 0.249508C9.42006 0.249508 9.26098 0.315452 9.14375 0.432812L5.39375 4.18281C5.14954 4.42703 5.14954 4.82297 5.39375 5.06719C5.63796 5.3114 6.03391 5.3114 6.27812 5.06719ZM15.2109 12.125C15.2109 11.6072 14.7912 11.1875 14.2734 11.1875C13.7557 11.1875 13.3359 11.6072 13.3359 12.125C13.3359 12.6428 13.7557 13.0625 14.2734 13.0625C14.7912 13.0625 15.2109 12.6428 15.2109 12.125Z"
+                  fill="white"
+                />
+              </svg>
+              <span>My pc</span>
+            </button>
+          </div>
+          <div>
+            <button
+              (click)="displaySliderBar()"
+              class="flex gap-4 flex-row items-center justify-center rounded-lg py-[0.7rem] px-3 hover:bg-white hover:text-black bg-[#050708]"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 256 262"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid"
+              >
+                <path
+                  d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                  fill="#34A853"
+                />
+                <path
+                  d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                  fill="#EB4335"
+                />
+              </svg>
+              <span class="font-medium">Google</span>
+            </button>
+          </div>
           }
-        </h1>
-        <span>{{ item.parts[0].text }}</span>
-      </li>
+        </div>
+      </div>
+
+      @if (modelSelected() == 'gemini-pro') {
+      <ul class="flex flex-col gap-6 px-4">
+        @for (item of historyChat(); track $index) { @if (showPhoto()) {
+        <div class="grid justify-center h-fit w-full">
+          <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
+        </div>
+        }
+        <li class="flex items-center gap-4">
+          @if (item.role == "model") {
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-diamonds"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M12 2.005c-.777 0 -1.508 .367 -1.971 .99l-5.362 6.895c-.89 1.136 -.89 3.083 0 4.227l5.375 6.911a2.457 2.457 0 0 0 3.93 -.017l5.361 -6.894c.89 -1.136 .89 -3.083 0 -4.227l-5.375 -6.911a2.446 2.446 0 0 0 -1.958 -.974z"
+            />
+          </svg>
+          } @else {
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon icon-tabler icons-tabler-filled icon-tabler-user"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+            <path
+              d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"
+            />
+          </svg>
+          }
+          <h1>
+            @if (item.role == 'user') {
+            <span>User:</span>
+            } @else {
+            <span>Model:</span>
+            }
+          </h1>
+          <span>{{ item.parts[0].text }}</span>
+        </li>
+        }
+      </ul>
+      } @else if(modelSelected() == 'gemini-vision-pro') {
+      <div class="h-full">
+        @if (showIframe()) {
+        <iframe
+          srcdoc="{{ output() }}"
+          class="w-[50%] h-[50%] border-2 rounded-xl border-gray-700 aspect-video"
+        ></iframe>
+        }
+      </div>
       }
-    </ul>
-  </section>
+    </section>
 
-  <section class="absolute bottom-2 w-full h-[20%] justify-center">
-    @if (modelSelected() == 'default') {
-    <div class="flex h-14 items-center w-full relative">
-      <input
-        autocomplete="off"
-        disabled
-        id="prompt-default"
-        #prompt
-        class="w-full h-full p-4 rounded-xl outline-none"
-        type="text"
-      />
-      <button
-        disabled
-        class="absolute bg-second-color opacity-25 rounded-e-xl px-4 right-0 h-full"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+    <section class="absolute bottom-2 w-full h-[15%] justify-center">
+      @if (modelSelected() == 'default') {
+      <div class="flex h-14 items-center w-full relative">
+        <input
+          autocomplete="off"
+          disabled
+          id="prompt-default"
+          #prompt
+          class="w-full h-full p-4 rounded-xl outline-none"
+          type="text"
+        />
+        <button
+          disabled
+          class="absolute bg-second-color opacity-25 rounded-e-xl px-4 right-0 h-full"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
-          />
-          <path d="M6.5 12h14.5" />
-        </svg>
-      </button>
-    </div>
-    } @else if (modelSelected() == 'gemini-pro') {
-    <div class="flex h-14 items-center w-full relative">
-      <input
-        autocomplete="off"
-        id="prompt-gemini-pro"
-        #prompt
-        class="w-full h-full p-4 rounded-xl outline-none"
-        type="text"
-        (change)="handleEnterPress($event)"
-      />
-      <button
-        class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full"
-        (click)="handleMessage()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
+            />
+            <path d="M6.5 12h14.5" />
+          </svg>
+        </button>
+      </div>
+      } @else if (modelSelected() == 'gemini-pro') {
+      <div class="flex h-14 items-center w-full relative">
+        <input
+          autocomplete="off"
+          id="prompt-gemini-pro"
+          #prompt
+          class="w-full h-full p-4 rounded-xl outline-none"
+          type="text"
+          (change)="handleEnterPress($event)"
+        />
+        <button
+          class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full"
+          (click)="handleMessage()"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
-          />
-          <path d="M6.5 12h14.5" />
-        </svg>
-      </button>
-    </div>
-    } @else if (modelSelected() == 'gemini-vision-pro') {
-    <div class="flex h-14 items-center w-full relative">
-      <input
-        autocomplete="off"
-        id="prompt-gemini-vision-pro"
-        #prompt
-        class="w-full h-full p-4 rounded-xl outline-none"
-        type="text"
-        (change)="handleEnterPress($event)"
-      />
-      <button
-        class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full"
-        (click)="handleMessage()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
+            />
+            <path d="M6.5 12h14.5" />
+          </svg>
+        </button>
+      </div>
+      } @else if (modelSelected() == 'gemini-vision-pro') {
+      <div class="flex h-14 items-center w-full relative">
+        <input
+          autocomplete="off"
+          id="prompt-gemini-vision-pro"
+          #prompt
+          class="w-full h-full p-4 rounded-xl outline-none"
+          type="text"
+          (change)="handleEnterPress($event)"
+        />
+        <button
+          class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full"
+          (click)="handleMessage()"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
-          />
-          <path d="M6.5 12h14.5" />
-        </svg>
-      </button>
-    </div>
-    }
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-send-2"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z"
+            />
+            <path d="M6.5 12h14.5" />
+          </svg>
+        </button>
+      </div>
+      }
 
-    <div class="text-center p-2">
-      <h1>Insert a prompt to interact with the model</h1>
-    </div>
-  </section>
+      <div class="text-center p-2">
+        <h1>Insert a prompt to interact with the model</h1>
+      </div>
+    </section>
+  </div>
 </div>
