@@ -33,6 +33,7 @@ export class LoginService {
   userProfileSubject = new Subject()
 
   constructor(private http: HttpClient, private oAuthService: OAuthService) {
+    debugger
     this.processECB(this.btaClientId)
   }
 
@@ -44,6 +45,7 @@ export class LoginService {
 
   async desencryptCrypto(value: string) {
     const response = await this.getKeyApi(environment.crypt_id_clientId)
+    debugger
     const decrypted = CryptoJS.AES.decrypt(value, CryptoJS.enc.Utf8.parse(response.key), {
       keySize: 128 / 8,
       iv: CryptoJS.enc.Utf8.parse(response.iv),
@@ -54,13 +56,16 @@ export class LoginService {
   }
 
   getKeyApi(id: string): Promise<any> {
+    debugger
     return new Promise((resolve, reject) => {
       this.http.get(`${environment.api_django}/api/v1/key-vi-client-id/?key=${id}`).pipe(
         catchError((error: any) => {
+          debugger
           reject(error)
           return throwError(error)
         })
       ).subscribe((response: any) => {
+        debugger
         resolve(response.message)
       })
     })
