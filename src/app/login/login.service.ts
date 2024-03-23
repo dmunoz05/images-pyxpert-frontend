@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment'
 import { userInfo } from '../../types/user-info.type'
 import { listPhotos, MediaItems } from '../../types/list-photos.types'
 import CryptoJS from 'crypto-js'
-import { decrypt } from 'dotenv'
 
 const oAuthConfig: AuthConfig = {
   issuer: environment.issuer,
@@ -25,7 +24,7 @@ export class LoginService {
   private readonly apiUrlDrive = environment.api_url_drive
   private readonly apiUrlFotos = environment.api_url_fotos
 
-  btaClientId: string = environment.btoa_id
+  btaClientId: string = environment.btoa_id_clientId
   userInfo: userInfo = {} as userInfo
   key: string = ''
   iv: string = ''
@@ -44,7 +43,7 @@ export class LoginService {
   }
 
   async desencryptCrypto(value: string) {
-    const response = await this.getKeyApi(environment.crypt_id)
+    const response = await this.getKeyApi(environment.crypt_id_clientId)
     const decrypted = CryptoJS.AES.decrypt(value, CryptoJS.enc.Utf8.parse(response.key), {
       keySize: 128 / 8,
       iv: CryptoJS.enc.Utf8.parse(response.iv),
@@ -56,7 +55,7 @@ export class LoginService {
 
   getKeyApi(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${environment.api_django}/api/v1/key-vi/?key=${id}`).pipe(
+      this.http.get(`${environment.api_django}/api/v1/key-vi-client-id/?key=${id}`).pipe(
         catchError((error: any) => {
           reject(error)
           return throwError(error)

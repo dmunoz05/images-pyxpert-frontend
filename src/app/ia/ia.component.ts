@@ -34,9 +34,8 @@ Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`
 })
 export class IaComponent {
 
-
-  modelImage: GenerativeModel
-  modelChat: GenerativeModel
+  modelImage: GenerativeModel | undefined
+  modelChat: GenerativeModel | undefined
   modelSelected = signal<string>('default')
   typeModel = signal<any[]>([{ name: 'Chose a model', value: 'default' }, { name: 'Gemini Pro', value: 'gemini-pro' }, { name: 'Gemini Vision Pro', value: 'gemini-vision-pro' }])
   historyChat = signal<any[]>([])
@@ -49,7 +48,12 @@ export class IaComponent {
   dataPhoto: PhotoResponse[] = []
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
-  constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService,) {
+  constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService, private iaService: IaServiceService) {
+    this.loadModelWithApi()
+  }
+
+  async loadModelWithApi() {
+    await this.iaService.processECB(this.iaService.btoaApiKey)
     this.modelImage = this.#googleGeminiService.createModelImages()
     this.modelChat = this.#googleGeminiService.createModelChat()
   }
@@ -162,7 +166,7 @@ export class IaComponent {
 
   async generateChat(target: any) {
     target.value = ''
-    const chat = this.modelChat.startChat({
+    const chat = this.modelChat?.startChat({
       history: this.historyChat(),
       generationConfig: {
         maxOutputTokens: 100,
@@ -171,9 +175,9 @@ export class IaComponent {
 
     const msg = this.messagePrompt()
 
-    const result = await chat.sendMessage(msg)
-    const response = await result.response
-    const text = response.text()
+    const result = await chat?.sendMessage(msg)
+    const response = await result?.response
+    const text = response?.text()
   }
 
   handleEnterPress(event: Event) {
