@@ -81,67 +81,21 @@ export class HomeComponent implements OnInit {
     this.showSliderBarEvent.emit(true)
   }
 
-  // Función para convertir una imagen base64 a una URL
-  async base64ToUrl(base64String: any) {
-    debugger
-    // Crea un nuevo objeto FileReader
-    const reader = new FileReader()
-    // Define la función de callback cuando se complete la lectura del archivo
-    reader.onload = function (e) {
-      debugger
-      // La URL de la imagen será el resultado de la lectura
-      const imageUrl = e.target?.result as string
-
-      // Ahora puedes usar la URL de la imagen para mostrarla en tu aplicación
-      // Por ejemplo, puedes asignarla al src de una etiqueta <img>
-      // const imgElement = document.createElement('img')
-      // imgElement.src = imageUrl
-      // document.body.appendChild(imgElement) // Añade la imagen al body, puedes cambiar esto según tu necesidad
-    }
-
-    // Lee el contenido base64 como una URL
-    reader.readAsDataURL(base64String)
-  }
-
-  async previewImage(file: any) {
-    debugger
-
-    const stream = new  MediaStream();
-
-    file = stream.getTracks().forEach(track => {
-      track.stop()
-    })
-
-    //Creamos la url
-    const objectURL = file
-
-    //Modificamos el atributo src de la etiqueta img
-    const imgPreview = objectURL
-    return imgPreview
-  }
-
   processSynceGoogle(image: string) {
     this.homeService.processPhotoGoogle(image).subscribe((imgUrl) => {
-      debugger
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
   }
 
-  async processSynceMyPc(image: string) {
-    // const urlImg = await this.previewImage(image)
-    // console.log(urlImg)
-    debugger
-    const urlImg = image
-    this.homeService.processPhotoPC(urlImg).subscribe((imgUrl) => {
-      debugger
+  processSynceMyPc(image: string) {
+    this.homeService.processPhotoPC(image).subscribe((imgUrl) => {
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
   }
 
   processImageSelected(data: any) {
-    debugger
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
       this.processSynceGoogle(data[0].baseUrl)

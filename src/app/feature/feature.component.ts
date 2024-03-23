@@ -25,7 +25,6 @@ export class FeatureComponent implements OnInit {
   }
 
   loadImageProcesed() {
-    debugger
     this.image = this.homeService.imageResponseProcess
     if(this.image !== undefined) {
       this.showImage.set(true)

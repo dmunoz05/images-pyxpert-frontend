@@ -74,12 +74,10 @@ export class IaComponent {
         alert('Select only images of type jpg, png o svg')
         return;
       }
-      debugger
       const data = await this.fileToGenerativePart(file)
       console.log(data)
       this.generateCode(data)
       // this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
-      //   debugger
       //   console.log(imgUrl);
       //   this.showPhoto.set(true)
       //   this.dataPhoto = [imgUrl]
@@ -111,7 +109,6 @@ export class IaComponent {
   }
 
   selectModel(event: Event) {
-    debugger
     const target = event.target as HTMLSelectElement
     const value = target.value
     if (value === 'default') {
@@ -142,7 +139,6 @@ export class IaComponent {
       let text = ''
       this.showIframe.set(true)
       for await (const chunk of result.stream) {
-        debugger
         const chunkText = chunk.text()
         console.log(chunkText)
         text += chunkText
@@ -156,7 +152,6 @@ export class IaComponent {
   }
 
   handleMessage() {
-    debugger
     const input = document.getElementById(`prompt${this.modelSelected()}`) as HTMLInputElement
     const value = input.value.trim()
     if (value !== '') {
