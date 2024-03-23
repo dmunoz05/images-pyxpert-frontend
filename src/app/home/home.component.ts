@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
   userInfo = signal<userInfo>({} as userInfo)
   basicChart: any
   imagenBase64: any
-  @ViewChild('fileInput') fileInput: ElementRef | undefined;
-  @Output() showSliderBarEvent = new EventEmitter<boolean>();
+  @ViewChild('fileInput') fileInput: ElementRef | undefined
+  @Output() showSliderBarEvent = new EventEmitter<boolean>()
 
   ngOnInit() {
     //Obtener datos de usuario al inicio del home o cuando cambia de pagina
@@ -85,22 +85,39 @@ export class HomeComponent implements OnInit {
   async base64ToUrl(base64String: any) {
     debugger
     // Crea un nuevo objeto FileReader
-    const reader = new FileReader();
+    const reader = new FileReader()
     // Define la función de callback cuando se complete la lectura del archivo
     reader.onload = function (e) {
       debugger
       // La URL de la imagen será el resultado de la lectura
-      const imageUrl = e.target?.result as string;
+      const imageUrl = e.target?.result as string
 
       // Ahora puedes usar la URL de la imagen para mostrarla en tu aplicación
       // Por ejemplo, puedes asignarla al src de una etiqueta <img>
-      // const imgElement = document.createElement('img');
-      // imgElement.src = imageUrl;
-      // document.body.appendChild(imgElement); // Añade la imagen al body, puedes cambiar esto según tu necesidad
-    };
+      // const imgElement = document.createElement('img')
+      // imgElement.src = imageUrl
+      // document.body.appendChild(imgElement) // Añade la imagen al body, puedes cambiar esto según tu necesidad
+    }
 
     // Lee el contenido base64 como una URL
-    reader.readAsDataURL(base64String);
+    reader.readAsDataURL(base64String)
+  }
+
+  async previewImage(file: any) {
+    debugger
+
+    const stream = new  MediaStream();
+
+    file = stream.getTracks().forEach(track => {
+      track.stop()
+    })
+
+    //Creamos la url
+    const objectURL = file
+
+    //Modificamos el atributo src de la etiqueta img
+    const imgPreview = objectURL
+    return imgPreview
   }
 
   processSynceGoogle(image: string) {
@@ -112,10 +129,11 @@ export class HomeComponent implements OnInit {
   }
 
   async processSynceMyPc(image: string) {
-    const urlImg = await this.base64ToUrl(image)
-    console.log(urlImg);
+    // const urlImg = await this.previewImage(image)
+    // console.log(urlImg)
     debugger
-    this.homeService.processPhotoGoogle(urlImg).subscribe((imgUrl) => {
+    const urlImg = image
+    this.homeService.processPhotoPC(urlImg).subscribe((imgUrl) => {
       debugger
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
@@ -134,16 +152,16 @@ export class HomeComponent implements OnInit {
   }
 
   openFileInput() {
-    this.fileInput?.nativeElement.click();
+    this.fileInput?.nativeElement.click()
   }
 
   onFileSelected(event: Event | null) {
-    const inputElement = event?.target as HTMLInputElement;
+    const inputElement = event?.target as HTMLInputElement
     if (inputElement.files && inputElement.files.length > 0) {
-      const file: File = inputElement.files[0];
+      const file: File = inputElement.files[0]
       if (!file.type.includes('image')) {
         alert('Select only images of type jpg, png o svg')
-        return;
+        return
       }
       this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
         this.showPhoto.set(true)

@@ -43,9 +43,16 @@ export class HomeService {
     return { baseUrl: imgUrl}
   }
 
+  processImage(imageFile: File) {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    return this.http.post('http://tu-servidor-django/process_image/', formData);
+  }
+
   processPhotoGoogle(image_url: any): Observable<any> {
     debugger
-    return this.http.get(`${environment.api_django}/api/v1/process-image/?image_url=${image_url}`, { responseType: 'blob' })
+    return this.http.get(`${environment.api_django}/api/v1/process-image-google/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           debugger
@@ -54,5 +61,23 @@ export class HomeService {
           return imageUrl
         })
       )
+  }
+
+  processPhotoPC(imageBase64: any): Observable<any> {
+    debugger
+    // const formData = new FormData();
+    // formData.append('image', imageBase64);
+
+    //Quitar data:image/png;base64 de la image
+    const image = imageBase64.split('data:image/png;')[1]
+    // formData.append('image', image);
+
+    return this.http.get(`${environment.api_django}/api/v1/process-image-pc/?image=${image}`, { responseType: 'blob' })
+      .pipe(
+        map((response: any) => {
+          debugger
+          return response
+        }
+      ))
   }
 }
