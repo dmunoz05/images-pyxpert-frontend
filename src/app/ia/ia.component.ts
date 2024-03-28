@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild, inject, signal } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject, signal } from '@angular/core'
 import { GenerativeModel } from '@google/generative-ai'
 import { IaServiceService } from './ia-service.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
@@ -46,6 +46,7 @@ export class IaComponent {
   showPhoto = signal<boolean>(false)
   showIframe = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
+  @Input() userPicture: string | undefined
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
   constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService, private iaService: IaServiceService) {
