@@ -39,7 +39,17 @@ export class IaComponent {
   modelSelected = signal<string>('default')
   typeModel = signal<any[]>([{ name: 'Chose a model', value: 'default' }, { name: 'Gemini Pro', value: 'gemini-pro' }, { name: 'Gemini Vision Pro', value: 'gemini-vision-pro' }])
   historyChat = signal<any[]>([])
-  @Output() showSliderBarEvent = new EventEmitter<boolean>();
+  // historyChat = signal<any[]>([
+  //   {
+  //     role: "user",
+  //     parts: [{ text: "Hello, I have 2 dogs in my house." }],
+  //   },
+  //   {
+  //     role: "model",
+  //     parts: [{ text: "Great to meet you. What would you like to know?" }],
+  //   },
+  // ])
+  @Output() showSliderBarEvent = new EventEmitter<boolean>()
   messagePrompt = signal<string>('')
   #googleGeminiService = inject(IaServiceService)
   output = signal<string | null>(null)
@@ -47,7 +57,7 @@ export class IaComponent {
   showIframe = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
   @Input() userPicture: string | undefined
-  @ViewChild('fileInput') fileInput: ElementRef | undefined;
+  @ViewChild('fileInput') fileInput: ElementRef | undefined
 
   constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService, private iaService: IaServiceService) {
     this.loadModelWithApi()
@@ -68,22 +78,22 @@ export class IaComponent {
   }
 
   openFileInput() {
-    this.fileInput?.nativeElement.click();
+    this.fileInput?.nativeElement.click()
   }
 
   async onFileSelected(event: Event | null) {
-    const inputElement = event?.target as HTMLInputElement;
+    const inputElement = event?.target as HTMLInputElement
     if (inputElement.files && inputElement.files.length > 0) {
-      const file: File = inputElement.files[0];
+      const file: File = inputElement.files[0]
       if (!file.type.includes('image')) {
         alert('Select only images of type jpg, png o svg')
-        return;
+        return
       }
       const data = await this.fileToGenerativePart(file)
       console.log(data)
       this.generateCode(data)
       // this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
-      //   console.log(imgUrl);
+      //   console.log(imgUrl)
       //   this.showPhoto.set(true)
       //   this.dataPhoto = [imgUrl]
       // })
@@ -175,10 +185,27 @@ export class IaComponent {
     })
 
     const msg = this.messagePrompt()
+    const result = await chat?.sendMessageStream(msg)
 
+    //Response with stream
+    const stream = result?.stream
+    const { value, done: isDone }: any = await stream?.next()
+    const text = value.text()
+  }
+
+  async generateChatNotStreaming(target: any) {
+    target.value = ''
+    const chat = this.modelChat?.startChat({
+      history: this.historyChat(),
+      generationConfig: {
+        maxOutputTokens: 100,
+      },
+    })
+
+    const msg = this.messagePrompt()
     const result = await chat?.sendMessage(msg)
     const response = await result?.response
-    const text = response?.text()
+    const text = response?.text() || 'Error'
   }
 
   handleEnterPress(event: Event) {

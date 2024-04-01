@@ -48,8 +48,6 @@ export class IaServiceService {
   }
 
   createModelImages() {
-
-
     return this.gentAi.getGenerativeModel({
       model: 'gemini-pro-vision',
       generationConfig: {

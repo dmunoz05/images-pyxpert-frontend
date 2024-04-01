@@ -30,17 +30,17 @@ export class LayoutComponent implements OnInit {
       this.userPicture = this.userInfo.info.picture
 
       //Obtener datos de drive y añadirlas
-      this.loginService.listFiles().subscribe(data => {
-        const filesJpg = data.files.filter((file: { name: string }) => file.name.endsWith('.jpg'))
-        this.loginService.userFiles = filesJpg
-      })
+      // this.loginService.listFiles().subscribe(data => {
+      //   const filesJpg = data.files.filter((file: { name: string }) => file.name.endsWith('.jpg'))
+      //   this.loginService.userFiles = filesJpg
+      // })
 
       //Obtener fotos de google fotos y añadirlas
-      this.loginService.listPhotos().subscribe(data => {
-        //Buscar solo mimtype jpg
-        const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
-        this.loginService.userPhotos = filesJpg
-      })
+      // this.loginService.listPhotos().subscribe(data => {
+      //   //Buscar solo mimtype jpg
+      //   const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
+      //   this.loginService.userPhotos = filesJpg
+      // })
     })
   }
 }
