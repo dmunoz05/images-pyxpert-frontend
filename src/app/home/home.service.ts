@@ -49,7 +49,6 @@ export class HomeService {
     return this.http.post(`${environment.api_django}/api/v1/process-search-contourn/`, requestBody, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
-          debugger
           const imageUrl = await this.processBlobImage(response)
           return imageUrl
         })
