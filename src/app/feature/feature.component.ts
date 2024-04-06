@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, signal } from '@angular/core';
 import { userInfo } from '../../types/user-info.type';
 import { HomeService } from '../home/home.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-feature',
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class FeatureComponent implements OnInit {
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, private router: Router) { }
 
   @Input() userInfo!: userInfo
 

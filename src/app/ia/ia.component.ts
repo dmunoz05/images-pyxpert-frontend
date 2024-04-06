@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject, signal } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject, signal } from '@angular/core'
 import { GenerativeModel } from '@google/generative-ai'
 import { IaServiceService } from './ia-service.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
@@ -32,7 +32,7 @@ Do not include markdown "\`\`\`" or "\`\`\`html" at the start or end.`
   templateUrl: './ia.component.html',
   styleUrl: './ia.component.css'
 })
-export class IaComponent {
+export class IaComponent implements OnInit {
 
   modelImage: GenerativeModel | undefined
   modelChat: GenerativeModel | undefined
@@ -60,6 +60,10 @@ export class IaComponent {
   @ViewChild('fileInput') fileInput: ElementRef | undefined
 
   constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService, private iaService: IaServiceService) {
+    // this.loadModelWithApi()
+  }
+
+  ngOnInit(): void {
     this.loadModelWithApi()
   }
 
@@ -155,7 +159,6 @@ export class IaComponent {
       this.showIframe.set(true)
       for await (const chunk of result.stream) {
         const chunkText = chunk.text()
-        console.log(chunkText)
         text += chunkText
         this.output.set(text)
         // this.output.update(prev => prev += text)
