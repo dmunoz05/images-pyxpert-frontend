@@ -43,6 +43,19 @@ export class HomeService {
     return { baseUrl: imgUrl}
   }
 
+  async processSearchContounr(imageBase64: string): Promise<Observable<any>> {
+    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
+    const requestBody = { image: imageWithoutPrefix };
+    return this.http.post(`${environment.api_django}/api/v1/process-search-contourn/`, requestBody, { responseType: 'blob' })
+      .pipe(
+        switchMap(async (response: Blob) => {
+          debugger
+          const imageUrl = await this.processBlobImage(response)
+          return imageUrl
+        })
+      );
+  }
+
   processImage(imageFile: File) {
     const formData = new FormData();
     formData.append('image', imageFile);

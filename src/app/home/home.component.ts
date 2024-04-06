@@ -95,6 +95,20 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  async searchContourns(data: any) {
+    this.homeService.imageSelected = data;
+    (await this.homeService.processSearchContounr(data[0].baseUrl)).subscribe((imgUrl) => {
+      debugger
+      this.homeService.imageResponseProcess = imgUrl
+      this.router.navigate(['/begin/feature'])
+    })
+    // (await this.homeService.processSearchContounr(data[0].baseUrl)).subscribe((imgUrl: any) => {
+    //   debugger
+    //   this.homeService.imageResponseProcess = imgUrl
+    //   this.router.navigate(['/begin/feature'])
+    // })
+  }
+
   processImageSelected(data: any) {
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
