@@ -12,6 +12,7 @@ export const routes: Routes = [
       { path: 'documentation', loadComponent: () => import('./layouts/layout-documentation/layout-documentation.component').then(m => m.LayoutDocumentationComponent) },
       { path: 'politice', loadComponent: () => import('./layouts/layout-politice/layout-politice.component').then(m => m.LayoutPoliticeComponent) },
       { path: 'ia', loadComponent: () => import('./layouts/layout-ia/layout-ia.component').then(m => m.LayoutIaComponent) },
+      {path: 'model-face', loadComponent: () => import('./layouts/layout-model-face/layout-model-face.component').then(m => m.LayoutModelFaceComponent)}
     ]
   },
   {

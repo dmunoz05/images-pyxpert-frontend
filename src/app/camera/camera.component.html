@@ -1,3 +1,24 @@
-<div>
-  <video #videoElement autoplay></video>
+@if (showVideo) {
+<div class="flex flex-row justify-stretch w-full h-full">
+  <div class="p-4 w-[50%] h-full">
+    <video class="rounded-lg" #videoElement autoplay></video>
+  </div>
+  <div class="w-[50%] h-full grid place-content-center">
+    <button
+      (click)="endCamera()"
+      class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+    >
+      Apagar Camara
+    </button>
+  </div>
 </div>
+}@else {
+<div class="w-full h-full grid place-content-center">
+  <button
+    (click)="startCamera()"
+    class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+  >
+    Encender Camara
+  </button>
+</div>
+}
