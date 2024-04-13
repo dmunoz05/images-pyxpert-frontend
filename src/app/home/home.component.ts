@@ -2,14 +2,12 @@ import { Component, OnInit, Output, signal, EventEmitter, ElementRef, ViewChild 
 import { HeaderComponent } from '../header/header.component'
 import { SlibarComponent } from '../slibar/slibar.component'
 import { LoginService } from '../login/login.service'
-import { HttpClient } from '@angular/common/http'
 import { Router, RouterLink } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
 import { userInfo } from '../../types/user-info.type'
-import { debug } from 'console'
 // import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({

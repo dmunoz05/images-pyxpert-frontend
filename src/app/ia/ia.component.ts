@@ -56,6 +56,7 @@ export class IaComponent implements OnInit {
   showPhoto = signal<boolean>(false)
   showIframe = signal<boolean>(false)
   dataPhoto: PhotoResponse[] = []
+  fileDataPhoto: any
   @Input() userPicture: string | undefined
   @ViewChild('fileInput') fileInput: ElementRef | undefined
 
@@ -93,15 +94,19 @@ export class IaComponent implements OnInit {
         alert('Select only images of type jpg, png o svg')
         return
       }
-      const data = await this.fileToGenerativePart(file)
-      console.log(data)
-      this.generateCode(data)
-      // this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
-      //   console.log(imgUrl)
-      //   this.showPhoto.set(true)
-      //   this.dataPhoto = [imgUrl]
-      // })
+      this.fileDataPhoto = file
+      this.homeService.processAnyPhoto(file).then((imgUrl: any) => {
+        console.log(imgUrl)
+        this.showPhoto.set(true)
+        this.dataPhoto = [imgUrl]
+      })
     }
+  }
+
+  async startProcessImageSelected(file: any) {
+    this.showPhoto.set(false)
+    const data = await this.fileToGenerativePart(file)
+    this.generateCode(data)
   }
 
   async getFile(event: Event) {
@@ -109,7 +114,6 @@ export class IaComponent implements OnInit {
     if (target.files && target.files.length > 0) {
       const file = target.files?.[0]
       const data = await this.fileToGenerativePart(file)
-      console.log(data)
       this.generateCode(data)
     }
   }
@@ -152,7 +156,6 @@ export class IaComponent implements OnInit {
       // const response = result.response
       // const text = response.text()
       // this.output.set(text)
-      // console.log(text)
 
       const result = await this.modelImage.generateContentStream([PROMPT, data])
       let text = ''
@@ -161,10 +164,12 @@ export class IaComponent implements OnInit {
         const chunkText = chunk.text()
         text += chunkText
         this.output.set(text)
+        console.log("Output: ", this.output);
+        console.log("Text: ", text);
         // this.output.update(prev => prev += text)
       }
     } catch (error) {
-      console.log(error)
+      console.log("Error: ", error)
 
     }
   }
@@ -194,6 +199,7 @@ export class IaComponent implements OnInit {
     const stream = result?.stream
     const { value, done: isDone }: any = await stream?.next()
     const text = value.text()
+    console.log(text);
   }
 
   async generateChatNotStreaming(target: any) {

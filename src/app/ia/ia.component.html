@@ -55,8 +55,8 @@
             <span>My pc</span>
           </button>
         </div>
-        <div>
-          <!-- <button
+        <!-- <div>
+          <button
             (click)="displaySliderBar()"
             class="flex gap-4 flex-row items-center justify-center rounded-lg py-[0.7rem] px-3 hover:bg-white hover:text-black bg-[#050708]"
           >
@@ -85,8 +85,8 @@
               />
             </svg>
             <span class="font-medium">Google</span>
-          </button> -->
-        </div>
+          </button>
+        </div> -->
         }
       </div>
     </div>
@@ -144,7 +144,27 @@
       </ul>
       } @else if(modelSelected() == 'gemini-vision-pro') {
       <div class="h-full w-full flex flex-col justify-center items-center">
-        @if (showIframe()) {
+        @if (showPhoto()) {
+        <div class="max-h-full min-w-72">
+          <div class="grid text-center p-4">
+            <h1 class="font-bold text-xl">Your image selected is:</h1>
+          </div>
+          <div class="grid justify-center h-fit w-full">
+            <img
+              class="rounded-lg h-86 w-72"
+              src="{{ dataPhoto[0].baseUrl }}"
+            />
+          </div>
+          <div class="w-full flex justify-center p-4">
+            <button
+              (click)="startProcessImageSelected(fileDataPhoto)"
+              class="flex flex-row items-center justify-center gap-4 rounded-lg py-[0.6rem] px-2 bg-fifth-color hover:bg-[#050708] hover:text-white"
+            >
+              Generar
+            </button>
+          </div>
+        </div>
+        } @if (showIframe()) {
         <iframe
           srcdoc="{{ output() }}"
           class="w-[60%] h-[90%] border-2 rounded-xl border-gray-700 aspect-video"
