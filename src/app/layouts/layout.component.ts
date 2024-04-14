@@ -15,9 +15,9 @@ import { listPhotos } from '../../types/list-photos.types'
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {}
 
-  userInfo: userInfo = { } as userInfo;
+  userInfo: userInfo = {} as userInfo;
   userPicture: string = ""
 
   ngOnInit() {
@@ -37,9 +37,12 @@ export class LayoutComponent implements OnInit {
 
       //Obtener fotos de google fotos y añadirlas
       this.loginService.listPhotos().subscribe(data => {
-        //Buscar solo mimtype jpg
-        const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
-        this.loginService.userPhotos = filesJpg
+        //Validar que traiga fotos
+        if (Object.keys(data).length > 1) {
+          //Buscar solo mimtype jpg
+          const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
+          this.loginService.userPhotos = filesJpg
+        }
       })
     })
   }

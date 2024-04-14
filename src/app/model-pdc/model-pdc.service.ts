@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class ModelPdcService {
 
   constructor(private http: HttpClient) { }
 
@@ -40,36 +40,42 @@ export class HomeService {
 
   async processAnyPhoto(blob: any): Promise<any> {
     const imgUrl = await this.processBlobImage(blob)
-    return { baseUrl: imgUrl}
+    return { baseUrl: imgUrl }
   }
 
-  async processSearchContounr(imageBase64: string): Promise<Observable<any>> {
+  processSearchPDC(imageBase64: string): Observable<any> {
+    debugger
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
-    return this.http.post(`${environment.api_django}/process-search-contourn/`, requestBody, { responseType: 'blob' })
+
+    return this.http.post(`${environment.api_django}/process-model-pdc-scan/`, requestBody)
       .pipe(
-        switchMap(async (response: Blob) => {
+        switchMap(async (response: any) => {
+          debugger
+          return response.message
           const imageUrl = await this.processBlobImage(response)
           return imageUrl
         })
       );
   }
 
-  processPhotoGoogle(image_url: any): Observable<any> {
-    return this.http.get(`${environment.api_django}/process-image-google/?image_url=${image_url}`, { responseType: 'blob' })
-      .pipe(
-        switchMap(async (response: Blob) => {
-          const imageUrl = await this.processBlobImage(response)
-          return imageUrl
-        })
-      )
-  }
+  // async processSearchPDC(imageBase64: string): Promise<Observable<any>> {
+  //   const imageWithoutPrefix = imageBase64.split(';base64,')[1];
+  //   const requestBody = { image: imageWithoutPrefix };
+  //   return this.http.post(`${environment.api_django}/model-pdc-scan/`, requestBody, { responseType: 'blob' })
+  //     .pipe(
+  //       switchMap(async (response: Blob) => {
+  //         const imageUrl = await this.processBlobImage(response)
+  //         return imageUrl
+  //       })
+  //     );
+  // }
 
   processPhotoPC(imageBase64: string): Observable<any> {
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
 
-    return this.http.post(`${environment.api_django}/process-image-pc/`, requestBody, { responseType: 'blob' })
+    return this.http.post(`${environment.api_django}/model-pdc-scan/`, requestBody, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           const imageUrl = await this.processBlobImage(response)

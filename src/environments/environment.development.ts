@@ -11,6 +11,6 @@ export const environment = {
   crypt_id_ia: 'Y7kgL53n69dsMwrQ2S4R0uq8POJCDByc',
   api_url_drive: 'https://www.googleapis.com/drive/v3',
   api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
-  api_django: 'https://images-pyxpert-backend.onrender.com',
-  // api_django: 'http://127.0.0.1:8000',
+  api_django: 'https://images-pyxpert-backend.onrender.com/api/v1',
+  // api_django: 'http://127.0.0.1:8000/api/v1',
 }

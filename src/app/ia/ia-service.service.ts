@@ -36,7 +36,7 @@ export class IaServiceService {
 
   getKeyApi(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${environment.api_django}/api/v1/key-vi-ia/?key=${id}`).pipe(
+      this.http.get(`${environment.api_django}/key-vi-ia/?key=${id}`).pipe(
         catchError((error: any) => {
           reject(error)
           return throwError(error)

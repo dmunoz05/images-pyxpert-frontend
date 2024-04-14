@@ -1,0 +1,81 @@
+<div class="w-full h-full">
+  @if (showResult()) {
+  <div class="flex flex-row justify-stretch w-full h-full">
+    <div class="w-[50%] h-full flex flex-col justify-center"></div>
+    <div class="w-[50%] h-full grid place-content-center">
+      <button
+        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+      >
+        Apagar Camara
+      </button>
+    </div>
+  </div>
+  } @if (showPhoto()) {
+  <div class="h-full w-full grid place-content-center">
+    <div class="grid text-center p-4">
+      <h1 class="font-bold text-xl">Your image selected is:</h1>
+    </div>
+    <div class="grid justify-center h-fit w-full">
+      <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
+    </div>
+    <div class="w-full flex flex-row justify-center p-4">
+      <button
+        (click)="processPhotoModelPDC(dataPhoto[0].baseUrl)"
+        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+      >
+        Scan
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="h-full grid place-content-center w-[400px] mx-auto">
+    <div class="w-full">
+      <div class="flex flex-row justify-center p-4">
+        <div>
+          <input
+            type="file"
+            #fileInput
+            style="display: none"
+            (change)="onFileSelected($event)"
+          />
+          <button
+            (click)="openFileInput()"
+            class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
+              <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+              <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+              <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
+              <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            </svg>
+            <span>Select photo</span>
+          </button>
+        </div>
+
+        <!-- <button
+        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+      >
+        Select photo
+      </button> -->
+      </div>
+      <div class="text-center">
+        <h1>
+          This is a model that allows you to distinguish between Doritos, Chips
+          and Cheese Tris
+        </h1>
+      </div>
+    </div>
+  </div>
+  }
+</div>

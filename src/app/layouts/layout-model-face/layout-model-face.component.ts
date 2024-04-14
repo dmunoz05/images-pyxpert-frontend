@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CameraComponent } from '../../camera/camera.component';
-import { HeaderComponent } from '../../header/header.component';
+import { ModelFaceComponent } from '../../model-face/model-face.component';
 
 @Component({
   selector: 'app-layout-model-face',
   standalone: true,
-  imports: [CommonModule, CameraComponent],
+  imports: [CommonModule, ModelFaceComponent],
   templateUrl: './layout-model-face.component.html',
   styleUrl: './layout-model-face.component.css'
 })

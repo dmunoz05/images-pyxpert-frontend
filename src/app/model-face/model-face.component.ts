@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-camera',
+  selector: 'app-model-face',
   standalone: true,
   imports: [],
-  templateUrl: './camera.component.html',
-  styleUrl: './camera.component.css'
+  templateUrl: './model-face.component.html',
+  styleUrl: './model-face.component.css'
 })
-export class CameraComponent {
+
+export class ModelFaceComponent {
   @ViewChild('videoElement') videoElement!: ElementRef;
   showVideo: boolean = false;
 
