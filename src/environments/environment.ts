@@ -13,4 +13,6 @@ export const environment = {
   api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
   api_django: 'https://images-pyxpert-backend.onrender.com/api/v1',
   // api_django: 'http://127.0.0.1:8000/api/v1',
+  api_ws: 'ws://images-pyxpert-websocket.onrender.com/ws/chat/1',
+  // api_ws: 'ws://127.0.0.1:8000/ws/chat/1/',
 }

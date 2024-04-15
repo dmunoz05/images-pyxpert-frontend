@@ -39,12 +39,10 @@ export class ModelPdcComponent {
   }
 
   processPhotoModelPDC(image: string) {
-    debugger
     this.modelPdcService.processSearchPDC(image).subscribe((message: any) => {
       console.log(message);
       alert(message)
       // this.modelPdcService.imageResponseProcess = imgUrl
-
       // this.router.navigate(['/begin/feature'])
     })
 

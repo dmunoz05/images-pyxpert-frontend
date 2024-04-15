@@ -1,17 +1,42 @@
 @if (showVideo) {
-<div class="flex flex-row justify-stretch w-full h-full">
-  <div class="w-[50%] h-full flex flex-col justify-center">
+<div class="flex flex-row gap-5 justify-stretch w-full h-full">
+  <div class="w-[25%] h-full flex flex-col justify-center">
+    <h1>Your camera</h1>
     <video
       class="rounded-lg w-full grid place-content-center"
       #videoElement
       autoplay
     ></video>
   </div>
+  <div class="w-[25%] h-full flex flex-col justify-center">
+    <h1>Result</h1>
+    <canvas #videoPreview id="preview" class="rounded-lg w-full grid place-content-center"></canvas>
+    <div class="status"></div>
+  </div>
   <div class="w-[50%] h-full grid place-content-center">
     <button
       (click)="endCamera()"
       class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
     >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 3l18 18" />
+        <path
+          d="M15 11v-1l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -.675 .946"
+        />
+        <path
+          d="M10 6h3a2 2 0 0 1 2 2v3m0 4v1a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h1"
+        />
+      </svg>
       Turn off camera
     </button>
   </div>
@@ -24,6 +49,24 @@
         (click)="startCamera()"
         class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
       >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z"
+          />
+          <path
+            d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+          />
+        </svg>
         Turn on camera
       </button>
     </div>
