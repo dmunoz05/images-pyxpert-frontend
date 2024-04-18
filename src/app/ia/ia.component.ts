@@ -103,7 +103,7 @@ export class IaComponent implements OnInit {
     }
   }
 
-  async startProcessImageSelected(file: any) {
+  async startprocessBwImageSelected(file: any) {
     this.showPhoto.set(false)
     const data = await this.fileToGenerativePart(file)
     this.generateCode(data)

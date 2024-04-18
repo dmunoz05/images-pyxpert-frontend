@@ -9,13 +9,24 @@ import { ModelColorService } from './model-color.service';
   styleUrl: './model-color.component.css'
 })
 export class ModelColorComponent {
+
+  constructor(private modelColorService: ModelColorService) { }
+
   @ViewChild('videoElement') videoElement!: ElementRef;
   @ViewChild('videoPreview') videoPreview!: ElementRef;
 
+  urlServerResult: string = '';
   showVideo: boolean = false;
   private socket: WebSocket | undefined;
 
-  constructor(private modelColorService: ModelColorService) { }
+
+  generateNumerRandom() {
+    // Generar un número aleatorio entre 1 y 100
+    const min = 1;
+    const max = 100;
+    const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomInt;
+  }
 
   verVideo(video: any, context: any, canvas: any) {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -82,16 +93,17 @@ export class ModelColorComponent {
 
   setupWebSocket() {
     // Establece la conexión WebSocket
-    this.socket = new WebSocket(this.modelColorService.urlWebSocket);
-
+    const numberRandom = this.generateNumerRandom()
+    this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(),'/'));
+    this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
-      // console.log('Conexión WebSocket establecida');
+      console.log('Conexión WebSocket establecida');
     };
 
     // Evento que se ejecuta cuando se cierra la conexión
     this.socket.onclose = () => {
-      // console.log('Conexión WebSocket cerrada');
+      console.log('Conexión WebSocket cerrada');
       this.endCamera()
     };
     this.onSetupStreaming()

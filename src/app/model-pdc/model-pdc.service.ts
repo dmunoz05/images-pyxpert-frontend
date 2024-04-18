@@ -44,32 +44,16 @@ export class ModelPdcService {
   }
 
   processSearchPDC(imageBase64: string): Observable<any> {
-    debugger
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
 
     return this.http.post(`${environment.api_django}/process-model-pdc-scan/`, requestBody)
       .pipe(
         switchMap(async (response: any) => {
-          debugger
           return response.message
-          const imageUrl = await this.processBlobImage(response)
-          return imageUrl
         })
       );
   }
-
-  // async processSearchPDC(imageBase64: string): Promise<Observable<any>> {
-  //   const imageWithoutPrefix = imageBase64.split(';base64,')[1];
-  //   const requestBody = { image: imageWithoutPrefix };
-  //   return this.http.post(`${environment.api_django}/model-pdc-scan/`, requestBody, { responseType: 'blob' })
-  //     .pipe(
-  //       switchMap(async (response: Blob) => {
-  //         const imageUrl = await this.processBlobImage(response)
-  //         return imageUrl
-  //       })
-  //     );
-  // }
 
   processPhotoPC(imageBase64: string): Observable<any> {
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];

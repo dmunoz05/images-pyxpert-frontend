@@ -16,7 +16,8 @@ export class HomeService {
   imagenUrl: string = ''
   photoData: Subject<PhotoResponse> = new Subject<PhotoResponse>()
   imageSelected: any[] = []
-  imageResponseProcess: any;
+  imageResponseProcess: any
+  characteristicsResponseProcess: any[] = []
 
   loadPhotoComponent(newPhoto: MediaItems) {
     this.data = newPhoto
@@ -46,17 +47,7 @@ export class HomeService {
   async processSearchContounr(imageBase64: string): Promise<Observable<any>> {
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
-    return this.http.post(`${environment.api_django}/process-search-contourn/`, requestBody, { responseType: 'blob' })
-      .pipe(
-        switchMap(async (response: Blob) => {
-          const imageUrl = await this.processBlobImage(response)
-          return imageUrl
-        })
-      );
-  }
-
-  processPhotoGoogle(image_url: any): Observable<any> {
-    return this.http.get(`${environment.api_django}/process-image-google/?image_url=${image_url}`, { responseType: 'blob' })
+    return this.http.post(`${environment.api_django}/process-search-contourn-pc/`, requestBody, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           const imageUrl = await this.processBlobImage(response)
@@ -65,16 +56,37 @@ export class HomeService {
       )
   }
 
-  processPhotoPC(imageBase64: string): Observable<any> {
-    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
-    const requestBody = { image: imageWithoutPrefix };
-
-    return this.http.post(`${environment.api_django}/process-image-pc/`, requestBody, { responseType: 'blob' })
+  processBWPhotoGoogle(image_url: any): Observable<any> {
+    return this.http.get(`${environment.api_django}/process-black-white-image-google/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           const imageUrl = await this.processBlobImage(response)
           return imageUrl
         })
-      );
+      )
+  }
+
+  processBWPhotoPC(imageBase64: string): Observable<any> {
+    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
+    const requestBody = { image: imageWithoutPrefix };
+
+    return this.http.post(`${environment.api_django}/process-black-white-image-pc/`, requestBody, { responseType: 'blob' })
+      .pipe(
+        switchMap(async (response: Blob) => {
+          const imageUrl = await this.processBlobImage(response)
+          return imageUrl
+        })
+      )
+  }
+
+  getCharacteristicsPhotoPC(imageBase64: string): Observable<any> {
+    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
+    const requestBody = { image: imageWithoutPrefix };
+    return this.http.post(`${environment.api_django}/process-characteristic-image-pc/`, requestBody)
+      .pipe(
+        switchMap(async (response: any) => {
+          return {characteristics: response.characteristics, image: imageBase64}
+        })
+      )
   }
 }

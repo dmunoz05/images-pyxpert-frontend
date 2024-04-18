@@ -2,7 +2,7 @@
   @if (isLoggedIn()) {
   <div>
     <h1 class="font-bold text-3xl">
-      Welcome <span class=""> {{ userName | titlecase }} </span>
+      Welcome&nbsp;<span> {{ userName | titlecase }} </span>
     </h1>
   </div>
   } @if (showPhoto()) {
@@ -10,7 +10,7 @@
     <div class="flex flex-row gap-10 h-full">
       <div class="max-h-full min-w-72">
         <div class="grid text-center p-4">
-          <h1 class="font-bold text-xl">Your image selected is:</h1>
+          <h1 class="font-bold text-lg">Your image selected is:</h1>
         </div>
         <div class="grid justify-center h-fit w-full">
           <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
@@ -96,10 +96,18 @@
           <div class="flex flex-wrap justify-center gap-4">
             <div>
               <button
-                (click)="processImageSelected(dataPhoto)"
+                (click)="processBwImageSelected(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
                 Black and White
+              </button>
+            </div>
+            <div>
+              <button
+                (click)="getCharacteristicImageSelected(dataPhoto)"
+                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
+              >
+                Get Characteristics
               </button>
             </div>
             <!-- <div>
@@ -259,28 +267,6 @@
       <h1 class="text-xl">Color analysis</h1>
     </div>
   </div>
-
-  <!-- <div class="pt-4 flex flex-wrap gap-4">
-    <div
-      class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96"
-    >
-      <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [title]="chartOptions.title"
-      ></apx-chart>
-    </div>
-
-    <div
-      class="flex flex-col items-center justify-between p-8 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 max-w-96"
-    >
-      <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [title]="chartOptions.title"
-      ></apx-chart>
-    </div>
-  </div> -->
   } } @else {
   <div class="flex flex-col w-full justify-center items-center h-full">
     <div class="flex flex-col gap-4 items-center">

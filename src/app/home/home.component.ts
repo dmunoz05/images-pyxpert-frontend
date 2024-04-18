@@ -8,7 +8,6 @@ import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
 import { userInfo } from '../../types/user-info.type'
-// import { NgApexchartsModule } from "ng-apexcharts"
 
 @Component({
   selector: 'app-home',
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
   dataPhoto: PhotoResponse[] = []
   newPhoto = signal([])
   userInfo = signal<userInfo>({} as userInfo)
-  basicChart: any
   imagenBase64: any
   @ViewChild('fileInput') fileInput: ElementRef | undefined
   @Output() showSliderBarEvent = new EventEmitter<boolean>()
@@ -79,16 +77,24 @@ export class HomeComponent implements OnInit {
     this.showSliderBarEvent.emit(true)
   }
 
-  processSynceGoogle(image: string) {
-    this.homeService.processPhotoGoogle(image).subscribe((imgUrl) => {
+  processBwSynceGoogle(image: string) {
+    this.homeService.processBWPhotoGoogle(image).subscribe((imgUrl) => {
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
   }
 
-  processSynceMyPc(image: string) {
-    this.homeService.processPhotoPC(image).subscribe((imgUrl) => {
+  processBwSynceMyPc(image: string) {
+    this.homeService.processBWPhotoPC(image).subscribe((imgUrl) => {
       this.homeService.imageResponseProcess = imgUrl
+      this.router.navigate(['/begin/feature'])
+    })
+  }
+
+  characteristicsSynceMyPc(image: string) {
+    this.homeService.getCharacteristicsPhotoPC(image).subscribe((result) => {
+      this.homeService.imageResponseProcess = result.image
+      this.homeService.characteristicsResponseProcess.push(result.characteristics)
       this.router.navigate(['/begin/feature'])
     })
   }
@@ -101,13 +107,23 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  processImageSelected(data: any) {
+  getCharacteristicImageSelected(data: any) {
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
-      this.processSynceGoogle(data[0].baseUrl)
+      // this.processBwSynceGoogle(data[0].baseUrl)
     }
     else {
-      this.processSynceMyPc(data[0].baseUrl)
+      this.characteristicsSynceMyPc(data[0].baseUrl)
+    }
+  }
+
+  processBwImageSelected(data: any) {
+    this.homeService.imageSelected = data
+    if (this.dataPhoto[0].baseUrl.startsWith("https")) {
+      this.processBwSynceGoogle(data[0].baseUrl)
+    }
+    else {
+      this.processBwSynceMyPc(data[0].baseUrl)
     }
   }
 
@@ -127,27 +143,6 @@ export class HomeComponent implements OnInit {
         this.showPhoto.set(true)
         this.dataPhoto = [imgUrl]
       })
-    }
-  }
-
-  //Grafica
-  public chartOptions: any = {
-    series: [
-      {
-        name: 'Sales',
-        data: [35, 70, 125]
-      }
-    ],
-    chart: {
-      type: 'bar',
-      height: 350
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993]
-    },
-    title: {
-      text: 'Bar Chart',
-      align: 'left'
     }
   }
 }

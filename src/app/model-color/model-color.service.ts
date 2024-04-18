@@ -8,6 +8,7 @@ import { webSocket } from 'rxjs/webSocket';
 export class ModelColorService {
   // urlWebSocket = environment.api_ws + '/process-video-ws/'
   urlWebSocket = environment.api_ws
+  urlHttpWebSocket = environment.api_wss_http
 
   contentVideoStreaming() {
     return webSocket(this.urlWebSocket)
