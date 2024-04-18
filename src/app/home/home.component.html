@@ -1,4 +1,23 @@
-<div class="flex flex-col gap-6 w-full h-full">
+@if (loading()) {
+<div class="spinner z-20">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <h1 class="absolute bottom-[-60px] font-semibold text-xl left-[40px]">
+    Loading...
+  </h1>
+</div>
+}
+<div
+  [ngStyle]="{ opacity: loading() ? '0.3' : '1' }"
+  class="flex flex-col gap-6 w-full h-full relative z-10"
+>
+  <!-- Loader -->
   @if (isLoggedIn()) {
   <div>
     <h1 class="font-bold text-3xl">
@@ -13,7 +32,11 @@
           <h1 class="font-bold text-lg">Your image selected is:</h1>
         </div>
         <div class="grid justify-center h-fit w-full">
-          <img class="rounded-lg h-86 w-72" src="{{ dataPhoto[0].baseUrl }}" />
+          <img
+            class="rounded-lg h-86 w-72"
+            src="{{ dataPhoto[0].baseUrl }}"
+            alt="result img select"
+          />
         </div>
         <div class="flex py-4 justify-center w-full gap-4">
           <div>
@@ -24,6 +47,7 @@
               (change)="onFileSelected($event)"
             />
             <button
+              [disabled]="loading()"
               (click)="openFileInput()"
               class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
             >
@@ -46,6 +70,7 @@
           </div>
           <div>
             <button
+              [disabled]="loading()"
               (click)="displaySliderBar()"
               class="flex gap-4 flex-row items-center justify-center rounded-lg p-[0.80rem] hover:bg-white hover:text-black bg-[#050708]"
             >
@@ -96,6 +121,7 @@
           <div class="flex flex-wrap justify-center gap-4">
             <div>
               <button
+                [disabled]="loading()"
                 (click)="processBwImageSelected(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
@@ -104,50 +130,22 @@
             </div>
             <div>
               <button
+                [disabled]="loading()"
                 (click)="getCharacteristicImageSelected(dataPhoto)"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
               >
                 Get Characteristics
               </button>
             </div>
-            <!-- <div>
-              <button
-                (click)="getShapes(dataPhoto)"
-                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
-              >
-                Get shapes
-              </button>
-            </div> -->
-            <!-- <div>
-              <button
-                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
-                (click)="showFunctionColor(dataPhoto)"
-              >
-                Get colors
-              </button>
-            </div> -->
             <div>
               <button
+                [disabled]="loading()"
                 class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
                 (click)="searchContourns(dataPhoto)"
               >
                 Search contounrs
               </button>
             </div>
-            <!-- <div>
-              <button
-                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
-              >
-                IA
-              </button>
-            </div> -->
-            <!-- <div>
-              <button
-                class="rounded-lg p-3 bg-fifth-color hover:bg-white hover:text-[#050708]"
-              >
-                Create image
-              </button>
-            </div> -->
           </div>
         </section>
       </div>
@@ -155,7 +153,7 @@
   </div>
   @if (showPhotoNew()) {
   <div>
-    <img [src]="imagenBase64" alt="Imagen procesada" />
+    <img [src]="imagenBase64" alt="a result of process" />
   </div>
   } @if (showfunctionColor()) {
   <div class="flex flex-col gap-4">
@@ -285,6 +283,7 @@
             (change)="onFileSelected($event)"
           />
           <button
+            [disabled]="loading()"
             (click)="openFileInput()"
             class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
           >
@@ -307,6 +306,7 @@
         </div>
         <div>
           <button
+            [disabled]="loading()"
             (click)="displaySliderBar()"
             class="flex gap-4 flex-row items-center justify-center rounded-lg p-[0.80rem] hover:bg-white hover:text-black bg-[#050708]"
           >

@@ -34,16 +34,18 @@ export class FeatureComponent implements OnInit {
 
   asignValuesCharacteristics(data: any) {
     console.log(data);
+
     const { area, perimeter, ellipticity, circularity, center_x, center_y, Hu_moments, Height, Width } = data
 
     this.chartOptionsAreaPerimeter = {
       series: [
         {
+          name: 'Valor',
           data: [area, perimeter]
         }
       ],
       chart: {
-        type: 'area',
+        type: 'bar',
         height: 350,
       },
       theme: {
@@ -53,92 +55,140 @@ export class FeatureComponent implements OnInit {
         curve: 'smooth',
       },
       xaxis: {
-        categories: ['area', 'perimeter']
-      },
-      title: {
-        text: 'Area and Perimeter',
-        align: 'left'
+        categories: [['area'], ['perimeter']]
       }
     }
 
     this.chartOptionsEllipticityCircularity = {
-      series: [
-        {
-          data: [ellipticity, circularity]
-        }
-      ],
+      series: [ellipticity, circularity],
+      labels: ['Ellipticity', 'Circularity'],
       chart: {
-        type: 'area',
+        type: 'donut',
         height: 350,
+        toolbar: {
+          show: true,
+          offsetX: 0,
+          offsetY: 0,
+          tools: {
+            download: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false
       },
       theme: {
         mode: 'dark'
       },
-      stroke: {
-        curve: 'smooth',
-      },
-      xaxis: {
-        categories: ['ellipticity', 'circularity']
-      },
-      title: {
-        text: 'Ellipticity and Circularity',
-        align: 'left'
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            show: false
+          }
+        }
+      }],
+      legend: {
+        position: 'right',
+        offsetY: 0,
+        height: 230,
       }
-    }
+    };
+
 
     this.chartOptionsCenterXCenterY = {
-      series: [
-        {
-          data: [center_x, center_y]
-        }
-      ],
+      series: [{
+        name: 'Valor',
+        data: [center_x, center_y]
+      }],
       chart: {
-        type: 'area',
+        type: 'bar',
         height: 350,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
+        }
       },
       theme: {
         mode: 'dark'
       },
       stroke: {
-        curve: 'smooth',
+        curve: 'smooth'
       },
       xaxis: {
-        categories: ['center_x', 'center_y']
+        categories: ['center_x', 'center_y'],
       },
-      title: {
-        text: 'Center_x and Center_y',
-        align: 'left'
-      }
     }
 
     this.chartOptionsHuMoments = {
       series: [
         {
-          data: Hu_moments[0]
+          name: "Hu Momment 1",
+          data: [[ Hu_moments[0][0], Hu_moments[0][0]]]
+        },
+        {
+          name: "Hu Momment 2",
+          data: [[ Hu_moments[0][1], Hu_moments[0][1]]]
+        },
+        {
+          name: "Hu Momment 3",
+          data: [[ Hu_moments[0][2], Hu_moments[0][2]]]
+        },
+        {
+          name: "Hu Momment 4",
+          data: [[ Hu_moments[0][3], Hu_moments[0][3]]]
+        }
+        ,
+        {
+          name: "Hu Momment 5",
+          data: [[ Hu_moments[0][4], Hu_moments[0][4]]]
+        },
+        {
+          name: "Hu Momment 6",
+          data: [[ Hu_moments[0][5], Hu_moments[0][5]]]
+        },
+        {
+          name: "Hu Momment 7",
+          data: [[ Hu_moments[0][6], Hu_moments[0][6]]]
         }
       ],
       chart: {
-        type: 'area',
         height: 350,
+        type: 'scatter',
+        zoom: {
+          enabled: true,
+          type: 'xy'
+        }
+      },
+      xaxis: {
+        tickAmount: 10,
+        labels: {
+          formatter: function (val: string) {
+            return parseFloat(val).toFixed(1)
+          }
+        }
+      },
+      yaxis: {
+        tickAmount: 7
       },
       theme: {
         mode: 'dark'
       },
       stroke: {
-        curve: 'smooth',
+        curve: 'smooth'
       },
-      xaxis: {
-        categories: Hu_moments[0]
-      },
-      title: {
-        text: 'Hu_moments',
-        align: 'left'
-      }
+
     }
 
     this.chartOptionsShapes = {
       series: [
         {
+          name: 'Valor',
           data: [Height, Width]
         }
       ],

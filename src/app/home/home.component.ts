@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private loginService: LoginService, private homeService: HomeService, private layoutHomeService: LayoutHomeService, private router: Router) { }
 
   userName: string | undefined = ''
+  loading = signal<boolean>(false)
   showfunctionColor = signal<boolean>(false)
   showPhotoNew = signal<boolean>(false)
   showPhoto = signal<boolean>(false)
@@ -60,10 +61,6 @@ export class HomeComponent implements OnInit {
     return this.loginService.isLoggedIn()
   }
 
-  getShapes(data: any) {
-
-  }
-
   showFunctionColor(data: any) {
     this.homeService.imageSelected = data
     this.router.navigate(['/begin/feature'])
@@ -79,6 +76,7 @@ export class HomeComponent implements OnInit {
 
   processBwSynceGoogle(image: string) {
     this.homeService.processBWPhotoGoogle(image).subscribe((imgUrl) => {
+      this.loading.set(false)
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
@@ -86,6 +84,7 @@ export class HomeComponent implements OnInit {
 
   processBwSynceMyPc(image: string) {
     this.homeService.processBWPhotoPC(image).subscribe((imgUrl) => {
+      this.loading.set(false)
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
@@ -93,6 +92,7 @@ export class HomeComponent implements OnInit {
 
   characteristicsSynceMyPc(image: string) {
     this.homeService.getCharacteristicsPhotoPC(image).subscribe((result) => {
+      this.loading.set(false)
       this.homeService.imageResponseProcess = result.image
       this.homeService.characteristicsResponseProcess.push(result.characteristics)
       this.router.navigate(['/begin/feature'])
@@ -102,12 +102,14 @@ export class HomeComponent implements OnInit {
   async searchContourns(data: any) {
     this.homeService.imageSelected = data;
     (await this.homeService.processSearchContounr(data[0].baseUrl)).subscribe((imgUrl) => {
+      this.loading.set(false)
       this.homeService.imageResponseProcess = imgUrl
       this.router.navigate(['/begin/feature'])
     })
   }
 
   getCharacteristicImageSelected(data: any) {
+    this.loading.set(true)
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
       // this.processBwSynceGoogle(data[0].baseUrl)
@@ -118,6 +120,7 @@ export class HomeComponent implements OnInit {
   }
 
   processBwImageSelected(data: any) {
+    this.loading.set(true)
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
       this.processBwSynceGoogle(data[0].baseUrl)

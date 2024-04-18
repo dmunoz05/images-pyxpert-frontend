@@ -7,97 +7,181 @@
         style="width: 600px; height: 550px"
         class="rounded-lg"
         [src]="image"
+        alt="result of process"
       />
     </div>
 
     } @if (showCharacteristics()) {
     <div class="w-full h-full flex justify-between flex-col gap-10">
       <div class="w-full flex justify-between flex-row">
-        <div
-          class="flex flex-col items-center justify-center p-6 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-96"
-        >
         <div>
-          <h1>Tu foto</h1>
-        </div>
-          <img class="rounded-lg max-h-full" [src]="image" />
+          <h1 class="font-bold pb-2 text-center text-xl">Your photo</h1>
+          <div
+            class="flex flex-col items-center justify-center p-6 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-96"
+          >
+            <img
+              class="rounded-lg max-h-full"
+              [src]="image"
+              alt="result of process"
+            />
+          </div>
         </div>
 
-        <div>
-          <ul>
-            <li>Area</li>
-            <li>Perimeter</li>
-            <li>Ellipticity</li>
-            <li>Circularity</li>
-            <li>Center X</li>
-            <li>Center Y</li>
-            <li>Hu_moments</li>
-            <li>Heght</li>
-            <li>Width</li>
+        <div class="flex flex-col justify-center w-full">
+          <div class="p-4 flex justify-center">
+            <h1 class="font-bold text-center text-xl">
+              Here you can see these characteristics of the image
+            </h1>
+          </div>
+          <ul
+            class="text-center flex justify-center items-center flex-row gap-4"
+          >
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Area
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Perimeter
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Ellipticity
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Circularity
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Center X
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Center Y
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Hu Momments
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Heght
+            </li>
+            <li
+              class="p-2 rounded-lg bg-third-color text-[#243647] font-medium"
+            >
+              Width
+            </li>
           </ul>
         </div>
       </div>
-      <div
-        class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
-      >
-        <apx-chart
-          [series]="chartOptionsAreaPerimeter.series"
-          [chart]="chartOptionsAreaPerimeter.chart"
-          [title]="chartOptionsAreaPerimeter.title"
-          [xaxis]="chartOptionsAreaPerimeter.xaxis"
-          [stroke]="chartOptionsAreaPerimeter.stroke"
-          [theme]="chartOptionsAreaPerimeter.theme"
-        ></apx-chart>
+
+      <div>
+        <div>
+          <h1 class="font-bold pb-2 text-center text-xl">Area and Perimeter</h1>
+        </div>
+        <div
+          class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
+        >
+          <apx-chart
+            [series]="chartOptionsAreaPerimeter.series"
+            [chart]="chartOptionsAreaPerimeter.chart"
+            [title]="chartOptionsAreaPerimeter.title"
+            [xaxis]="chartOptionsAreaPerimeter.xaxis"
+            [stroke]="chartOptionsAreaPerimeter.stroke"
+            [theme]="chartOptionsAreaPerimeter.theme"
+          ></apx-chart>
+        </div>
       </div>
 
-      <div
-        class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
-      >
+      <div>
+        <div>
+          <h1 class="font-bold p-2 text-center text-xl">
+            Ellipticity and Circularity
+          </h1>
+        </div>
+        <div
+          class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
+        >
         <apx-chart
-          [series]="chartOptionsEllipticityCircularity.series"
-          [chart]="chartOptionsEllipticityCircularity.chart"
-          [title]="chartOptionsEllipticityCircularity.title"
-          [xaxis]="chartOptionsEllipticityCircularity.xaxis"
-          [stroke]="chartOptionsEllipticityCircularity.stroke"
-          [theme]="chartOptionsEllipticityCircularity.theme"
-        ></apx-chart>
+        [series]="chartOptionsEllipticityCircularity.series"
+        [labels]="chartOptionsEllipticityCircularity.labels"
+        [chart]="chartOptionsEllipticityCircularity.chart"
+        [dataLabels]="chartOptionsEllipticityCircularity.dataLabels"
+        [responsive]="chartOptionsEllipticityCircularity.responsive"
+        [legend]="chartOptionsEllipticityCircularity.legend"
+        [theme]="chartOptionsEllipticityCircularity.theme"
+      ></apx-chart>
+
+        </div>
       </div>
 
-      <div
-        class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
-      >
-        <apx-chart
-          [series]="chartOptionsCenterXCenterY.series"
-          [chart]="chartOptionsCenterXCenterY.chart"
-          [title]="chartOptionsCenterXCenterY.title"
-          [xaxis]="chartOptionsCenterXCenterY.xaxis"
-          [stroke]="chartOptionsCenterXCenterY.stroke"
-          [theme]="chartOptionsCenterXCenterY.theme"
-        ></apx-chart>
+      <div>
+        <div>
+          <h1 class="font-bold p-2 text-center text-xl">
+            Center X and Center Y
+          </h1>
+        </div>
+        <div
+          class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
+        >
+          <apx-chart
+            [series]="chartOptionsCenterXCenterY.series"
+            [chart]="chartOptionsCenterXCenterY.chart"
+            [title]="chartOptionsCenterXCenterY.title"
+            [xaxis]="chartOptionsCenterXCenterY.xaxis"
+            [stroke]="chartOptionsCenterXCenterY.stroke"
+            [theme]="chartOptionsCenterXCenterY.theme"
+            [plotOptions]="chartOptionsCenterXCenterY.plotOptions"
+          ></apx-chart>
+        </div>
       </div>
 
-      <div
-        class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
-      >
-        <apx-chart
-          [series]="chartOptionsHuMoments.series"
-          [chart]="chartOptionsHuMoments.chart"
-          [title]="chartOptionsHuMoments.title"
-          [xaxis]="chartOptionsHuMoments.xaxis"
-          [stroke]="chartOptionsHuMoments.stroke"
-          [theme]="chartOptionsHuMoments.theme"
-        ></apx-chart>
+      <div>
+        <div>
+          <h1 class="font-bold p-2 text-center text-xl">Hu Momments</h1>
+        </div>
+
+        <div
+          class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
+        >
+          <apx-chart
+            [series]="chartOptionsHuMoments.series"
+            [chart]="chartOptionsHuMoments.chart"
+            [title]="chartOptionsHuMoments.title"
+            [xaxis]="chartOptionsHuMoments.xaxis"
+            [yaxis]="chartOptionsHuMoments.yaxis"
+            [stroke]="chartOptionsHuMoments.stroke"
+            [theme]="chartOptionsHuMoments.theme"
+          ></apx-chart>
+        </div>
       </div>
-      <div
-        class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
-      >
-        <apx-chart
-          [series]="chartOptionsShapes.series"
-          [chart]="chartOptionsShapes.chart"
-          [title]="chartOptionsShapes.title"
-          [xaxis]="chartOptionsShapes.xaxis"
-          [stroke]="chartOptionsShapes.stroke"
-          [theme]="chartOptionsShapes.theme"
-        ></apx-chart>
+
+      <div>
+        <div>
+          <h1 class="font-bold p-2 text-center text-xl">Shapes</h1>
+        </div>
+        <div
+          class="p-4 rounded-lg border-2 border-[#334D66] bg-transparent max-h-96 w-full"
+        >
+          <apx-chart
+            [series]="chartOptionsShapes.series"
+            [chart]="chartOptionsShapes.chart"
+            [title]="chartOptionsShapes.title"
+            [xaxis]="chartOptionsShapes.xaxis"
+            [stroke]="chartOptionsShapes.stroke"
+            [theme]="chartOptionsShapes.theme"
+          ></apx-chart>
+        </div>
       </div>
     </div>
     } @if(!showCharacteristics()) {
