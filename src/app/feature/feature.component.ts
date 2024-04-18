@@ -205,10 +205,6 @@ export class FeatureComponent implements OnInit {
       xaxis: {
         categories: ['Height', 'Width']
       },
-      title: {
-        text: 'Height and Width',
-        align: 'left'
-      }
     }
 
   }
