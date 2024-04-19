@@ -48,13 +48,14 @@ export class HomeComponent implements OnInit {
         this.dataPhoto = this.homeService.imageSelected
       }
     }
-
     //Obtener foto seleccionada desde google
     this.homeService.photoData.subscribe((photo) => {
       this.showPhoto.set(true)
       this.dataPhoto = [photo]
       this.displaySliderBar()
     })
+
+    this.showPhoto.set(false)
   }
 
   isLoggedIn(): boolean {
@@ -90,7 +91,18 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  characteristicsSynceMyGoogle(image: string) {
+    this.homeService.characteristicsResponseProcess = []
+    this.homeService.getCharacteristicsPhotoGoogle(image).subscribe((result) => {
+      this.loading.set(false)
+      this.homeService.imageResponseProcess = result.image
+      this.homeService.characteristicsResponseProcess.push(result.characteristics)
+      this.router.navigate(['/begin/feature'])
+    })
+  }
+
   characteristicsSynceMyPc(image: string) {
+    this.homeService.characteristicsResponseProcess = []
     this.homeService.getCharacteristicsPhotoPC(image).subscribe((result) => {
       this.loading.set(false)
       this.homeService.imageResponseProcess = result.image
@@ -101,18 +113,28 @@ export class HomeComponent implements OnInit {
 
   async searchContourns(data: any) {
     this.homeService.imageSelected = data;
-    (await this.homeService.processSearchContounr(data[0].baseUrl)).subscribe((imgUrl) => {
-      this.loading.set(false)
-      this.homeService.imageResponseProcess = imgUrl
-      this.router.navigate(['/begin/feature'])
-    })
+    if (this.dataPhoto[0].baseUrl.startsWith("https")) {
+      (await this.homeService.processSearchContournGoogle(data[0].baseUrl)).subscribe((imgUrl) => {
+        this.loading.set(false)
+        this.homeService.imageResponseProcess = imgUrl
+        this.router.navigate(['/begin/feature'])
+      })
+    }
+    else {
+      (await this.homeService.processSearchContournPC(data[0].baseUrl)).subscribe((imgUrl) => {
+        this.loading.set(false)
+        this.homeService.imageResponseProcess = imgUrl
+        this.router.navigate(['/begin/feature'])
+      })
+    }
+
   }
 
   getCharacteristicImageSelected(data: any) {
     this.loading.set(true)
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
-      // this.processBwSynceGoogle(data[0].baseUrl)
+      this.characteristicsSynceMyGoogle(data[0].baseUrl)
     }
     else {
       this.characteristicsSynceMyPc(data[0].baseUrl)

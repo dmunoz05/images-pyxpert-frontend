@@ -33,8 +33,6 @@ export class FeatureComponent implements OnInit {
   }
 
   asignValuesCharacteristics(data: any) {
-    console.log(data);
-
     const { area, perimeter, ellipticity, circularity, center_x, center_y, Hu_moments, Height, Width } = data
 
     this.chartOptionsAreaPerimeter = {
@@ -210,6 +208,7 @@ export class FeatureComponent implements OnInit {
   }
 
   loadImageProcesed() {
+    debugger
     this.image = this.homeService.imageResponseProcess
     this.characteristics = this.homeService.characteristicsResponseProcess
     if (this.image !== undefined && this.characteristics.length === 0) {

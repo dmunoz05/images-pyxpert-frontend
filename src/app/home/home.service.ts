@@ -44,7 +44,7 @@ export class HomeService {
     return { baseUrl: imgUrl}
   }
 
-  async processSearchContounr(imageBase64: string): Promise<Observable<any>> {
+  async processSearchContournPC(imageBase64: string): Promise<Observable<any>> {
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
     return this.http.post(`${environment.api_django}/process-search-contourn-pc/`, requestBody, { responseType: 'blob' })
@@ -56,7 +56,19 @@ export class HomeService {
       )
   }
 
-  processBWPhotoGoogle(image_url: any): Observable<any> {
+  async processSearchContournGoogle(imageBase64: string): Promise<Observable<any>> {
+    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
+    const requestBody = { image: imageWithoutPrefix };
+    return this.http.post(`${environment.api_django}/process-search-contourn-pc/`, requestBody, { responseType: 'blob' })
+      .pipe(
+        switchMap(async (response: Blob) => {
+          const imageUrl = await this.processBlobImage(response)
+          return imageUrl
+        })
+      )
+  }
+
+  processBWPhotoGoogle(image_url: string): Observable<any> {
     return this.http.get(`${environment.api_django}/process-black-white-image-google/?image_url=${image_url}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
@@ -86,6 +98,15 @@ export class HomeService {
       .pipe(
         switchMap(async (response: any) => {
           return {characteristics: response.characteristics, image: imageBase64}
+        })
+      )
+  }
+
+  getCharacteristicsPhotoGoogle(image_url: string): Observable<any> {
+    return this.http.get(`${environment.api_django}/process-characteristic-image-google/?image_url=${image_url}`)
+      .pipe(
+        switchMap(async (response: any) => {
+          return {characteristics: response.characteristics, image: image_url}
         })
       )
   }
