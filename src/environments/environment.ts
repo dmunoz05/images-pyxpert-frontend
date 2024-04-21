@@ -5,6 +5,7 @@ export const environment = {
   redirectUri: 'https://images-pyxpert-frontend.vercel.app/begin/home',
   // redirectUri: 'http://localhost:4200/begin/home',
   scope: 'openid profile email https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/photoslibrary.readonly',
+  // scope: 'openid profile email',
   btoa_id_clientId: 'TTg4RVYybUtTYzNZMXRDY09qbkYvazl0cEJCU1MxUWkzaDUyMWtpQjA0cWc3L3BoOTdvS1k5MlZ3L0VsZmVkeEJWaVkwZGtBK2trSWd1VDJmTnZYNDB0ekpQNEorZjd0MG5oRGpoNkxqV0k9',
   crypt_id_clientId: '9si56P7SYWIVFKe4rmfpbnTOZd3cBMNU',
   bto_id_ia: 'M3QwQ1Z6Z2hnRVhtZkxpeC9QZ1UwOENyN2lCcXlGS2tibTMvZ3ZKU09lUmh4SnQveERCSnZBcGI0VmVvK1Y0cw==',
@@ -13,8 +14,8 @@ export const environment = {
   api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
   api_django: 'https://images-pyxpert-backend.onrender.com/api/v1',
   // api_django: 'http://127.0.0.1:8000/api/v1',
-  api_wss_http: 'https://images-pyxpert-websocket.onrender/chat/',
+  api_wss_http: 'https://images-pyxpert-websocket.onrender.com/chat/',
   // api_wss_http: 'http://127.0.0.1:8000/chat/',
-  api_ws: 'wss://images-pyxpert-websocket.onrender/ws/chat/1',
+  api_ws: 'wss://images-pyxpert-websocket.onrender.com/ws/chat/',
   // api_ws: 'ws://127.0.0.1:8000/ws/chat/',
 }

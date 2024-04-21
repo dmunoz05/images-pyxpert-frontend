@@ -99,7 +99,6 @@ export class ModelColorComponent {
     this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(),'/'));
     this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
-
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
       console.log('Conexión WebSocket establecida');
