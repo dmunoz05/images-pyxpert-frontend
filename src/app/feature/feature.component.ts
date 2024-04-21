@@ -208,7 +208,6 @@ export class FeatureComponent implements OnInit {
   }
 
   loadImageProcesed() {
-    debugger
     this.image = this.homeService.imageResponseProcess
     this.characteristics = this.homeService.characteristicsResponseProcess
     if (this.image !== undefined && this.characteristics.length === 0) {

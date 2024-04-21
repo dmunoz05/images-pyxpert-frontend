@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModelColorService } from './model-color.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-model-color',
@@ -10,12 +11,13 @@ import { ModelColorService } from './model-color.service';
 })
 export class ModelColorComponent {
 
-  constructor(private modelColorService: ModelColorService) { }
+  constructor(private modelColorService: ModelColorService, private sanitizer: DomSanitizer) { }
 
   @ViewChild('videoElement') videoElement!: ElementRef;
   @ViewChild('videoPreview') videoPreview!: ElementRef;
 
-  urlServerResult: string = '';
+  urlServerResult: any = '';
+  safeUrl: any = '';
   showVideo: boolean = false;
   private socket: WebSocket | undefined;
 
@@ -96,6 +98,8 @@ export class ModelColorComponent {
     const numberRandom = this.generateNumerRandom()
     this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(),'/'));
     this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
+
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
       console.log('Conexión WebSocket establecida');

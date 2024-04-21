@@ -16,11 +16,27 @@
       id="preview"
       class="rounded-lg w-full grid place-content-center"
     ></canvas>
-    <iframe
-      style="height: 23.1rem; width: 100%"
+    <div
+      style="height: 24.1rem; width: 100%"
       class="rounded-lg w-full grid place-content-center"
-      (src)="urlServerResult"
-    ></iframe>
+    >
+      <iframe
+        style="height: 22.1rem; width: 100%"
+        class="rounded-lg w-full grid place-content-center"
+        [(srcdoc)]="urlServerResult"
+      ></iframe>
+      <p>
+        If your not can see of result in this area. Click
+        <code
+          ><a
+            class="text-fourth-color"
+            target="_blank"
+            [(href)]="urlServerResult"
+            >here</a
+          ></code
+        >
+      </p>
+    </div>
   </div>
   <div class="w-[30%] h-full grid place-content-center">
     <button
@@ -80,9 +96,7 @@
       </button>
     </div>
     <div class="text-center">
-      <h1>
-        This is a model that allows you to distinguish faces using the camera
-      </h1>
+      <h1>This is a model that allows you to distinguish primary colors.</h1>
     </div>
   </div>
 </div>
