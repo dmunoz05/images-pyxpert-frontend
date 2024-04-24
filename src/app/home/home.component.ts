@@ -112,6 +112,7 @@ export class HomeComponent implements OnInit {
   }
 
   async searchContourns(data: any) {
+    this.loading.set(true)
     this.homeService.imageSelected = data;
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
       (await this.homeService.processSearchContournGoogle(data[0].baseUrl)).subscribe((imgUrl) => {

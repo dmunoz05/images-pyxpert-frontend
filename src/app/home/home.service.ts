@@ -56,10 +56,8 @@ export class HomeService {
       )
   }
 
-  async processSearchContournGoogle(imageBase64: string): Promise<Observable<any>> {
-    const imageWithoutPrefix = imageBase64.split(';base64,')[1];
-    const requestBody = { image: imageWithoutPrefix };
-    return this.http.post(`${environment.api_django}/process-search-contourn-pc/`, requestBody, { responseType: 'blob' })
+  async processSearchContournGoogle(imgUrl: string): Promise<Observable<any>> {
+    return this.http.get(`${environment.api_django}/process-search-contourn-google/?image_url=${imgUrl}`, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: Blob) => {
           const imageUrl = await this.processBlobImage(response)
