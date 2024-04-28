@@ -11,15 +11,19 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class ModelColorComponent {
 
-  constructor(private modelColorService: ModelColorService, private sanitizer: DomSanitizer) { }
-
   @ViewChild('videoElement') videoElement!: ElementRef;
   @ViewChild('videoPreview') videoPreview!: ElementRef;
 
+  urlPrueba = 'https://www.ugr.es/~pjara/D/Docen14/TR/index.htm'
   urlServerResult: any = '';
   safeUrl: any = '';
   showVideo: boolean = false;
   private socket: WebSocket | undefined;
+
+  constructor(private modelColorService: ModelColorService, public sanitizer: DomSanitizer) {
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlPrueba);
+  }
+
 
 
   generateNumerRandom() {
@@ -96,12 +100,12 @@ export class ModelColorComponent {
   setupWebSocket() {
     // Establece la conexión WebSocket
     const numberRandom = this.generateNumerRandom()
-    this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(),'/'));
+    this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(), '/'));
     this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
-      console.log('Conexión WebSocket establecida');
+      console.log('Conexión WebSocket establecida: ', numberRandom);
     };
 
     // Evento que se ejecuta cuando se cierra la conexión

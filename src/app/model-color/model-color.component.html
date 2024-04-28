@@ -23,8 +23,9 @@
       <iframe
         style="height: 22.1rem; width: 100%"
         class="rounded-lg w-full grid place-content-center"
-        [(srcdoc)]="urlServerResult"
+        [src]="safeUrl"
       ></iframe>
+      <!-- [(srcdoc)]="urlServerResult" -->
       <p>
         If your not can see of result in this area. Click
         <code
