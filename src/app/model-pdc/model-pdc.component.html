@@ -1,16 +1,20 @@
-<div class="w-full h-full">
-  @if (showResult()) {
-  <div class="flex flex-row justify-stretch w-full h-full">
-    <div class="w-[50%] h-full flex flex-col justify-center"></div>
-    <div class="w-[50%] h-full grid place-content-center">
-      <button
-        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
-      >
-        Apagar Camara
-      </button>
-    </div>
-  </div>
-  } @if (showPhoto()) {
+@if (loading()) {
+<div class="spinner z-20">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <h1 class="absolute bottom-[-60px] font-semibold text-xl left-[40px]">
+    Loading...
+  </h1>
+</div>
+}
+<div [style]="{'opacity': loading() ? '0.3' : '1'}" class="w-full h-full">
+  @if (showPhoto()) {
   <div class="h-full w-full grid place-content-center">
     <div class="grid text-center p-4">
       <h1 class="font-bold text-xl">Your image selected is:</h1>
@@ -62,12 +66,6 @@
             <span>Select photo</span>
           </button>
         </div>
-
-        <!-- <button
-        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
-      >
-        Select photo
-      </button> -->
       </div>
       <div class="text-center">
         <h1>

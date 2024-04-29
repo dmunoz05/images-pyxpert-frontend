@@ -140,7 +140,6 @@ export class HomeComponent implements OnInit {
   }
 
   getCharacteristicImageSelected(data: any) {
-    debugger
     this.loading.set(true)
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {

@@ -15,8 +15,8 @@ export class ModelPdcComponent {
   constructor(private modelPdcService: ModelPdcService, private router: Router) { }
   @ViewChild('fileInput') fileInput: ElementRef | undefined
   showPhotoNew = signal<boolean>(false)
-  showResult = signal<boolean>(false)
   showPhoto = signal<boolean>(false)
+  loading = signal<boolean>(false)
   dataPhoto: any[] = []
 
   onFileSelected(event: Event | null) {
@@ -39,11 +39,11 @@ export class ModelPdcComponent {
   }
 
   processPhotoModelPDC(image: string) {
+    this.loading.set(true)
     this.modelPdcService.processSearchPDC(image).subscribe((message: any) => {
-      console.log(message);
+      this.loading.set(false)
+      this.showPhoto.set(false)
       alert(message)
-      // this.modelPdcService.imageResponseProcess = imgUrl
-      // this.router.navigate(['/begin/feature'])
     })
 
   }
