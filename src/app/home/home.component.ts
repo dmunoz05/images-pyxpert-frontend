@@ -95,6 +95,10 @@ export class HomeComponent implements OnInit {
     this.homeService.characteristicsResponseProcess = []
     this.homeService.getCharacteristicsPhotoGoogle(image).subscribe((result) => {
       this.loading.set(false)
+      if(result.characteristics === undefined){
+        alert("No se pudo obtener las caracteristicas de la imagen")
+        return
+      }
       this.homeService.imageResponseProcess = result.image
       this.homeService.characteristicsResponseProcess.push(result.characteristics)
       this.router.navigate(['/begin/feature'])
@@ -105,6 +109,10 @@ export class HomeComponent implements OnInit {
     this.homeService.characteristicsResponseProcess = []
     this.homeService.getCharacteristicsPhotoPC(image).subscribe((result) => {
       this.loading.set(false)
+      if(result.characteristics === undefined){
+        alert("No se pudo obtener las caracteristicas de la imagen")
+        return
+      }
       this.homeService.imageResponseProcess = result.image
       this.homeService.characteristicsResponseProcess.push(result.characteristics)
       this.router.navigate(['/begin/feature'])
@@ -132,6 +140,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCharacteristicImageSelected(data: any) {
+    debugger
     this.loading.set(true)
     this.homeService.imageSelected = data
     if (this.dataPhoto[0].baseUrl.startsWith("https")) {
