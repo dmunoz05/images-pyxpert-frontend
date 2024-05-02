@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       })
     } else {
       this.userInfo.set(this.loginService.userInfo)
-
+      this.userName = this.userInfo().info.name
       if (this.homeService.imageSelected.length > 0) {
         this.showPhoto.set(true)
         this.dataPhoto = this.homeService.imageSelected

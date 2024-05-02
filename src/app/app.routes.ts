@@ -14,7 +14,8 @@ export const routes: Routes = [
       { path: 'ia', loadComponent: () => import('./layouts/layout-ia/layout-ia.component').then(m => m.LayoutIaComponent) },
       { path: 'model-face', loadComponent: () => import('./layouts/layout-model-face/layout-model-face.component').then(m => m.LayoutModelFaceComponent) },
       { path: 'model-pdc', loadComponent: () => import('./layouts/layout-model-pdc/layout-model-pdc.component').then(m => m.LayoutModelPdcComponent) },
-      { path: 'model-color', loadComponent: () => import('./layouts/layout-model-color/layout-model-color.component').then(m => m.LayoutModelColorComponent) }
+      { path: 'model-color', loadComponent: () => import('./layouts/layout-model-color/layout-model-color.component').then(m => m.LayoutModelColorComponent) },
+      { path: 'qr', loadComponent: () => import('./layouts/layout-qr/layout-qr.component').then(m => m.LayoutQrComponent) }
     ]
   },
   {
