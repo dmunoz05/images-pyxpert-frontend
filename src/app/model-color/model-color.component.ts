@@ -24,29 +24,12 @@ export class ModelColorComponent {
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlPrueba);
   }
 
-
-
   generateNumerRandom() {
     // Generar un número aleatorio entre 1 y 100
     const min = 1;
     const max = 100;
     const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomInt;
-  }
-
-  verVideo(video: any, context: any, canvas: any) {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    if (this.socket !== undefined) {
-      this.socket.send(canvas.toDataURL('image/png'));
-    }
-  }
-
-  otherFunction() {
-    this.modelColorService.contentVideoStreaming().subscribe(data => {
-      console.log("Mensaje del servidor", data)
-    }, error => {
-      console.log("Error de conexion", error)
-    })
   }
 
   async startCamera() {
@@ -71,7 +54,7 @@ export class ModelColorComponent {
         canvas.width = videoElement.videoWidth;
         canvas.height = videoElement.videoHeight;
 
-        if (context !== null) {
+        if (context !== null && context !== undefined) {
           context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
           const imageData = canvas.toDataURL('image/jpeg');
 
@@ -124,6 +107,5 @@ export class ModelColorComponent {
     this.showVideo = false;
     this.onSetupStreaming()
   }
-
 }
 

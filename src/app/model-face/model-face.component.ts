@@ -18,22 +18,6 @@ export class ModelFaceComponent {
 
   constructor(private modelFaceService: ModelFaceService) { }
 
-  verVideo(video: any, context: any, canvas: any) {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    if (this.socket !== undefined) {
-      this.socket.send(canvas.toDataURL('image/png'));
-    }
-  }
-
-  otherFunction() {
-
-    this.modelFaceService.contentVideoStreaming().subscribe(data => {
-      console.log("Mensaje del servidor", data)
-    }, error => {
-      console.log("Error de conexion", error)
-    })
-  }
-
   async startCamera() {
     try {
       this.showVideo = true;

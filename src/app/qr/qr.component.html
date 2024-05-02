@@ -1,1 +1,146 @@
-<p>qr works!</p>
+@if (loading()) {
+<div class="spinner z-20">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <h1 class="absolute bottom-[-60px] font-semibold text-xl left-[40px]">
+    Loading...
+  </h1>
+</div>
+} @if (showVideo) {
+<div
+  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  class="flex flex-row gap-5 justify-stretch w-full h-full"
+>
+  <div class="w-[50%] h-full flex flex-col justify-center">
+    <h1 class="text-center font-bold text-2xl">Your camera</h1>
+    <video
+      class="rounded-lg w-full grid place-content-center"
+      #videoElement
+      autoplay
+    ></video>
+    <canvas
+      style="display: none"
+      #videoPreview
+      id="preview"
+      class="rounded-lg w-full grid place-content-center"
+    ></canvas>
+  </div>
+  <!-- <div class="w-[35%] h-full flex flex-col justify-center">
+    <h1 class="text-center font-bold text-2xl">Result</h1>
+    <div
+      style="height: 24.1rem; width: 100%"
+      class="rounded-lg w-full grid place-content-center"
+    >
+      <iframe
+        style="height: 22.1rem; width: 100%"
+        class="rounded-lg w-full grid place-content-center"
+        [src]="safeUrl"
+      ></iframe>
+      <p>
+        If your not can see of result in this area. Click
+        <code
+          ><a
+            class="text-fourth-color"
+            target="_blank"
+            [(href)]="urlServerResult"
+            >here</a
+          ></code
+        >
+      </p>
+    </div>
+  </div> -->
+  <div class="w-[50%] h-full grid place-content-center">
+    <button
+      [disabled]="loading()"
+      (click)="endCamera()"
+      class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 3l18 18" />
+        <path
+          d="M15 11v-1l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -.675 .946"
+        />
+        <path
+          d="M10 6h3a2 2 0 0 1 2 2v3m0 4v1a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h1"
+        />
+      </svg>
+      Turn off camera
+    </button>
+  </div>
+</div>
+} @else if (!showVideo && showImage){
+<div
+  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  class="flex flex-row gap-5 justify-stretch w-full h-full"
+>
+  <div class="grid justify-center place-content-center h-full w-full">
+    <div>
+      <h1 class="text-center p-2">This is your face in QR</h1>
+    </div>
+    <img
+      style="width: 28rem"
+      class="rounded-lg h-86"
+      src="{{ dataPhoto }}"
+      alt="result img select"
+    />
+    <!-- <h1>Image codify</h1> -->
+    <!-- <div>
+        <p>{{ dataPhoto.split(';base64,')[1] }}</p>
+      </div> -->
+  </div>
+</div>
+} @else {
+<div
+  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  class="h-full grid place-content-center w-[400px] mx-auto"
+>
+  <div class="w-full">
+    <div class="flex flex-row justify-center p-4">
+      <button
+        [disabled]="loading()"
+        (click)="startCamera()"
+        class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z"
+          />
+          <path
+            d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+          />
+        </svg>
+        Turn on camera
+      </button>
+    </div>
+    <div class="text-center">
+      <h1>This is a model that allows create a QR with the camera or image.</h1>
+    </div>
+  </div>
+</div>
+}
