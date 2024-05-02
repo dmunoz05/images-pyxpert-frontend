@@ -14,7 +14,7 @@
 </div>
 } @if (showVideo) {
 <div
-  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  [style]="{ opacity: loading() ? '0.2' : '1' }"
   class="flex flex-row gap-5 justify-stretch w-full h-full"
 >
   <div class="w-[50%] h-full flex flex-col justify-center">
@@ -86,7 +86,7 @@
 </div>
 } @else if (!showVideo && showImage){
 <div
-  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  [style]="{ opacity: loading() ? '0.2' : '1' }"
   class="flex flex-row gap-5 justify-stretch w-full h-full"
 >
   <div class="grid justify-center place-content-center h-full w-full">
@@ -107,7 +107,7 @@
 </div>
 } @else {
 <div
-  [style]="{ opacity: loading() ? '0.3' : '1' }"
+  [style]="{ opacity: loading() ? '0.2' : '1' }"
   class="h-full grid place-content-center w-[400px] mx-auto"
 >
   <div class="w-full">

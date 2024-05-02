@@ -56,12 +56,18 @@ export class QrComponent {
         if (imageData !== "data:,") {
           if (!this.qrService.firstFrame) {
             this.qrService.processDataImageQrPc(imageData).subscribe((imgUrl) => {
-              setTimeout(() => {
-                this.endCamera();
+              if(imgUrl.includes("data:image/png;base64,")){
+                setTimeout(() => {
+                  this.endCamera();
+                  this.loading.set(false);
+                  this.showImage = true
+                  this.dataPhoto = imgUrl
+                }, 1500)
+              } else {
+                alert(imgUrl)
+                this.showImage = false
                 this.loading.set(false);
-                this.showImage = true
-                this.dataPhoto = imgUrl
-              }, 1500)
+              }
             });
           }
           if (this.qrService.firstFrame && imageData !== "data:,") {

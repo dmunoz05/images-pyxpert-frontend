@@ -36,11 +36,15 @@ export class QrService {
     this.firstFrame = true
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
-
     return this.http.post(`${environment.api_django}/process-image-qr-pc/`, requestBody, { responseType: 'blob' })
       .pipe(
         switchMap(async (response: any) => {
-          const imageUrl = await this.processBlobImage(response)
+          let imageUrl = ''
+          if(response.type !== "application/json"){
+            imageUrl = await this.processBlobImage(response)
+          } else {
+            imageUrl = "Error al generar QR de su rostro"
+          }
           return imageUrl
         })
       )
