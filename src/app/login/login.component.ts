@@ -16,14 +16,12 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    debugger
     if (this.loginService.isLoggedIn()) {
       this.router.navigate(['/begin/home'])
     }
   }
 
   login() {
-    debugger
     this.loginService.loginWithGoogle();
   }
 }

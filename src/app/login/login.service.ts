@@ -39,7 +39,6 @@ export class LoginService {
   async processECB(code: string) {
     const atobdec = atob(code)
     const value = await this.desencryptCrypto(atobdec)
-    debugger
     oAuthConfig.clientId = value
   }
 
@@ -68,9 +67,7 @@ export class LoginService {
   }
 
   loginWithGoogle() {
-    debugger
     if (typeof window !== 'undefined') {
-      debugger
       this.oAuthService.configure(oAuthConfig)
       this.oAuthService.loadDiscoveryDocument().then(() => {
         this.oAuthService.tryLoginImplicitFlow().then(() => {
