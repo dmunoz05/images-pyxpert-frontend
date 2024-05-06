@@ -18,7 +18,7 @@ export class QrComponent {
   intervalId: any = 0;
   dataPhoto: any = '';
 
-  constructor(private qrService: QrService) { }
+  constructor(private qrService: QrService) {}
 
   generateNumerRandom() {
     // Generar un número aleatorio entre 1 y 100
@@ -33,7 +33,9 @@ export class QrComponent {
       this.showVideo = true;
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       this.videoElement.nativeElement.srcObject = stream;
-      this.onCaptureStreaming();
+      setTimeout(() => {
+        this.onCaptureStreaming();
+      }, 3500)
     } catch (error) {
       console.error('Error accessing camera:', error);
     }
@@ -49,49 +51,42 @@ export class QrComponent {
     const captureAndStreamVideo = () => {
       canvas.width = videoElement.videoWidth;
       canvas.height = videoElement.videoHeight;
-
       if (context !== null && context !== undefined) {
         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
         const imageData = canvas.toDataURL('image/jpeg');
         if (imageData !== "data:,") {
-          if (!this.qrService.firstFrame) {
-            this.qrService.processDataImageQrPc(imageData).subscribe((imgUrl) => {
-              if(imgUrl.includes("data:image/png;base64,")){
-                setTimeout(() => {
-                  this.endCamera();
-                  this.loading.set(false);
-                  this.showImage = true
-                  this.dataPhoto = imgUrl
-                }, 1500)
-              } else {
-                alert(imgUrl)
-                this.showImage = false
+          clearInterval(this.intervalId);
+          this.qrService.processDataImageQrPc(imageData).subscribe((imgUrl) => {
+            if (imgUrl.includes("data:image/png;base64,")) {
+              setTimeout(() => {
+                this.endCamera();
                 this.loading.set(false);
-              }
-            });
-          }
-          if (this.qrService.firstFrame && imageData !== "data:,") {
-            setTimeout(() => {
+                this.showImage = true
+                this.dataPhoto = imgUrl
+              }, 1500)
+            } else {
+              this.loading.set(false);
+              this.showImage = false
+              alert(imgUrl)
               this.endCamera();
-              clearInterval(this.intervalId);
-            }, 1500)
-          }
+            }
+          })
         }
       }
     };
 
     // Ejecutar captureAndStreamVideo() cada 30 milisegundos
+    this.loading.set(true);
     this.intervalId = setInterval(captureAndStreamVideo, 30);
   }
 
   async endCamera() {
-    if(this.videoElement !== undefined){
+    if (this.videoElement !== undefined) {
       const stream = this.videoElement.nativeElement.srcObject as MediaStream;
       const tracks = stream.getTracks();
       tracks.forEach(track => track.stop());
       this.videoElement.nativeElement.srcObject = null;
       this.showVideo = false;
-      this.loading.set(true);
     }
   }
 

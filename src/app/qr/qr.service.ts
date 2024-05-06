@@ -10,8 +10,6 @@ export class QrService {
 
   constructor(private http: HttpClient) { }
 
-  firstFrame: boolean = false
-
   async processBlobImage(blob: Blob): Promise<string> {
     const reader = new FileReader()
     return new Promise<string>((resolve, reject) => {
@@ -33,7 +31,6 @@ export class QrService {
   }
 
   processDataImageQrPc(imageBase64: string): Observable<any> {
-    this.firstFrame = true
     const imageWithoutPrefix = imageBase64.split(';base64,')[1];
     const requestBody = { image: imageWithoutPrefix };
     return this.http.post(`${environment.api_django}/process-image-qr-pc/`, requestBody, { responseType: 'blob' })
