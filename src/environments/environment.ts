@@ -9,7 +9,7 @@ export const environment = {
   btoa_id_clientId: 'TTg4RVYybUtTYzNZMXRDY09qbkYvazl0cEJCU1MxUWkzaDUyMWtpQjA0cWc3L3BoOTdvS1k5MlZ3L0VsZmVkeEJWaVkwZGtBK2trSWd1VDJmTnZYNDB0ekpQNEorZjd0MG5oRGpoNkxqV0k9',
   crypt_id_clientId: '9si56P7SYWIVFKe4rmfpbnTOZd3cBMNU',
   bto_id_ia: 'M3QwQ1Z6Z2hnRVhtZkxpeC9QZ1UwOENyN2lCcXlGS2tibTMvZ3ZKU09lUmh4SnQveERCSnZBcGI0VmVvK1Y0cw==',
-  crypt_id_ia: 'Y7kgL53n69dsMwrQ2S4R0uq8POJCDByc',
+  crypt_id_ia: 'Y7kgL53n69dsMwrQ2S4jR0uq8POJCDByc',
   api_url_drive: 'https://www.googleapis.com/drive/v3',
   api_url_fotos: 'https://photoslibrary.googleapis.com/v1',
   api_django: 'https://images-pyxpert-backend.onrender.com/api/v1',
