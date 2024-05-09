@@ -6,10 +6,10 @@ import { webSocket } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class ModelFaceService {
-  // urlWebSocket = environment.api_ws + '/process-video-ws/'
   urlWebSocket = environment.api_ws
+  urlHttpWebSocket = environment.api_wss_http
 
-  contentVideoStreaming(){
+  contentVideoStreaming() {
     return webSocket(this.urlWebSocket)
   }
 }

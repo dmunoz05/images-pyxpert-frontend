@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModelFaceService } from './model-face.service';
+import { ModelColorService } from '../model-color/model-color.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-model-face',
@@ -13,10 +15,23 @@ export class ModelFaceComponent {
   @ViewChild('videoElement') videoElement!: ElementRef;
   @ViewChild('videoPreview') videoPreview!: ElementRef;
 
+  urlPrueba = 'https://www.ugr.es/~pjara/D/Docen14/TR/index.htm'
+  urlServerResult: any = '';
+  safeUrl: any = '';
   showVideo: boolean = false;
   private socket: WebSocket | undefined;
 
-  constructor(private modelFaceService: ModelFaceService) { }
+  constructor(private modelColorService: ModelColorService, public sanitizer: DomSanitizer) {
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlPrueba);
+  }
+
+  generateNumerRandom() {
+    // Generar un número aleatorio entre 1 y 100
+    const min = 1;
+    const max = 100;
+    const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomInt;
+  }
 
   async startCamera() {
     try {
@@ -40,7 +55,7 @@ export class ModelFaceComponent {
         canvas.width = videoElement.videoWidth;
         canvas.height = videoElement.videoHeight;
 
-        if (context !== null) {
+        if (context !== null && context !== undefined) {
           context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
           const imageData = canvas.toDataURL('image/jpeg');
 
@@ -49,7 +64,8 @@ export class ModelFaceComponent {
               //Enviar al servidor
               this.socket.send(JSON.stringify({
                 'message': 'Conexion establecida',
-                'image_data': imageData
+                'image_data': imageData,
+                'type_model': 'mdf'
               }))
             }
           }
@@ -68,16 +84,18 @@ export class ModelFaceComponent {
 
   setupWebSocket() {
     // Establece la conexión WebSocket
-    this.socket = new WebSocket(this.modelFaceService.urlWebSocket);
-
+    const numberRandom = this.generateNumerRandom()
+    this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(), '/'));
+    this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
-      // console.log('Conexión WebSocket establecida');
+      console.log('Conexión WebSocket establecida: ', numberRandom);
     };
 
     // Evento que se ejecuta cuando se cierra la conexión
     this.socket.onclose = () => {
-      // console.log('Conexión WebSocket cerrada');
+      console.log('Conexión WebSocket cerrada');
       this.endCamera()
     };
     this.onSetupStreaming()
@@ -91,6 +109,5 @@ export class ModelFaceComponent {
     this.showVideo = false;
     this.onSetupStreaming()
   }
-
 }
 

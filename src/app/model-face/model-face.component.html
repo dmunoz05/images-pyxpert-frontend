@@ -1,52 +1,47 @@
 @if (showVideo) {
-<div class="flex flex-row gap-5 justify-stretch w-full h-full">
-  <div class="w-[35%] h-full flex flex-col justify-center">
-    <h1 class="text-center font-bold text-2xl">Your camera</h1>
-    <video
-      class="rounded-lg w-full grid place-content-center"
-      #videoElement
-      autoplay
-    ></video>
-  </div>
-  <div class="w-[35%] h-full flex flex-col justify-center">
-    <h1 class="text-center font-bold text-2xl">Result</h1>
-    <canvas style="display: none;" #videoPreview id="preview" class="rounded-lg w-full grid place-content-center"></canvas>
-    <iframe style="height: 23.1rem; width: 100%;" class="rounded-lg w-full grid place-content-center" src="http://127.0.0.1:8000/chat/1/"></iframe>
-  </div>
-  <div class="w-[30%] h-full grid place-content-center">
-    <button
-      (click)="endCamera()"
-      class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+  <div class="flex flex-row gap-5 justify-stretch w-full h-full">
+    <div class="w-[35%] h-full flex flex-col justify-center">
+      <h1 class="text-center font-bold text-2xl">Your camera</h1>
+      <video
+        class="rounded-lg w-full grid place-content-center"
+        #videoElement
+        autoplay
+      ></video>
+    </div>
+    <div class="w-[35%] h-full flex flex-col justify-center">
+      <h1 class="text-center font-bold text-2xl">Result</h1>
+      <canvas
+        style="display: none"
+        #videoPreview
+        id="preview"
+        class="rounded-lg w-full grid place-content-center"
+      ></canvas>
+      <div
+        style="height: 24.1rem; width: 100%"
+        class="rounded-lg w-full grid place-content-center"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M3 3l18 18" />
-        <path
-          d="M15 11v-1l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -.675 .946"
-        />
-        <path
-          d="M10 6h3a2 2 0 0 1 2 2v3m0 4v1a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h1"
-        />
-      </svg>
-      Turn off camera
-    </button>
-  </div>
-</div>
-}@else {
-<div class="h-full grid place-content-center w-[400px] mx-auto">
-  <div class="w-full">
-    <div class="flex flex-row justify-center p-4">
+        <iframe
+          style="height: 22.1rem; width: 100%"
+          class="rounded-lg w-full grid place-content-center"
+          [src]="safeUrl"
+        ></iframe>
+        <!-- [(srcdoc)]="urlServerResult" -->
+        <p>
+          If your not can see of result in this area. Click
+          <code
+            ><a
+              class="text-fourth-color"
+              target="_blank"
+              [(href)]="urlServerResult"
+              >here</a
+            ></code
+          >
+        </p>
+      </div>
+    </div>
+    <div class="w-[30%] h-full grid place-content-center">
       <button
-        (click)="startCamera()"
+        (click)="endCamera()"
         class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
       >
         <svg
@@ -60,21 +55,50 @@
           stroke-linejoin="round"
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M3 3l18 18" />
           <path
-            d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z"
+            d="M15 11v-1l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -.675 .946"
           />
           <path
-            d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+            d="M10 6h3a2 2 0 0 1 2 2v3m0 4v1a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h1"
           />
         </svg>
-        Turn on camera
+        Turn off camera
       </button>
     </div>
-    <div class="text-center">
-      <h1>
-        This is a model that allows you to distinguish faces using the camera
-      </h1>
+  </div>
+  }@else {
+  <div class="h-full grid place-content-center w-[400px] mx-auto">
+    <div class="w-full">
+      <div class="flex flex-row justify-center p-4">
+        <button
+          (click)="startCamera()"
+          class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z"
+            />
+            <path
+              d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+            />
+          </svg>
+          Turn on camera
+        </button>
+      </div>
+      <div class="text-center">
+        <h1>This is a model that allows you to distinguish primary colors.</h1>
+      </div>
     </div>
   </div>
-</div>
-}
+  }

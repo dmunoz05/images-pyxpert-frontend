@@ -63,7 +63,8 @@ export class ModelColorComponent {
               //Enviar al servidor
               this.socket.send(JSON.stringify({
                 'message': 'Conexion establecida',
-                'image_data': imageData
+                'image_data': imageData,
+                'type_model': 'mdc'
               }))
             }
           }
