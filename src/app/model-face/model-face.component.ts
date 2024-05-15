@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModelFaceService } from './model-face.service';
-import { ModelColorService } from '../model-color/model-color.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -21,7 +20,7 @@ export class ModelFaceComponent {
   showVideo: boolean = false;
   private socket: WebSocket | undefined;
 
-  constructor(private modelColorService: ModelColorService, public sanitizer: DomSanitizer) {
+  constructor(private ModelFaceService: ModelFaceService, public sanitizer: DomSanitizer) {
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlPrueba);
   }
 
@@ -85,8 +84,8 @@ export class ModelFaceComponent {
   setupWebSocket() {
     // Establece la conexión WebSocket
     const numberRandom = this.generateNumerRandom()
-    this.socket = new WebSocket(this.modelColorService.urlWebSocket.concat(numberRandom.toString(), '/'));
-    this.urlServerResult = this.modelColorService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
+    this.socket = new WebSocket(this.ModelFaceService.urlWebSocket.concat(numberRandom.toString(), '/'));
+    this.urlServerResult = this.ModelFaceService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
     // Evento que se ejecuta cuando la conexión se abre
     this.socket.onopen = () => {
