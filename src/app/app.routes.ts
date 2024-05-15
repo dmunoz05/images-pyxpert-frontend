@@ -12,10 +12,11 @@ export const routes: Routes = [
       { path: 'documentation', loadComponent: () => import('./layouts/layout-documentation/layout-documentation.component').then(m => m.LayoutDocumentationComponent) },
       { path: 'politice', loadComponent: () => import('./layouts/layout-politice/layout-politice.component').then(m => m.LayoutPoliticeComponent) },
       { path: 'ia', loadComponent: () => import('./layouts/layout-ia/layout-ia.component').then(m => m.LayoutIaComponent) },
-      { path: 'model-face', loadComponent: () => import('./layouts/layout-model-face/layout-model-face.component').then(m => m.LayoutModelFaceComponent) },
       { path: 'model-pdc', loadComponent: () => import('./layouts/layout-model-pdc/layout-model-pdc.component').then(m => m.LayoutModelPdcComponent) },
       { path: 'model-color', loadComponent: () => import('./layouts/layout-model-color/layout-model-color.component').then(m => m.LayoutModelColorComponent) },
-      { path: 'qr', loadComponent: () => import('./layouts/layout-qr/layout-qr.component').then(m => m.LayoutQrComponent) }
+      { path: 'model-face', loadComponent: () => import('./layouts/layout-model-face/layout-model-face.component').then(m => m.LayoutModelFaceComponent) },
+      { path: 'model-listening', loadComponent: () => import('./layouts/layout-model-listening/layout-model-listening/layout-model-listening.component').then(m => m.LayoutModelListeningComponent) },
+      { path: 'qr', loadComponent: () => import('./layouts/layout-qr/layout-qr.component').then(m => m.LayoutQrComponent) },
     ]
   },
   {
