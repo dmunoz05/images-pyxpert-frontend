@@ -61,7 +61,6 @@ export class IaComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef | undefined
 
   constructor(private layoutHomeService: LayoutHomeService, private homeService: HomeService, private iaService: IaServiceService) {
-    // this.loadModelWithApi()
   }
 
   ngOnInit(): void {
