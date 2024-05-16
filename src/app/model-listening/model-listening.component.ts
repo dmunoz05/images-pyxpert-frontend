@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ModelFaceService } from '../model-face/model-face.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import WaveSurfer from 'wavesurfer.js';
 
 @Component({
   selector: 'app-model-listening',
@@ -10,102 +9,111 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './model-listening.component.css'
 })
 export class ModelListeningComponent {
-  @ViewChild('videoElement') videoElement!: ElementRef;
-  @ViewChild('videoPreview') videoPreview!: ElementRef;
+  @ViewChild('waveform', { static: false }) waveformEl!: ElementRef;
+  isRecording: boolean = false;
+  listening: boolean = false;
+  isPlaying: boolean = false;
+  showButtons: boolean = false;
+  private mediaRecorder!: MediaRecorder;
+  private waveSurfer!: WaveSurfer;
+  private stream!: MediaStream;
+  private chunks: any[] = [];
 
-  urlPrueba = 'https://www.ugr.es/~pjara/D/Docen14/TR/index.htm'
-  urlServerResult: any = '';
-  safeUrl: any = '';
-  showVideo: boolean = false;
-  private socket: WebSocket | undefined;
+  constructor() { }
 
-  constructor(private ModelFaceService: ModelFaceService, public sanitizer: DomSanitizer) {
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlPrueba);
+  events() {
+    this.waveSurfer.once('interaction', () => {
+      this.waveSurfer.play();
+      this.isPlaying = false;
+    })
+
+    this.waveSurfer.on('play', () => {
+      this.isPlaying = true;
+    })
+
+    this.waveSurfer.on('pause', () => {
+      this.isPlaying = false;
+    })
   }
 
-  generateNumerRandom() {
-    // Generar un número aleatorio entre 1 y 100
-    const min = 1;
-    const max = 100;
-    const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomInt;
+  playAudio() {
+    this.waveSurfer.play();
   }
 
-  async startCamera() {
+  pauseAudio() {
+    this.waveSurfer.pause();
+  }
+
+  stopAudio() {
+    this.waveSurfer.stop();
+  }
+
+  async initWaveSurfer(container: string, audio: any) {
+    this.waveSurfer = WaveSurfer.create({
+      container: container,
+      url: audio,
+      waveColor: 'violet',
+      progressColor: 'purple',
+      barWidth: 2,
+      barRadius: 2
+    });
+    this.events();
+    this.waveSurfer.stop();
+    this.isPlaying = false;
+  }
+
+  async getMicrophoneAccess() {
     try {
-      this.showVideo = true;
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      this.videoElement.nativeElement.srcObject = stream;
-      this.setupWebSocket();
-    } catch (error) {
-      console.error('Error accessing camera:', error);
+      this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.mediaRecorder = new MediaRecorder(this.stream);
+      this.setupMediaRecorder();
+    } catch (err) {
+      console.error('Error accessing the microphone', err);
     }
   }
 
-  onSetupStreaming() {
-    // Función para capturar y transmitir video continuamente
-    if (this.showVideo) {
-      const videoElement = this.videoElement.nativeElement;
-      const captureAndStreamVideo = () => {
-        const canvas = this.videoPreview.nativeElement;
-        const context = canvas.getContext('2d');
-
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
-
-        if (context !== null && context !== undefined) {
-          context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-          const imageData = canvas.toDataURL('image/jpeg');
-
-          if (this.socket !== undefined) {
-            if (this.socket.readyState === WebSocket.OPEN) {
-              //Enviar al servidor
-              this.socket.send(JSON.stringify({
-                'message': 'Conexion establecida',
-                'image_data': imageData,
-                'type_model': 'mdf'
-              }))
-            }
-          }
-        }
-      };
-
-      // Ejecuta captureAndStreamVideo() cada 30 milisegundos
-      setInterval(captureAndStreamVideo, 30);
-    } else {
-      console.log('Conexion cerrada');
-      const a = document.createElement('a');
-      a.href = document.location.href
-      a.click()
+  async startAudio() {
+    this.isRecording = true;
+    await this.getMicrophoneAccess();
+    if (this.mediaRecorder && this.mediaRecorder.state === 'inactive') {
+      this.mediaRecorder.start();
+      this.listening = true;
+      this.showButtons = true;
+      console.log('Recording started');
     }
   }
 
-  setupWebSocket() {
-    // Establece la conexión WebSocket
-    const numberRandom = this.generateNumerRandom()
-    this.socket = new WebSocket(this.ModelFaceService.urlWebSocket.concat(numberRandom.toString(), '/'));
-    this.urlServerResult = this.ModelFaceService.urlHttpWebSocket.concat(numberRandom.toString(), '/')
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlServerResult);
-    // Evento que se ejecuta cuando la conexión se abre
-    this.socket.onopen = () => {
-      console.log('Conexión WebSocket establecida: ', numberRandom);
-    };
-
-    // Evento que se ejecuta cuando se cierra la conexión
-    this.socket.onclose = () => {
-      console.log('Conexión WebSocket cerrada');
-      this.endCamera()
-    };
-    this.onSetupStreaming()
+  async endAudio() {
+    this.isRecording = false;
+    if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+      this.mediaRecorder.stop();
+      console.log('Recording stopped');
+    }
   }
 
-  async endCamera() {
-    const stream = this.videoElement.nativeElement.srcObject as MediaStream;
-    const tracks = stream.getTracks();
-    tracks.forEach(track => track.stop());
-    this.videoElement.nativeElement.srcObject = null;
-    this.showVideo = false;
-    this.onSetupStreaming()
+  setupMediaRecorder() {
+    this.mediaRecorder.ondataavailable = (event) => {
+      this.chunks.push(event.data);
+    };
+
+    this.mediaRecorder.onerror = (error) => {
+      console.error('Error in media recorder:', error);
+    };
+
+    this.mediaRecorder.onstart = () => {
+      console.log('Recording started');
+    };
+
+    this.mediaRecorder.onstop = async () => {
+      const blob = new Blob(this.chunks, { type: 'audio/wav' });
+      this.chunks = [];
+      const audioURL = window.URL.createObjectURL(blob);
+      const audio = new Audio(audioURL);
+      console.log('Recording URL:', audioURL);
+      audio.play();
+      await this.initWaveSurfer(this.waveformEl.nativeElement, audio.src);
+      await this.waveSurfer.play();
+    };
   }
 }
 
