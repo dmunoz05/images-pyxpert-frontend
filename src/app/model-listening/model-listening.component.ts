@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
+import { ModelListeningService } from './model-listening.service';
 
 @Component({
   selector: 'app-model-listening',
@@ -10,6 +11,7 @@ import WaveSurfer from 'wavesurfer.js';
 })
 export class ModelListeningComponent {
   @ViewChild('waveform', { static: false }) waveformEl!: ElementRef;
+  blobAudio!: Blob;
   isRecording: boolean = false;
   listening: boolean = false;
   isPlaying: boolean = false;
@@ -19,7 +21,7 @@ export class ModelListeningComponent {
   private stream!: MediaStream;
   private chunks: any[] = [];
 
-  constructor() { }
+  constructor(private listeningService: ModelListeningService) { }
 
   events() {
     this.waveSurfer.once('interaction', () => {
@@ -91,6 +93,14 @@ export class ModelListeningComponent {
     }
   }
 
+  async sendAudio() {
+    console.log(this.blobAudio);
+    (await this.listeningService.processListening(this.blobAudio)).subscribe(result => {
+      console.log(result);
+      alert(result)
+    })
+  }
+
   setupMediaRecorder() {
     this.mediaRecorder.ondataavailable = (event) => {
       this.chunks.push(event.data);
@@ -101,12 +111,14 @@ export class ModelListeningComponent {
     };
 
     this.mediaRecorder.onstart = () => {
+      this.chunks = [];
       console.log('Recording started');
     };
 
     this.mediaRecorder.onstop = async () => {
       const blob = new Blob(this.chunks, { type: 'audio/wav' });
       this.chunks = [];
+      this.blobAudio = blob;
       let audioURL;
       if (typeof window !== 'undefined') {
         audioURL = window.URL.createObjectURL(blob);
