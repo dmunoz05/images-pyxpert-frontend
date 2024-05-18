@@ -32,6 +32,10 @@ export class FeatureComponent implements OnInit {
     this.loadImageProcesed()
   }
 
+  backLeft() {
+    this.router.navigate(['/home'])
+  }
+
   asignValuesCharacteristics(data: any) {
     const { area, perimeter, ellipticity, circularity, center_x, center_y, Hu_moments, Height, Width } = data
 
