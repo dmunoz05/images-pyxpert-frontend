@@ -107,7 +107,10 @@ export class ModelListeningComponent {
     this.mediaRecorder.onstop = async () => {
       const blob = new Blob(this.chunks, { type: 'audio/wav' });
       this.chunks = [];
-      const audioURL = window.URL.createObjectURL(blob);
+      let audioURL;
+      if (typeof window !== 'undefined') {
+        audioURL = window.URL.createObjectURL(blob);
+      }
       const audio = new Audio(audioURL);
       console.log('Recording URL:', audioURL);
       audio.play();
