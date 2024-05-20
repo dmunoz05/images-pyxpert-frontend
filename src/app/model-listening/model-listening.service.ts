@@ -23,8 +23,8 @@ export class ModelListeningService {
 
   async processListening(audioBlob: Blob): Promise<Observable<any>> {
     const base64Audio = await this.convertBlobToBase64(audioBlob);
-    const audioWithoutPrefix = base64Audio.split(';base64,')[1];
-    const requestBody = { audio: audioWithoutPrefix };
+    // const audioWithoutPrefix = base64Audio.split(';base64,')[1];
+    const requestBody = { audio: base64Audio };
     console.log('Audio en Base64:', base64Audio);
     return this.http.post(`${environment.api_django}/process-model-listening/`, requestBody)
       .pipe(
