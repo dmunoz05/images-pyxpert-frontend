@@ -1,5 +1,20 @@
+@if (loading()) {
+  <div class="spinner z-20">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <h1 class="absolute bottom-[-60px] font-semibold text-xl left-[40px]">
+      Loading...
+    </h1>
+  </div>
+  }
 @if (isRecording) {
-<div class="h-full grid place-content-center w-[400px] mx-auto">
+<div [style]="{ opacity: loading() ? '0.2' : '1' }" class="h-full grid place-content-center w-[400px] mx-auto">
   <div class="w-full">
     <div class="flex flex-row justify-center p-4">
       <button
@@ -32,12 +47,12 @@
     <br />
     <br />
     <div class="text-center">
-      <h1>Recording ...</h1>
+      <h1 class="text-xl">Recording . . .</h1>
     </div>
   </div>
 </div>
 }@else {
-<div class="h-full grid place-content-center w-[400px] mx-auto">
+<div [style]="{ opacity: loading() ? '0.2' : '1' }" class="h-full grid place-content-center w-[400px] mx-auto">
   <div class="w-full">
     <div class="flex flex-row justify-center p-4">
       <button
@@ -77,8 +92,8 @@
       </h1>
     </div>
     } @if (showButtons) {
-      <br/>
-      <br/>
+    <br />
+    <br />
     <div
       class="absolute top-20 left-0 right-0 w-full flex flex-row justify-center gap-5"
     >
@@ -105,6 +120,13 @@
     <div
       class="absolute bottom-6 left-0 right-0 w-full flex flex-row justify-center gap-5"
     >
+      <button
+        class="flex gap-4 flex-row items-center justify-center rounded-lg p-[0.80rem] hover:bg-white hover:text-black bg-[#050708]"
+        (click)="downloadAudio()"
+        [disabled]="!blobAudio"
+      >
+        Download Audio
+      </button>
       <button
         class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
         (click)="sendAudio()"

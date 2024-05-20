@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, signal } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
 import { ModelListeningService } from './model-listening.service';
 
@@ -11,6 +11,7 @@ import { ModelListeningService } from './model-listening.service';
 })
 export class ModelListeningComponent {
   @ViewChild('waveform', { static: false }) waveformEl!: ElementRef;
+  loading = signal<boolean>(false)
   blobAudio!: Blob;
   isRecording: boolean = false;
   listening: boolean = false;
@@ -94,10 +95,13 @@ export class ModelListeningComponent {
   }
 
   async sendAudio() {
+    this.loading.set(true);
     console.log(this.blobAudio);
     (await this.listeningService.processListening(this.blobAudio)).subscribe(result => {
       console.log(result);
       alert(result)
+      this.loading.set(false);
+      this.closeAndReload();
     })
   }
 
@@ -129,6 +133,34 @@ export class ModelListeningComponent {
       await this.initWaveSurfer(this.waveformEl.nativeElement, audio.src);
       await this.waveSurfer.play();
     };
+  }
+
+  downloadAudio() {
+    this.loading.set(true);
+    if (this.blobAudio) {
+      let url = '';
+      if (typeof window !== 'undefined') {
+        url = window.URL.createObjectURL(this.blobAudio);
+      }
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'audio.mp3';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+    this.loading.set(false);
+    this.closeAndReload();
+  }
+
+  closeAndReload(){
+    this.isRecording = false;
+    this.listening = false;
+    this.isPlaying = false;
+    this.showButtons = false;
+    this.waveSurfer.destroy();
   }
 }
 
