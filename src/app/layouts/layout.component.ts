@@ -36,14 +36,14 @@ export class LayoutComponent implements OnInit {
       // })
 
       //Obtener fotos de google fotos y añadirlas
-      this.loginService.listPhotos().subscribe(data => {
-        //Validar que traiga fotos
-        if (Object.keys(data).length > 1) {
-          //Buscar solo mimtype jpg
-          const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
-          this.loginService.userPhotos = filesJpg
-        }
-      })
+      // this.loginService.listPhotos().subscribe(data => {
+      //   //Validar que traiga fotos
+      //   if (Object.keys(data).length > 1) {
+      //     //Buscar solo mimtype jpg
+      //     const filesJpg = data.mediaItems.filter((file: { mimeType: string }) => file.mimeType == "image/jpeg")
+      //     this.loginService.userPhotos = filesJpg
+      //   }
+      // })
     })
   }
 }
