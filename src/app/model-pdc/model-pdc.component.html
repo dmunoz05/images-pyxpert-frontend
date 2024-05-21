@@ -13,7 +13,7 @@
   </h1>
 </div>
 }
-<div [style]="{'opacity': loading() ? '0.3' : '1'}" class="w-full h-full">
+<div [style]="{ opacity: loading() ? '0.3' : '1' }" class="w-full h-full">
   @if (showPhoto()) {
   <div class="h-full w-full grid place-content-center">
     <div class="grid text-center p-4">
@@ -24,6 +24,7 @@
     </div>
     <div class="w-full flex flex-row justify-center p-4">
       <button
+        [disabled]="loading()"
         (click)="processPhotoModelPDC(dataPhoto[0].baseUrl)"
         class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
       >
@@ -43,6 +44,7 @@
             (change)="onFileSelected($event)"
           />
           <button
+            [disabled]="loading()"
             (click)="openFileInput()"
             class="flex flex-row items-center justify-center gap-4 rounded-lg p-3 bg-fifth-color hover:bg-[#050708] hover:text-white"
           >
