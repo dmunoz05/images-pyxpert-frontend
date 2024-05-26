@@ -45,3 +45,7 @@ Thumbs.db
 #Envrionments varibles
 .env
 #src/environments/environment.development.ts
+
+
+#Vscode
+.vscode/

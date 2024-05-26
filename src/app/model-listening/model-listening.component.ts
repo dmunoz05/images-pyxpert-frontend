@@ -120,7 +120,7 @@ export class ModelListeningComponent {
     };
 
     this.mediaRecorder.onstop = async () => {
-      const blob = new Blob(this.chunks, { type: 'audio/mp3' });
+      const blob = new Blob(this.chunks, { type: 'audio/wav' });
       this.chunks = [];
       this.blobAudio = blob;
       let audioURL;
