@@ -49,7 +49,7 @@ export class IaServiceService {
 
   createModelImages() {
     return this.gentAi.getGenerativeModel({
-      model: 'gemini-pro-vision',
+      model: 'gemini-1.5-flash',
       generationConfig: {
         maxOutputTokens: 4096
       }
@@ -58,7 +58,7 @@ export class IaServiceService {
 
   createModelChat() {
     return this.gentAi.getGenerativeModel({
-      model: 'gemini-pro',
+      model: 'gemini-1.5-flash',
       generationConfig: {
         maxOutputTokens: 4096
       }

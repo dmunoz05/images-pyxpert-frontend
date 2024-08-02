@@ -13,8 +13,6 @@ import { ModelListeningComponent } from './model-listening/model-listening.compo
   imports: [
     BrowserModule,
     CommonModule,
-    LoginComponent,
-    ModelListeningComponent,
     HttpClientModule,
     OAuthModule.forRoot()
   ],

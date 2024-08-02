@@ -37,7 +37,7 @@ export class IaComponent implements OnInit {
   modelImage: GenerativeModel | undefined
   modelChat: GenerativeModel | undefined
   modelSelected = signal<string>('default')
-  typeModel = signal<any[]>([{ name: 'Chose a model', value: 'default' }, { name: 'Gemini Pro', value: 'gemini-pro' }, { name: 'Gemini Vision Pro', value: 'gemini-vision-pro' }])
+  typeModel = signal<any[]>([{ name: 'Chose a model', value: 'default' }, { name: 'Gemini 1.5 Flash', value: 'gemini-1.5-flash' }, { name: 'Gemini 1.0 Pro Vision', value: 'gemini-1.5-flash-001' }])
   historyChat = signal<any[]>([])
   // historyChat = signal<any[]>([
   //   {
@@ -136,10 +136,10 @@ export class IaComponent implements OnInit {
     if (value === 'default') {
       this.modelSelected.set(value)
       alert('Select a model')
-    } else if (value === 'gemini-pro') {
+    } else if (value === 'gemini-1.5-flash') {
       this.modelSelected.set(value)
       this.modelImage = this.#googleGeminiService.createModelChat()
-    } else if (value === 'gemini-vision-pro') {
+    } else if (value === 'gemini-1.5-flash-001') {
       this.modelSelected.set(value)
       this.modelImage = this.#googleGeminiService.createModelImages()
     }
@@ -163,8 +163,8 @@ export class IaComponent implements OnInit {
         const chunkText = chunk.text()
         text += chunkText
         this.output.set(text)
-        console.log("Output: ", this.output);
-        console.log("Text: ", text);
+        console.log("Output: ", this.output)
+        console.log("Text: ", text)
         // this.output.update(prev => prev += text)
       }
     } catch (error) {
@@ -178,7 +178,7 @@ export class IaComponent implements OnInit {
     const value = input.value.trim()
     if (value !== '') {
       this.messagePrompt.set(value)
-      this.generateChat(input)
+      this.generateChatNotStreaming(input)
     }
   }
 
@@ -198,7 +198,7 @@ export class IaComponent implements OnInit {
     const stream = result?.stream
     const { value, done: isDone }: any = await stream?.next()
     const text = value.text()
-    console.log(text);
+    console.log(text)
   }
 
   async generateChatNotStreaming(target: any) {
@@ -212,15 +212,17 @@ export class IaComponent implements OnInit {
 
     const msg = this.messagePrompt()
     const result = await chat?.sendMessage(msg)
-    const response = await result?.response
-    const text = response?.text() || 'Error'
+    const response = result?.response
+    const text = response?.text()
+    this.output.set(text || '')
+    console.log(text);
   }
 
   handleEnterPress(event: Event) {
     const target = event.target as HTMLInputElement
     if (target.value.trim() !== '') {
       this.messagePrompt.set(target.value)
-      this.generateChat(target)
+      this.generateChatNotStreaming(target)
     }
   }
 }

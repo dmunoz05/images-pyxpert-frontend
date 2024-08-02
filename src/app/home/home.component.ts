@@ -8,6 +8,8 @@ import { PhotoResponse } from '../../types/image.type'
 import { HomeService } from './home.service'
 import { LayoutHomeService } from '../layouts/layout-home/layout-home.service'
 import { userInfo } from '../../types/user-info.type'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -96,7 +98,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getCharacteristicsPhotoGoogle(image).subscribe((result) => {
       this.loading.set(false)
       if(result.characteristics === undefined){
-        alert("No se pudo obtener las caracteristicas de la imagen")
+        // this.Toastr.error("No se pudo obtener las caracteristicas de la imagen")
         return
       }
       this.homeService.imageResponseProcess = result.image
@@ -110,7 +112,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getCharacteristicsPhotoPC(image).subscribe((result) => {
       this.loading.set(false)
       if(result.characteristics === undefined){
-        alert("No se pudo obtener las caracteristicas de la imagen")
+        // this.Toastr.error("No se pudo obtener las caracteristicas de la imagen")
         return
       }
       this.homeService.imageResponseProcess = result.image
@@ -170,7 +172,7 @@ export class HomeComponent implements OnInit {
     if (inputElement.files && inputElement.files.length > 0) {
       const file: File = inputElement.files[0]
       if (!file.type.includes('image')) {
-        alert('Select only images of type jpg, png o svg')
+        // this.Toastr.error('Select only images of type jpg, png o svg')
         return
       }
       this.homeService.processAnyPhoto(file).then((imgUrl: any) => {

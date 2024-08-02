@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="flex items-center gap-4">
-        @if (modelSelected() == 'gemini-vision-pro') {
+        @if (modelSelected() == 'gemini-1.5-flash-001') {
         <div>
           <h1>Upload your image from</h1>
         </div>
@@ -92,7 +92,7 @@
     </div>
 
     <section style="height: 70%" class="relative">
-      @if (modelSelected() == 'gemini-pro') {
+      @if (modelSelected() == 'gemini-1.5-flash') {
       <ul class="flex flex-col gap-6 px-2 overflow-y-auto max-h-full">
         @for (item of historyChat(); track $index) { @if (showPhoto()) {
         <div class="grid justify-center h-fit w-full">
@@ -142,7 +142,7 @@
         </li>
         }
       </ul>
-      } @else if(modelSelected() == 'gemini-vision-pro') {
+      } @else if(modelSelected() == 'gemini-1.5-flash-001') {
       <div class="h-full w-full flex flex-col justify-center items-center">
         @if (showPhoto()) {
         <div class="max-h-full min-w-72">
@@ -208,18 +208,18 @@
           </svg>
         </button>
       </div>
-      } @else if (modelSelected() == 'gemini-pro') {
+      } @else if (modelSelected() == 'gemini-1.5-flash') {
       <div class="flex h-14 items-center w-full relative">
         <input
           autocomplete="off"
-          id="prompt-gemini-pro"
+          id="prompt-gemini-1.5-flash"
           #prompt
-          class="w-full h-full p-4 rounded-xl outline-none"
+          class="w-full h-full p-4 rounded-xl outline-none border-white border-[1px]"
           type="text"
           (change)="handleEnterPress($event)"
         />
         <button
-          class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full"
+          class="absolute bg-second-color rounded-e-xl px-4 right-0 h-full border-white border-[1px]"
           (click)="handleMessage()"
         >
           <svg
@@ -242,9 +242,9 @@
           </svg>
         </button>
       </div>
-      } @else if (modelSelected() == 'gemini-vision-pro') {
+      } @else if (modelSelected() == 'gemini-1.5-flash-001') {
       <div class="flex h-14 items-center w-full relative">
-        <input
+         <input
           autocomplete="off"
           disabled
           id="prompt-default"
@@ -278,7 +278,7 @@
       <!-- <div class="flex h-14 items-center w-full relative">
         <input
           autocomplete="off"
-          id="prompt-gemini-vision-pro"
+          id="prompt-gemini-1.5-flash-001"
           #prompt
           class="w-full h-full p-4 rounded-xl outline-none"
           type="text"
